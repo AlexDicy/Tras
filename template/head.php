@@ -23,7 +23,7 @@
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Roboto:300,400,500,700">
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/icon?family=Material+Icons">
     <link type="text/css" rel="stylesheet" href="//tras.pw/t/css/app.css?v146">
-    <link type="text/css" rel="stylesheet" href="//tras.pw/css/md.css?v48">
+    <link type="text/css" rel="stylesheet" href="//tras.pw/assets/style/md.css?v48">
     <link type="text/css" rel="stylesheet" href="//tras.pw/t/vendor/fontawesome/css/font-awesome.min.css">
     <link type="text/css" rel="stylesheet" href="//tras.pw/t/vendor/feather/webfont/feather-webfont/feather.css">
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
