@@ -135,6 +135,7 @@
         fragment.appendChild(consentElement);
         document.body.appendChild(fragment.cloneNode(true));
         document.getElementById(dismissLinkId).onclick = _dismissLinkClick;
+        _saveUserPreference();
       }
     }
 
