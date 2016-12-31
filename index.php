@@ -94,10 +94,11 @@ if (substr($link, 0, 1) == "?") $link = "";
 if (substr(array_slice($path, -1)[0], 0, 1) == "?") array_slice($path, -1)[0] = "";
 switch ($link) {
     case "":
-    case "home";
+    case "home":
         if (!$i) {
             $isPage = true;
             $path['1'] = "fulllogin";
+            $path['2'] = $link;
         }
         $pagename = "index";
         $name = "Home";

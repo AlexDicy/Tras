@@ -1,7 +1,13 @@
 <?php
 $page = $path[1];
-if ($page == "fulllogin") $name = "Login";
-else $name = ucfirst($page);
+if ($page == "fulllogin") {
+    $name = "Login";
+    if (!empty($path['2'])) {
+        setcookie("Redirect", $path['2'], 0, '/');
+        header("Location: https://tras.pw");
+        exit();
+    }
+} else $name = ucfirst($page);
 ?>
 
 <!DOCTYPE html>

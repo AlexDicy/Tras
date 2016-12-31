@@ -60,6 +60,7 @@ function login($reg)  {
     if (mysqli_num_rows($data) == 0) {
         echo "{\"CODE\": 703}";
     } else {
+        setcookie("Redirect", "Delete me", time()-60*60*24*30, '/');
         session_regenerate_id(true);
         $_SESSION["ID"] = session_id();
         $_SESSION["info"] = $info = mysqli_fetch_assoc($data);

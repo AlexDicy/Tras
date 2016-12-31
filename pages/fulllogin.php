@@ -99,7 +99,10 @@
                     },
                     success: function(data) {
                         if (data.CODE == 700) {
-                            window.location.href = "/";
+                            <?php
+                            if (isset($_COOKIE['Redirect'])) echo "window.location.href = '".$_COOKIE['Redirect']."';";
+                            else echo "window.location.href = '/';";
+                            ?>
                         } else sAlert("#login-error", true);
                     },
                     error: function() {
