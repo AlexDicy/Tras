@@ -1,4 +1,1 @@
-<?php
-$out = shell_exec("git pull");
-echo $out;
-?>
+<?php echo shell_exec("git pull; echo $?") ?>
