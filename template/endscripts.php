@@ -1,7 +1,7 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<script src="//tras.pw/js/tras.js?v112"></script>
-<script src="//tras.pw/js/md.js"></script>
-<script src="//tras.pw/cookiechoices.js"></script>
+<script src="//tras.pw/assets/js/tras.js?v112"></script>
+<script src="//tras.pw/assets/js/md.js"></script>
+<script src="//tras.pw/assets/js/cookiechoices.js"></script>
 <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 <script>
 (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
