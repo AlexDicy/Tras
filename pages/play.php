@@ -1,7 +1,7 @@
 <?php $logButton = $i ? '<a href="https://tras.pw/page/logout" class="btn btn-default" role="button">Logout</a>' : '<a href="https://tras.pw/page/login" class="btn btn-primary" role="button">Login</a>'; ?>
 <!DOCTYPE html>
 <head>
-    <title><?php echo $title ?> -Test</title>
+    <title><?php echo $title ?></title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <meta name="robots" content="index, follow">
