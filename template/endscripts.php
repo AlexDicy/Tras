@@ -10,7 +10,5 @@
 ga('create', 'UA-64339710-12', 'auto');
 ga('send', 'pageview');
 (adsbygoogle = window.adsbygoogle || []).push({});
-//$.material.init();
-
 cookieChoices.showCookieConsentBar('This site uses cookies! By continuing to browse the site you are consenting to our use of cookies.', 'Close', 'Learn more', 'https://tras.pw/privacy');
 </script>
