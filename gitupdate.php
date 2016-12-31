@@ -1,1 +1,5 @@
-<?php echo shell_exec("git pull; echo $?") ?>
+<?php
+echo '<pre>';
+passthru("git pull");
+echo '</pre>';
+?>
