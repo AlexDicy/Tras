@@ -1,5 +1,5 @@
 <?php
 echo '<pre>';
-var_dump(passthru("git pull"));
+var_dump(shell_exec("git pull"));
 echo '</pre>';
 ?>
