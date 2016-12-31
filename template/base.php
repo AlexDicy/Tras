@@ -22,7 +22,7 @@
             </div>
         </section>
         <footer>
-            <span>© 2016 - Tras</span>
+            <span>© <?php echo date('Y'); ?> - Tras</span>
         </footer>
     </div>
     <?php include "template/endscripts.php"; ?>
