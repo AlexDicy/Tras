@@ -1,0 +1,11 @@
+<!-- top navbar-->
+<header data-ng-include="'t/views/view.php?name=partials/top-navbar.html'" data-ng-class="app.theme.topbar"></header>
+<!-- Sidebar-->
+<aside data-ng-include="'t/views/view.php?name=partials/sidebar.php'" data-ng-class="app.theme.sidebar"></aside>
+<!-- Main-->
+<section>
+   <!-- Content-->
+   <div ui-view="" autoscroll="false" data-ng-class="app.viewAnimation" class="app"></div>
+</section>
+<!-- Page footer-->
+<footer data-ng-include="'t/views/view.php?name=partials/footer.html'"></footer>

@@ -1,0 +1,27 @@
+<h3>Upload
+   <small>Upload your avatar</small>
+</h3>
+<div class="row">
+   <div class="col-lg-12">
+      <p class="lead">.png .jpg .jpeg .gif are supported: your image will automatically convert into .png</p>
+      <div class="alert alert-info" style="display: none" id="uploaded"><p class="lead"><strong>Info</strong> Avatar uploaded. <a class="btn btn-primary" onclick="home()">Go back and see changes</a></p></div>
+      <form enctype="multipart/form-data">
+         <input type="file" name="image" id="image-input">
+      </form>
+      <script>
+      function home() {
+          window.location.href = "/";
+      }
+      function build() {
+          $("#image-input").fileinput({"showUpload": true, "previewFileType": "image", "uploadUrl": "upload.php", "allowedFileExtensions": ["png", "jpeg", "jpg", "gif"], "uploadClass": "btn btn-success", "removeClass": "btn btn-danger", "allowedPreviewTypes": "image"});
+          $("#image-input").fileinput("enable");
+      }
+      build();
+      $('#image-input').on('fileuploaded', function(event, data, previewId, index) {
+          $("#image-input").fileinput('destroy');
+          $("#uploaded").fadeIn("fast", function() {$("#uploaded").show()});
+          build();
+      });
+      </script>
+   </div>
+</div>
