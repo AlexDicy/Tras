@@ -22,8 +22,8 @@
     <link id="favicon" rel="icon" type="image/png" href="/images/logo-128.png" sizes="45x45">
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Roboto:300,400,500,700">
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/icon?family=Material+Icons">
-    <link type="text/css" rel="stylesheet" href="//tras.pw/assets/styles/tras.css?v146">
-    <link type="text/css" rel="stylesheet" href="//tras.pw/assets/styles/md.css?v48">
+    <link type="text/css" rel="stylesheet" href="//tras.pw/assets/styles/tras.css?v148">
+    <link type="text/css" rel="stylesheet" href="//tras.pw/assets/styles/md.css?v50">
     <link type="text/css" rel="stylesheet" href="//tras.pw/assets/styles/font-awesome.css">
     <link type="text/css" rel="stylesheet" href="//tras.pw/assets/styles/feather.css">
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>

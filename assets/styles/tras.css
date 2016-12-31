@@ -10205,6 +10205,7 @@ Licensed under MIT
 
 .post-margin-bottom {
 	margin-bottom: 22px;
+  border-radius: 4px;
 }
 
 /* Portlet */
