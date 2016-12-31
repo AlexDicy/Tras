@@ -3,7 +3,7 @@ $page = $path[1];
 if ($page == "fulllogin") {
     $name = "Login";
     if (!empty($path['2'])) {
-        setcookie("Redirect", $path['2'], 0, '/');
+        setcookie("Redirect", $_SERVER['REQUEST_URI'], 0, '/');
         header("Location: https://tras.pw");
         exit();
     }
