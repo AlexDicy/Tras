@@ -29,7 +29,7 @@ switch ($path[1]) {
         <form id="image-upload-form" enctype="multipart/form-data">
             <input type="file" name="image" id="image-input">
         </form>
-        <link type="text/css" rel="stylesheet" href="https://tras.pw/fileinput/fileinput.min.css">
+        <link type="text/css" rel="stylesheet" href="https://tras.pw/assets/styles/fileinput.min.css">
         <link type="text/css" rel="stylesheet" href="https://tras.pw/assets/styles/croppie.css">
         <script src="https://tras.pw/assets/js/croppie.min.js"></script>
         <script src="https://tras.pw/assets/js/fileinput.min.js"></script>
