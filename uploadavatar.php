@@ -1,6 +1,6 @@
 <?php
 require_once 'session.php';
-$dir = "members/avatar/";
+$dir = "/members/avatar/";
 $maxDim = 2000;
 $minDim = 200;
 
