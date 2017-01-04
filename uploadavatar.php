@@ -1,6 +1,6 @@
 <?php
 require_once 'session.php';
-$dir = "/members/avatar/";
+$dir = "members/avatar/";
 $uploadOk = 1;
 $image;
 $rsz;
