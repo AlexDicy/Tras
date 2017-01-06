@@ -219,6 +219,19 @@ function recover()  {
     }
 }
 
+function sendMail($subject, $body, $to) {
+    $from = "info@tras.pw";
+    $subject = "Tras - $subject";
+    $headers = "From: Tras <$from>\r\n";
+    $headers .= "Reply-To: ". strip_tags($from) . "\r\n";
+    $headers .= "MIME-Version: 1.0\r\n";
+    $headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n";
+    ob_start();
+    include("gen_email.php");
+    $body = ob_get_clean();
+    mail($to,$subject,$body,$headers);
+}
+
 function changePass($code) {
     $code = escape($code);
     $id = query("SELECT id FROM Recover WHERE code = '$code'");
