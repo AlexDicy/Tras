@@ -3,12 +3,19 @@ $active = array('basic', 'password', 'notifications');
 if (isset($path[1])) {
     if (in_array($path[1], $active)) {
         $active[$path[1]] = " active";
+    }
+
+    function getActiveClass($name) {
+        global $active;
+        if (in_array($name, $active) && !empty($active[$name])) return " active"; 
+        else return "";
+    }
 ?>
 <div class="col-md-2">
     <div class="list-group">
-        <a href="https://tras.pw/settings/basic" class="list-group-item<?php echo $active['basic'] ?>">Basic Info</a>
- 		<a href="https://tras.pw/settings/password" class="list-group-item<?php echo $active['password'] ?>">Password</a>
- 		<a href="https://tras.pw/settings/notifications" class="list-group-item<?php echo $active['notifications'] ?>">Notifications</a>
+        <a href="https://tras.pw/settings/basic" class="list-group-item<?php echo getActiveClass("basic") ?>">Basic Info</a>
+ 		<a href="https://tras.pw/settings/password" class="list-group-item<?php echo getActiveClass("password") ?>">Password</a>
+ 		<a href="https://tras.pw/settings/notifications" class="list-group-item<?php echo getActiveClass("notifications") ?>">Notifications</a>
     </div>
 </div>
 <div class="col-md-10">
@@ -111,7 +118,6 @@ switch ($path[1]) {
 ?>
 </div>
 <?php
-    }
 } else {
 ?>
 <script>
