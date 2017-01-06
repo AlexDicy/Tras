@@ -219,7 +219,7 @@ function recover()  {
     }
 }
 
-function sendMail($subject, $body, $to) {
+function sendMail($subject, $body, $to, $preheader) {
     $from = "info@tras.pw";
     $subject = "Tras - $subject";
     $headers = "From: Tras <$from>\r\n";
@@ -227,7 +227,7 @@ function sendMail($subject, $body, $to) {
     $headers .= "MIME-Version: 1.0\r\n";
     $headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n";
     ob_start();
-    include("gen_email.php");
+    include("gen_mail.php");
     $body = ob_get_clean();
     mail($to,$subject,$body,$headers);
 }
