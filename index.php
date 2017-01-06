@@ -155,9 +155,6 @@ switch ($link) {
     case "delete":
         $file = 'pages/delete.php';
         break;
-    case "play":
-        $file = 'pages/play.php';
-        break;
     case "sitemap":
         $file = 'pages/sitemap.php';
         break;
