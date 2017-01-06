@@ -9,7 +9,7 @@ require_once('session.php');
 reloadInfo();
 if (!$sent && $_SESSION['info']['id'] == 6) {
     sendMail($subject, nl2br(htmlentities($body)), $to, $preheader);
-}
+} else if (!$sent) $title = "ADMIN NOT LOGGED IN, Email not sent";
 ?>
 <!DOCTYPE html>
 <html>
