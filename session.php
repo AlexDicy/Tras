@@ -142,12 +142,10 @@ function confirmEmail($id) {
 }
 
 function checkEmailConfirm() {
-    if (isset($_SESSION['info']['Confirmed'])) {
-        if ($_SESSION['info']['Confirmed'] == 1) {
-            setcookie("Confirm", "602", time()+60);
-            header("Location: /page/confirm-email");
-            echo "{\"CODE\": 602}";
-        }
+    if (isset($_SESSION['info']['Confirmed']) && $_SESSION['info']['Confirmed'] == 1) {
+        setcookie("Confirm", "602", time()+60);
+        header("Location: /page/confirm-email");
+        echo "{\"CODE\": 602}";
     } else {
         global $confirm;
         if (!empty($confirm)) {
@@ -155,7 +153,6 @@ function checkEmailConfirm() {
             $code = query("SELECT id FROM Confirm WHERE code = '$confirm'");
             if (mysqli_num_rows($code) > 0) {
                 $code = mysqli_fetch_array($code);
-                header("Confirming: true");
                 if (confirmEmail($code['id'])) {
                     setcookie("Confirm", "600", time()+60);
                     header("Location: /page/confirm-email");
