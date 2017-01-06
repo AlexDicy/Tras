@@ -155,6 +155,7 @@ function checkEmailConfirm() {
             $code = query("SELECT id FROM Confirm WHERE code = '$confirm'");
             if (mysqli_num_rows($code) > 0) {
                 $code = mysqli_fetch_array($code);
+                header("Confirming: true");
                 if (confirmEmail($code['id'])) {
                     setcookie("Confirm", "600", time()+60);
                     header("Location: /page/confirm-email");
