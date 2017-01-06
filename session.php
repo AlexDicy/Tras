@@ -50,16 +50,23 @@ switch ($type) {
         logout();
         break;
 }
+
+function verifyPassword($id, $pass){
+    global $salt;
+    $id = escape($id);
+    $hash = mysqli_fetch_assoc(query("SELECT Password FROM Members WHERE (Nick = '$id' OR id = '$id')"))['Password'];
+    //Accept both new and old hashes
+    if (password_verify($pass, $hash) || $hash == md5($pass . $salt)) return true;
+    else return false;
+}
+
 function login($reg)  {
     global $username;
     global $password;
-    global $salt;
     $token = md5(uniqid() . uniqid() . $password);
     $username = escape($username);
-    $data = query("SELECT * FROM Members WHERE ((Nick = '$username') OR (Email = '$username')) AND (Password = '". md5($password . $salt) ."')");
-    if (mysqli_num_rows($data) == 0) {
-        echo "{\"CODE\": 703}";
-    } else {
+    if (verifyPassword($username, $password)) {
+        $data = query("SELECT * FROM Members WHERE (Nick = '$username' OR Email = '$username')");
         setcookie("Redirect", "Delete me", time()-60*60*24*30, '/');
         session_regenerate_id(true);
         $_SESSION["ID"] = session_id();
@@ -74,7 +81,8 @@ function login($reg)  {
             else if (sendConfirmEmail($info)) echo "{\"CODE\": 700}";
             else echo "{\"CODE\": 704}";
         } else echo "{\"CODE\": 700}";
-        //, \"Nick\": \"".$info["Nick"] . "\", \"Email\": \"" . $info["Email"] . "\", \"Money\": \"" . $info["Money"] . "\", \"Record\": \"" . $info["Record"] . "\", \"Skin\": \"" . $info["Skin"] . "\"
+    } else {
+         echo "{\"CODE\": 703}";
     }
 }
 
@@ -169,14 +177,13 @@ function register() {
     global $username;
     global $password;
     global $email;
-    global $salt;
     if (preg_match('/^[a-z0-9\040\_]+$/i', $username)) {
         if (3 < strlen($username) && 3 < strlen($password) && 4 < strlen($email) && (16 > strlen($username) && 20 > strlen($password) && 100 > strlen($email))) {
             $username = escape($username);
             $email = escape($email);
             $check = query("SELECT * FROM Members WHERE (Nick = '$username') OR (Email = '$email')");
             if (mysqli_num_rows($check) == 0) {
-                $rs = query("INSERT INTO Members (id, Nick, Password, Email, Money, Record, Skin) VALUES (NULL, '$username', '" . md5($password . $salt) . "', '$email', '0', '0', '0')");
+                $rs = query("INSERT INTO Members (id, Nick, Password, Email, Money, Record, Skin) VALUES (NULL, '$username', '" . password_hash($password, PASSWORD_DEFAULT) . "', '$email', '0', '0', '0')");
                 reloadInfo();
                 login(true);
             } else echo "{\"CODE\":  603}";
@@ -227,12 +234,11 @@ function changePass($code) {
 
 function changePassword() {
     global $password;
-    global $salt;
     if (isset($_SESSION['recover']) && isCodeValid($_SESSION['recover']['code'])) {
         if (strlen($password) > 3) {
             if (strlen($password) < 20) {
-                $password = md5($password . $salt);
-                $query = query("UPDATE Members SET Password = '$password' WHERE id = " . $_SESSION['recover']['id']);
+                $hash = password_hash($password, PASSWORD_DEFAULT);
+                $query = query("UPDATE Members SET Password = '$hash' WHERE id = " . $_SESSION['recover']['id']);
                 $remove = query("DELETE FROM Recover WHERE code = '" . $_SESSION['recover']['code'] . "'");
                 if ($query && $remove) {
                     unset($_SESSION['recover']);
