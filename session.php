@@ -183,7 +183,7 @@ function register() {
             $email = escape($email);
             $check = query("SELECT * FROM Members WHERE (Nick = '$username') OR (Email = '$email')");
             if (mysqli_num_rows($check) == 0) {
-                $rs = query("INSERT INTO Members (id, Nick, Password, Email, Money, Record, Skin) VALUES (NULL, '$username', '" . password_hash($password, PASSWORD_DEFAULT) . "', '$email', '0', '0', '0')");
+                $rs = query("INSERT INTO Members (Nick, Password, Email) VALUES ('$username', '" . password_hash($password, PASSWORD_DEFAULT) . "', '$email')");
                 reloadInfo();
                 login(true);
             } else echo "{\"CODE\":  603}";
