@@ -54,7 +54,7 @@ switch ($type) {
 function verifyPassword($id, $pass){
     global $salt;
     $id = escape($id);
-    $hash = mysqli_fetch_assoc(query("SELECT Password FROM Members WHERE (Nick = '$id' OR id = '$id')"))['Password'];
+    $hash = mysqli_fetch_assoc(query("SELECT Password FROM Members WHERE (Nick = '$id' OR id = '$id' OR Email = '$id')"))['Password'];
     //Accept both new and old hashes
     if (password_verify($pass, $hash) || $hash == md5($pass . $salt)) return true;
     else return false;
