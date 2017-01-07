@@ -222,10 +222,10 @@ function recover()  {
 function sendMail($subject, $body, $to, $preheader) {
     $from = "info@tras.pw";
     $subject = "Tras - $subject";
-    $headers = "From: Tras <$from>\r\n";
-    $headers .= "Reply-To: ". strip_tags($from) . "\r\n";
-    $headers .= "MIME-Version: 1.0\r\n";
-    $headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n";
+    $headers = "From: Tras <$from>".PHP_EOL;
+    $headers .= "Reply-To: ". strip_tags($from) .PHP_EOL;
+    $headers .= "MIME-Version: 1.0".PHP_EOL;
+    $headers .= "Content-Type: text/html; charset=ISO-8859-1".PHP_EOL;
     ob_start();
     include("gen_mail.php");
     $body = ob_get_clean();
