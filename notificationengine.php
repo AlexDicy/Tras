@@ -1,9 +1,9 @@
 <?php
 function getNotifications($num) {
     $userid = $_SESSION['info']['id'];
-    $where = "WHERE user = $userid AND Notifications.from <> $userid";
+    $where = "WHERE user = $userid AND Notifications.from <> $userid AND Notifications.hide = 0";
     $query = query("SELECT Notifications.id, Notifications.user, Notifications.from, Notifications.where, Notifications.type, Notifications.when, Notifications.content, Notifications.viewed, Members.Avatar, Members.Nick FROM Notifications LEFT JOIN Members ON Members.id = Notifications.from $where ORDER BY id DESC LIMIT $num");
-    $count = mysqli_num_rows(query("SELECT id FROM Notifications $where AND viewed = 0 LIMIT 100"));
+    $count = mysqli_num_rows(query("SELECT id FROM Notifications $where AND viewed = 0 AND hide = 0 LIMIT 100"));
     $array = array();
     $array['count'] = ($count == 0 ? "":($count == 100 ? "99+":$count));
     while ($n = mysqli_fetch_assoc($query)) {
@@ -37,14 +37,14 @@ function getNotifications($num) {
 
 function newNotification($user, $from, $where, $type, $content) {
     $content = escape(htmlentities($content));
-    $sql = "INSERT INTO Notifications (`user`, `from`, `where`, `type`, `content`) VALUES ('$user', '$from', '$where', '$type', '$content')";
+    $sql = "INSERT INTO Notifications (`user`, `from`, `where`, `type`, `content`) VALUES ('$user', '$from', '$where', '$type', '$content') ON DUPLICATE KEY UPDATE `hide` = 0";
     if (query($sql)) return true;
     query($sql);
 }
 
 function deleteNotification($user, $from, $where, $type, $content) {
     $content = escape(htmlentities($content));
-    $sql = "DELETE FROM Notifications WHERE `user` = '$user' AND `from` = '$from' AND `where` = '$where' AND `type` = '$type' AND `content` = '$content'";
+    $sql = "UPDATE Notifications SET `hide` = 1 WHERE `user` = '$user' AND `from` = '$from' AND `where` = '$where' AND `type` = '$type' AND `content` = '$content'";
     if (query($sql)) return true;
     query($sql);
 }
