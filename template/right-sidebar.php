@@ -1,6 +1,12 @@
 <div class="col-md-6">
 	<div class="right-sidebar">
-		<?php if (isLoggedIn()) { ?>
+		<?php
+		if (isLoggedIn()) {
+			$userid = $_SESSION['info']['id'];
+			$notInclude = empty($friendslist) ? $userid : "$userid, ".implode(', ', $friendslist);
+			$whoToFollow = query("SELECT id, Nick, Avatar FROM Members WHERE confirmed = 1 AND id NOT IN ($notInclude) ORDER BY RAND() LIMIT 10");
+			if (mysqli_num_rows($whoToFollow) > 0) {
+		?>
 		<div class="post post-margin-bottom">
 			<div class="portlet" id="who-to-follow">
 				<div class="portlet-title">
@@ -10,19 +16,8 @@
 				</div>
 				<div id="who-to-follow-collapse" class="portlet-body collapse in">
 <?php
-$userid = $_SESSION['info']['id'];
-$notInclude = empty($friendslist) ? $userid : "$userid, ".implode(', ', $friendslist);
-$whoToFollow = query("SELECT id, Nick, Avatar FROM Members WHERE confirmed = 1 AND id NOT IN ($notInclude) ORDER BY RAND() LIMIT 10");
-$empty = true;
 while ($info = mysqli_fetch_array($whoToFollow)) {
-	$empty = false;
 	include('template/user-badge.php');
-}
-if ($empty) {
-	unset($empty);
-?>
-					<p class="text-center">No result</p>
-<?php
 }
 ?>
 				</div>
@@ -33,7 +28,7 @@ if ($empty) {
 				</div>
 			</div>
 		</div>
-		<?php } ?>
+		<?php }} ?>
 		<div class="post post-margin-bottom">
 			<div class="portlet">
 				<?php /*<div class="portlet-title">
