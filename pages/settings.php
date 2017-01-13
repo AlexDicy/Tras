@@ -13,9 +13,9 @@ if (isset($path[1])) {
 ?>
 <div class="col-md-2">
     <div class="list-group">
-        <a href="https://tras.pw/settings/basic" class="list-group-item<?php echo getActiveClass("basic") ?>">Basic Info</a>
- 		<a href="https://tras.pw/settings/password" class="list-group-item<?php echo getActiveClass("password") ?>">Password</a>
- 		<a href="https://tras.pw/settings/notifications" class="list-group-item<?php echo getActiveClass("notifications") ?>">Notifications</a>
+        <a href="https://tras.pw/settings/basic/" class="list-group-item<?php echo getActiveClass("basic") ?>">Basic Info</a>
+ 		<a href="https://tras.pw/settings/password/" class="list-group-item<?php echo getActiveClass("password") ?>">Password</a>
+ 		<a href="https://tras.pw/settings/notifications/" class="list-group-item<?php echo getActiveClass("notifications") ?>">Notifications</a>
     </div>
 </div>
 <div class="col-md-10">
@@ -107,6 +107,69 @@ switch ($path[1]) {
     case "password":
 ?>
     <h4>Change password</h4>
+    <div class="well bs-component">
+        <div class="alert alert-success" style="display: none" id="password-success"><strong>Success</strong> The password has been changed.</div>
+        <div class="alert alert-danger" style="display: none" id="password-error"><strong>Error</strong> The new password should be longer, 8 character password is good.</div>
+        <div class="alert alert-danger" style="display: none" id="wrong-password-error"><strong>Error</strong> The old password is not correct.</div>
+        <div class="alert alert-danger" style="display: none" id="match-password-error"><strong>Error</strong> The passwords don't match.</div>
+        <div class="alert alert-danger" style="display: none" id="net-error"><strong>Error</strong> There was a problem, please retry.</div>
+        <form id="pass-form" action="javascript:void(0);">
+            <div class="form-group">
+                <label for="opass">Old password</label>
+                <input type="password" class="form-control" id="opass">
+            </div>
+            <div class="form-group">
+                <label for="newpass">New password</label>
+                <input type="password" class="form-control" id="newpass">
+            </div>
+            <div class="form-group">
+                <label for="repeatpass">Repeat password</label>
+                <input type="password" class="form-control" id="repeatpass">
+            </div>
+            <button type="submit" onclick="changePassword()" class="btn btn-block btn-info mt-lg">Change</button>
+        </form>
+    </div>
+    <script>
+    function changePassword() {
+        sAlert("#password-error", false);
+        sAlert("#match-password-error", false);
+        sAlert("#wrong-password-error", false);
+        sAlert("#net-error", false);
+        sAlert("#password-success", false);
+        var opass = $("#opass").val();
+        var newpass = $("#newpass").val();
+        var repeatpass = $("#repeatpass").val();
+        if (newpass == repeatpass) {
+            $.ajax({
+                url: "/session.php",
+                type: "POST",
+                dataType: "json",
+                data: {
+                    type: "changePassword",
+                    password: opass,
+                    newpassword: newpass
+                },
+                success: function(data) {
+                    switch (data.CODE) {
+                        case 702:
+                            sAlert("#password-error", true);
+                            break;
+                        case 703:
+                            sAlert("#wrong-password-error", true);
+                            break;
+                        case 700:
+                            sAlert("#password-success", true);
+                            $("#pass-form")[0].reset();
+                            break;
+                    }
+                },
+                error: function() {
+                    sAlert("#net-error", true);
+                }
+            });
+        } else sAlert("#match-password-error", true);
+    }
+    </script>
 <?php
         break;
     case "notifications":

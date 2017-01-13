@@ -1,7 +1,7 @@
 <?php
 session_name("TrasID");
 session_start();
-$username = $password = $email = $type = "";
+$username = $password = $email = $type = $newpassword = "";
 $salt = "***REMOVED***";
 $username = "***REMOVED***";
 $password = "***REMOVED***";
@@ -23,13 +23,12 @@ if (isset($_POST['password'])) {
 if (isset($_POST['email'])) {
     $email = $_POST['email'];
 }
-if (isset($_POST['type'])) {
-    $type = $_POST['type'];
+if (isset($_POST['newpassword'])) {
+    $newpassword = $_POST['newpassword'];
 }
 if (isset($_GET['recover'])) {
-    changePass($_GET['recover']);
+    recoverPass($_GET['recover']);
 }
-
 if (isset($_GET['confirm'])) {
     $confirm = $_GET['confirm'];
     checkEmailConfirm();
@@ -43,11 +42,14 @@ switch ($type) {
         break;
     case "recover":
         if (isset($_POST['password'])) {
-            changePassword();
+            recoverPassword();
         } else recover();
         break;
     case "logout":
         logout();
+        break;
+    case "changePassword":
+        changePassword($password, $newpassword);
         break;
 }
 
@@ -232,7 +234,7 @@ function sendMail($subject, $body, $to, $preheader) {
     mail($to,$subject,$body,$headers);
 }
 
-function changePass($code) {
+function recoverPass($code) {
     $code = escape($code);
     $id = query("SELECT id FROM Recover WHERE code = '$code'");
     if (mysqli_num_rows($id) > 0) {
@@ -243,7 +245,7 @@ function changePass($code) {
     } else echo "{\"CODE\": 703}</br><p>This link is not valid. Request another reset.</p>";
 }
 
-function changePassword() {
+function recoverPassword() {
     global $password;
     if (isset($_SESSION['recover']) && isCodeValid($_SESSION['recover']['code'])) {
         if (strlen($password) > 3) {
@@ -258,6 +260,18 @@ function changePassword() {
             } else echo "{\"CODE\": 701}";
         } else echo "{\"CODE\": 702}";
     } else  echo "{\"CODE\": 703}";
+}
+
+function changePassword($old, $new) {
+    $old = escape($old);
+    $new = escape($new);
+    if (strlen($new) > 3 && strlen($new) < 200 && isLoggedIn()) {
+        if (verifyPassword($_SESSION['info']['id'], $old)) {
+            $hash = password_hash($new, PASSWORD_DEFAULT);
+            $query = query("UPDATE Members SET Password = '$hash' WHERE id = " . $_SESSION['info']['id']);
+            echo "{\"CODE\": 700}";
+        } else echo "{\"CODE\": 703}";
+    } else echo "{\"CODE\": 702}";
 }
 
 function isCodeValid($code) {

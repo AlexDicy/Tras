@@ -26,7 +26,7 @@
         <button type="submit" onclick="login()" class="btn btn-block btn-info mt-lg">Login</button>
     </form>
     <p class="text-center text-muted">Or</p>
-    <a href="/page/register" class="btn btn-block btn-default">
+    <a href="/page/register/" class="btn btn-block btn-default">
         <strong>Register an Account</strong>
     </a>
 </div>
@@ -70,5 +70,5 @@
         });
     }
 </script>
-<div class="text-center mt"><a href="/page/recover" class="text-muted">Forgot your password?</a>
+<div class="text-center mt"><a href="/page/recover/" class="text-muted">Forgot your password?</a>
 <?php } ?>
