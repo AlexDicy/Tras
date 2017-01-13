@@ -28,7 +28,7 @@
                 <button type="submit" onclick="login()" class="btn btn-block btn-info mt-lg">Login</button>
             </form>
             <p class="text-center text-muted">Or</p>
-            <div class="text-center mt"><a href="/page/recover" class="text-muted">Forgot your password?</a></div>
+            <div class="text-center mt"><a href="/page/recover/" class="text-muted">Forgot your password?</a></div>
         </div>
     </div>
     <div class="col-md-6">
@@ -61,7 +61,7 @@
                     <div class="checkbox c-checkbox pull-left mt0">
                         <label>
                             <input type="checkbox" id="register-terms" value="" />
-                            <span class="fa fa-check"></span>I agree with the <a href="https://tras.pw/tos" target="_blank">terms</a>
+                            <span class="fa fa-check"></span>I agree with the <a href="https://tras.pw/tos/" target="_blank">terms</a>
                         </label>
                     </div>
                 </div>
@@ -132,7 +132,7 @@
                                 },
                                 success: function(data) {
                                     if (data.CODE == 700) {
-                                        window.location.href = "/page/confirm-email";
+                                        window.location.href = "/page/confirm-email/";
                                     } else if (data.CODE == 604) {
                                         sAlert("#register-char-error", true);
                                     } else sAlert("#register-error", true);
