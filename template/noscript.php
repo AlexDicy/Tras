@@ -1,1 +1,1 @@
-<noscript><!--googleoff: index--><div style="text-align: center;padding-top:13%;" class="robots-nocontent"><h1>Sorry, Javascript is not enabled...</h1><h3><a target="_blank" href="http://enable-javascript.com/">Enable it</a></h3></div><!--googleon: index--></noscript>
+<!-- <noscript> --><!--googleoff: index-->   <!--<div style="text-align: center;padding-top:13%;" class="robots-nocontent"><h1>Sorry, Javascript is not enabled...</h1><h3><a target="_blank" href="http://enable-javascript.com/">Enable it</a></h3></div> -->  <!--googleon: index-->   <!--</noscript>-->

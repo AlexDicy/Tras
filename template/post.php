@@ -16,8 +16,8 @@ if (!$value && $opinion) {
 		<div class="portlet">
 			<div class="portlet-title">
 				<div class="caption">
-					<a href="/user/<?php echo $info['Nick'] ?>"><span class="caption-subject"><?php echo $info['Nick'] ?><?php if ($info['verified'] == 1) { ?><a> <i class="fa fa-check-circle" style="color: #43a8eb;"></i></a><?php } ?></span></a>
-					<a href="/post/<?php echo $info['Nick']."/".$info['id'] ?>"><span class="caption-helper"><small> <?php echo date("H:i d/m/Y", strtotime($info['date'])) ?></small></span></a>
+					<a href="/user/<?php echo $info['Nick'] ?>/"><span class="caption-subject"><?php echo $info['Nick'] ?><?php if ($info['verified'] == 1) { ?><a> <i class="fa fa-check-circle" style="color: #43a8eb;"></i></a><?php } ?></span></a>
+					<a href="/post/<?php echo $info['Nick']."/".$info['id'] ?>/"><span class="caption-helper"><small> <?php echo date("H:i d/m/Y", strtotime($info['date'])) ?></small></span></a>
 				</div>
 				<div class="actions post-menu">
 					<a href="#menu" class="post-menu-toggler<?php if ($info['user'] == $_SESSION['info']['id']) {echo " owner";} ?>" data-post-id="<?php echo $info['id'] ?>" data-post-user="<?php echo $info['Nick'] ?>"><span class="caret"></span></a>

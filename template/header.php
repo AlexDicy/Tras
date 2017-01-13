@@ -73,7 +73,7 @@
                     }
                     ?>
                         <li class="text-center bt">
-                            <a class="p" href="/notifications">
+                            <a class="p" href="/notifications/">
                                 <small>View All</small>
                             </a>
                         </li>

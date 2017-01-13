@@ -3,7 +3,7 @@
         <nav class="sidebar">
             <div class="sidebar-nav">
                 <div class="sidebar-buttons">
-                    <a href="/user/<?php echo $nickname ?>">
+                    <a href="/user/<?php echo $nickname ?>/">
                         <img class="mb center-block img-circle img-responsive thumb64" src="<?php echo $avatar ?>">
                         <div class="text-center">
                             <h4 class="text-bold m0"><?php echo $nickname ?></h4>
@@ -43,7 +43,7 @@
                     }
                     ?>
                     <li<?php echo $active['home'] ?>>
-                        <a title="Home" href="/home"><em class="sidebar-item-icon icon-menu"></em><div class="label pull-right label-info"></div><span>Home</span></a>
+                        <a title="Home" href="/home/"><em class="sidebar-item-icon icon-menu"></em><div class="label pull-right label-info"></div><span>Home</span></a>
                     </li>
                     <li>
                         <hr>
@@ -54,16 +54,16 @@
                             <li class="sidebar-subnav-header"><a><em class="sidebar-item-icon fa fa-angle-left"></em>Account</a>
                             </li>
                             <li>
-                                <a title="Settings" href="/settings"><em class="sidebar-item-icon"></em><span>Settings</span></a>
+                                <a title="Settings" href="/settings/basic/"><em class="sidebar-item-icon"></em><span>Settings</span></a>
                             </li>
                             <li>
-                                <a title="Logout" href="/page/logout"><em class="sidebar-item-icon"></em><span>Logout</span></a>
+                                <a title="Logout" href="/page/logout/"><em class="sidebar-item-icon"></em><span>Logout</span></a>
                             </li>
                             <li>
                                 <hr>
                             </li>
                             <li>
-                                <a title="Notifications" href="/notifications"><em class="sidebar-item-icon"></em><div class="label pull-right label-primary"><?php echo $notificationscount ?></div><span>Notifications</span></a>
+                                <a title="Notifications" href="/notifications/"><em class="sidebar-item-icon"></em><div class="label pull-right label-primary"><?php echo $notificationscount ?></div><span>Notifications</span></a>
                             </li>
                             <?php /*<li>
                                 <a title="Messages" href="/messages"><em class="sidebar-item-icon"></em><div class="label pull-right label-primary">7</div><span>Messages</span></a>
@@ -77,7 +77,7 @@
                                 <a><em class="sidebar-item-icon fa fa-angle-left"></em>Friends</a>
                             </li>
                             <li>
-                                <a title="List" href="/friends/list"><em class="sidebar-item-icon"></em><span>List</span></a>
+                                <a title="List" href="/friends/list/"><em class="sidebar-item-icon"></em><span>List</span></a>
                             </li>
                             <?php /*<li>
                                 <a title="Suggestions" href="/friends/suggestions"><em class="sidebar-item-icon"></em><span>Suggestions</span></a>
