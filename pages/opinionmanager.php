@@ -1,7 +1,7 @@
 <?php
 if (isset($_POST['id']) && isLoggedIn()) {
     $post = escape($_POST['id']);
-    $type = escape($_POST['type']) || 1;
+    $type = empty($_POST['type']) ? 1 : escape($_POST['type']);
     $user = $_SESSION['info']['id'];
     $opinion = ($type == 0) ? 2 : 1;
     $postinfo = mysqli_fetch_array(query("SELECT SUBSTRING(Posts.content, 1, 30), user FROM Posts WHERE Posts.id = '$post' LIMIT 1"));
