@@ -1,12 +1,6 @@
 ErrorDocument 404 default
 
 RewriteEngine On
-#RewriteBase /
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule . /index.php [L]
-#RewriteRule ^(a\/.*)$ /#$1 [R=301,L,NE]
-#RewriteRule ^(page\/.*)$ /#$1 [R=301,L,NE]
-#RewriteRule ^tos pagefiles/view.php?name=tos.html [NC,L]
-#RewriteRule ^privacy pagefiles/view.php?name=privacy.html [NC,L]
-#RewriteRule ^changelog pagefiles/view.php?name=changelog.html [NC,L]
