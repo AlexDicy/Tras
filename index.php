@@ -1,5 +1,9 @@
 <?php
-require_once 'session.php';
+require_once "session.php";
+
+require_once "get/posts.php";
+//require_once "";
+
 reloadInfo();
 $url = trim($_SERVER['REQUEST_URI'], "/");
 $host = parse_url($url, PHP_URL_SCHEME).'://'.parse_url($url, PHP_URL_HOST);
@@ -15,6 +19,13 @@ $pagename = "index";
 $name = "";
 $infoNick = "";
 
+$nickname =  $i ? $_SESSION['info']['Nick'] : "Not Logged In";
+$friends =  $i ? "Friends: ".getFriendsCount($_SESSION['info']['id']) : "Friends: 0";
+$avatar =  $i ? $_SESSION['info']['Avatar'] : "https://tras.pw/assets/images/guest.png";
+$friendslist = $i ? getFriendsList() : array();
+
+$get = ["posts" => new GetPosts($i ? $_SESSION['info']['id'] : 0, $friendslist)];
+
 function getTitle(){
     global $name;
     global $link;
@@ -23,9 +34,6 @@ function getTitle(){
     if (empty($infoNick)) {
         switch ($link) {
             case "user":
-            //$sql = query("SELECT Nick FROM Members WHERE id = '$path[1]'");
-            //$info = mysqli_fetch_array($sql);
-            //return $info['Nick']." on Tras";
                 return $path[1]." on Tras";
             case "post":
                 return $path[1]." post on Tras";
@@ -83,11 +91,6 @@ function time_elapsed_string($datetime, $full = false) {
     if (!$full) $string = array_slice($string, 0, 1);
     return $string ? implode(', ', $string) . ' ago' : 'just now';
 }
-
-$nickname =  $i ? $_SESSION['info']['Nick'] : "Not Logged In";
-$friends =  $i ? "Friends: ".getFriendsCount($_SESSION['info']['id']) : "Friends: 0";
-$avatar =  $i ? $_SESSION['info']['Avatar'] : "https://tras.pw/assets/images/guest.png";
-$friendslist = $i ? getFriendsList() : array();
 
 
 if (substr($link, 0, 1) == "?") $link = "";
