@@ -21,9 +21,9 @@ if(isset($path)){
 </div>
 <div class="posts-col col-md-6">
 <?php
-    $posts = query("SELECT (SELECT Opinions.Type FROM Opinions WHERE Opinions.post = Posts.id AND Opinions.user = $userid) AS has_opinion, (SELECT SUM(Opinions.type = 1) FROM Opinions WHERE Opinions.post = Posts.id) AS likes, (SELECT SUM(Opinions.type = 0) FROM Opinions WHERE Opinions.post = Posts.id) AS dislikes, Posts.id, Posts.user, Posts.content, Posts.date, Members.Nick, Members.verified FROM Posts JOIN Members ON Posts.user = Members.id WHERE Posts.user = '".$queryid['id']."' ORDER BY Posts.id DESC LIMIT 30");
     $empty = true;
-    while ($info = mysqli_fetch_array($posts)) {
+    $result = $get['posts']->getUserPosts($queryid['id']);
+    while ($info = mysqli_fetch_array($result)) {
         $empty = false;
 	    include('template/post.php');
     }
