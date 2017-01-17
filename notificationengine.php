@@ -1,6 +1,7 @@
 <?php
 function getNotifications($num) {
     $array = array();
+    $array['count'] = "";
     if (isLoggedIn()) {
         $userid = $_SESSION['info']['id'];
         $where = "WHERE user = $userid AND Notifications.from <> $userid AND Notifications.hide = 0";
