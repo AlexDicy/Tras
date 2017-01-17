@@ -323,5 +323,18 @@
             <td>&nbsp;</td>
         </tr>
     </table>
+    <script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "EmailMessage",
+        "potentialAction": {
+            "@type": "ViewAction",
+            "target": "<?php echo $reseturl ?>",
+            "url": "<?php echo $reseturl ?>",
+            "name": "Reset Password"
+        },
+        "description": "Reset your password on Tras"
+    }
+    </script>
 </body>
 </html>

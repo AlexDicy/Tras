@@ -323,5 +323,18 @@
             <td>&nbsp;</td>
         </tr>
     </table>
+    <script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "EmailMessage",
+        "potentialAction": {
+            "@type": "ViewAction",
+            "target": "<?php echo $confirmurl ?>",
+            "url": "<?php echo $confirmurl ?>",
+            "name": "Confirm Account"
+        },
+        "description": "Confirm your Tras account"
+    }
+    </script>
 </body>
 </html>
