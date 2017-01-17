@@ -60,6 +60,7 @@
                         <ul id="account-collapse" class="nav sidebar-subnav collapse" style="height: 0px;">
                             <li class="sidebar-subnav-header"><a><em class="sidebar-item-icon fa fa-angle-left"></em>Account</a>
                             </li>
+                            <?php if (isLoggedIn()) { ?>
                             <li>
                                 <a title="Settings" href="/settings/basic/"><em class="sidebar-item-icon"></em><span>Settings</span></a>
                             </li>
@@ -72,11 +73,16 @@
                             <li>
                                 <a title="Notifications" href="/notifications/"><em class="sidebar-item-icon"></em><div class="label pull-right label-primary"><?php echo $notificationscount ?></div><span>Notifications</span></a>
                             </li>
-                            <?php /*<li>
+                            <?php } else { ?>
+                            <li>
+                                <a title="Login" href="/page/login/"><em class="sidebar-item-icon"></em><span>Login</span></a>
+                            </li>
+                            <?php } /*<li>
                                 <a title="Messages" href="/messages"><em class="sidebar-item-icon"></em><div class="label pull-right label-primary">7</div><span>Messages</span></a>
                             </li> */ ?>
                         </ul>
                     </li>
+                    <?php if (isLoggedIn()) { ?>
                     <li<?php echo $active['friends'] ?>>
                         <a title="Friends" href="#friends-collapse" data-toggle="collapse"><em class="sidebar-item-icon icon-globe"></em><em class="sidebar-item-caret fa pull-right fa-angle-right"></em><div class="label pull-right label-success"></div><span>Friends</span></a>
                         <ul id="friends-collapse" class="nav sidebar-subnav collapse">
@@ -91,6 +97,7 @@
                             </li>*/ ?>
                         </ul>
                     </li>
+                    <?php } ?>
                 </ul>
             </div>
         </nav>
