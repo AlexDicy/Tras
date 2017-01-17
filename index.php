@@ -113,21 +113,26 @@ switch ($link) {
         $file = 'template/base.php';
         break;
     case "post":
-        $pagename = "post";
-        $name = "Post";
-        if(isset($path[1]) && isset($path[2])) $file = 'template/base.php';
+        $file = 'template/base.php';
+        if(isset($path[1]) && isset($path[2])) {
+            $name = "Post";
+            $pagename = "post";
+        }
         else {
             header("HTTP/1.0 404 Not Found");
-            $file = 'pagefiles/404.php';
+            $name = "Not found";
+            $pagename = "404";
         }
         break;
     case "user":
-        $pagename = "user";
-        $name = "User";
-        if(isset($path[1])) $file = 'template/base.php';
-        else {
+        $file = 'template/base.php';
+        if(isset($path[1])) {
+            $pagename = "user";
+            $name = "User";
+        } else {
             header("HTTP/1.0 404 Not Found");
-            $file = 'pagefiles/404.php';
+            $name = "Not found";
+            $pagename = "404";
         }
         break;
     case "friends":
