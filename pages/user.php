@@ -9,11 +9,9 @@ if(isset($path)){
     <h3 class="pull-left" style="margin: -16px 0 8px 0;"><a href="/user/<?php echo $nick ?>"><?php echo $nick ?><?php if ($queryid['verified'] == 1) { ?><a> <i class="fa fa-check-circle" style="color: #43a8eb;"></i></a><?php } ?></a></h3>
     <img class="pull-right mb center-block img-circle img-responsive thumb128" src="<?php echo $queryid['Avatar'] ?>">
 <?php
-    if (isLoggedIn()) {
-        if ($nick != $_SESSION['info']['Nick']) {
-            if (in_array($queryid['id'], $friendslist)) $class = "btn-danger fa fa-minus isfriend";
-            else $class = "btn-primary fa fa-plus";
-        }
+    if (isLoggedIn() && $nick != $_SESSION['info']['Nick']) {
+        if (in_array($queryid['id'], $friendslist)) $class = "btn-danger fa fa-minus isfriend";
+        else $class = "btn-primary fa fa-plus";
 ?>
     <a class="pull-right post-margin-bottom btn btn-add-friend <?php echo $class ?>" data-user-id="<?php echo $queryid['id'] ?>"></a>
 <?php
