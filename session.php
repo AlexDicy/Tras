@@ -178,7 +178,7 @@ function register() {
     global $password;
     global $email;
     if (preg_match('/^[a-z0-9\040\_]+$/i', $username)) {
-        if (3 < strlen($username) && 3 < strlen($password) && 4 < strlen($email) && (16 > strlen($username) && 20 > strlen($password) && 100 > strlen($email))) {
+        if (3 < strlen($username) && 3 < strlen($password) && 4 < strlen($email) && (20 > strlen($username) && 200 > strlen($password) && 100 > strlen($email))) {
             $username = escape($username);
             $email = escape($email);
             $check = query("SELECT * FROM Members WHERE (Nick = '$username') OR (Email = '$email')");
@@ -249,7 +249,7 @@ function recoverPassword() {
     global $password;
     if (isset($_SESSION['recover']) && isCodeValid($_SESSION['recover']['code'])) {
         if (strlen($password) > 3) {
-            if (strlen($password) < 20) {
+            if (strlen($password) < 200) {
                 $hash = password_hash($password, PASSWORD_DEFAULT);
                 $query = query("UPDATE Members SET Password = '$hash' WHERE id = " . $_SESSION['recover']['id']);
                 $remove = query("DELETE FROM Recover WHERE code = '" . $_SESSION['recover']['code'] . "'");
