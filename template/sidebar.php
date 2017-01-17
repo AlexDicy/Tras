@@ -3,6 +3,7 @@
         <nav class="sidebar">
             <div class="sidebar-nav">
                 <div class="sidebar-buttons">
+                <?php if (isLoggedIn()) { ?>
                     <a href="/user/<?php echo $nickname ?>/">
                         <img class="mb center-block img-circle img-responsive thumb64" src="<?php echo $avatar ?>">
                         <div class="text-center">
@@ -10,6 +11,12 @@
                             <small><?php echo $friends ?></small>
                         </div>
                     </a>
+                <?php } else { ?>
+                        <img class="mb center-block img-circle img-responsive thumb64" src="<?php echo $avatar ?>">
+                        <div class="text-center">
+                            <h4 class="text-bold m0"><?php echo $nickname ?></h4>
+                        </div>
+                <?php } ?>
                     <?php /*<div class="text-center">
                         <div class="text-muted mt-sm clearfix">
                             <a href="#" compile="t/views/partials/contacts.html" class="text-sm btn-sidebar pull-left">
