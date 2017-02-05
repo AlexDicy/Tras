@@ -1,8 +1,8 @@
 <?php
 $active = array('basic', 'password', 'notifications');
-if (isset($path[1])) {
-    if (in_array($path[1], $active)) {
-        $active[$path[1]] = " active";
+if (isset(Shared::get("path")[1])) {
+    if (in_array(Shared::get("path")[1], $active)) {
+        $active[Shared::get("path")[1]] = " active";
     }
 
     function getActiveClass($name) {
@@ -20,7 +20,7 @@ if (isset($path[1])) {
 </div>
 <div class="col-md-10">
 <?php
-switch ($path[1]) {
+switch (Shared::get("path")[1]) {
     case "basic":
 ?>
     <h4>Basic Info</h4>

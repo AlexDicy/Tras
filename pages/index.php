@@ -18,7 +18,7 @@
 		</div>
 	</div>
 <?php
-while ($info = mysqli_fetch_array($get['posts']->getHomePosts())) {
+while ($info = mysqli_fetch_array(Shared::get("get")['posts']->getHomePosts())) {
 	include('template/post.php');
 }
 	include('template/loadmore-btn.php');
@@ -43,5 +43,5 @@ while ($info = mysqli_fetch_array($get['posts']->getHomePosts())) {
   "showMethod": "fadeIn",
   "hideMethod": "fadeOut"
 }
-toastr["info"]("Welcome back", "<?php echo $nickname ?>")*/
+toastr["info"]("Welcome back", "")*/
 </script>

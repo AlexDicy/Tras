@@ -15,9 +15,9 @@
         <?php include "template/share-modal.php"; ?>
         <section>
             <div class="app">
-                <h3><?php echo $name ?></h3>
+                <h3><?php echo Shared::get("name") ?></h3>
                 <div class="container-fluid">
-                    <?php include "pages/$pagename.php"; ?>
+                    <?php include "pages/".Shared::get("pagename").".php"; ?>
                 </div>
             </div>
         </section>

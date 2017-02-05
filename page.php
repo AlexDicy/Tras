@@ -1,13 +1,13 @@
 <?php
-$page = $path[1];
+$page = Shared::get("path")[1];
 if ($page == "fulllogin") {
-    $name = "Login";
-    if (!empty($path['2'])) {
+    Shared::set("name", "Login");
+    if (!empty(Shared::get("path")['2'])) {
         setcookie("Redirect", $_SERVER['REQUEST_URI'], 0, '/');
         header("Location: https://tras.pw");
         exit();
     }
-} else $name = ucfirst($page);
+} else Shared::set("name", ucfirst($page));
 ?>
 
 <!DOCTYPE html>

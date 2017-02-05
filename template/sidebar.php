@@ -4,17 +4,17 @@
             <div class="sidebar-nav">
                 <div class="sidebar-buttons">
                 <?php if (isLoggedIn()) { ?>
-                    <a href="/user/<?php echo $nickname ?>/">
-                        <img class="mb center-block img-circle img-responsive thumb64" src="<?php echo $avatar ?>">
+                    <a href="/user/<?php echo Shared::get("nickname") ?>/">
+                        <img class="mb center-block img-circle img-responsive thumb64" src="<?php echo Shared::get("avatar") ?>">
                         <div class="text-center">
-                            <h4 class="text-bold m0"><?php echo $nickname ?></h4>
-                            <small><?php echo $friends ?></small>
+                            <h4 class="text-bold m0"><?php echo Shared::get("nickname") ?></h4>
+                            <small><?php echo Shared::get("friends") ?></small>
                         </div>
                     </a>
                 <?php } else { ?>
-                        <img class="mb center-block img-circle img-responsive thumb64" src="<?php echo $avatar ?>">
+                        <img class="mb center-block img-circle img-responsive thumb64" src="<?php echo Shared::get("avatar") ?>">
                         <div class="text-center">
-                            <h4 class="text-bold m0"><?php echo $nickname ?></h4>
+                            <h4 class="text-bold m0"><?php echo Shared::get("nickname") ?></h4>
                         </div>
                 <?php } ?>
                     <?php /*<div class="text-center">
@@ -36,7 +36,7 @@
                     <?php
                     $active = array('home' => "", 'account' => "", 'friends' => "");
                     $a = " class=\" active\"";
-                    switch ($pagename) {
+                    switch (Shared::get("pagename")) {
                         case 'account':
                         case 'notifications':
                         case 'settings':

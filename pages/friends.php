@@ -1,7 +1,7 @@
 <?php
 $userid = $_SESSION['info']['id'];
-$friendsids = empty($friendslist) ? "" : implode(', ', $friendslist);
-$sql = query("SELECT id, Nick FROM Members WHERE id IN ($friendsids) LIMIT 30");
+Shared::set("friendsids", empty(Shared::get("friendslist")) ? "" : implode(', ', Shared::get("friendslist")));
+$sql = query("SELECT id, Nick FROM Members WHERE id IN (".Shared::get("friendsids").") LIMIT 30");
 while($info = mysqli_fetch_array($sql)){
 ?>
 <a href="/user/<?php echo $info['Nick'] ?>">
