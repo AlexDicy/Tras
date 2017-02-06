@@ -7,8 +7,9 @@ switch (Shared::get("link")) {
             Shared::set("isPage", true);
             Shared::set("path"['1'], "fulllogin");
             Shared::set("path"['2'], Shared::get("link"));
+        } else {
+            getPage(null, null, "Home", "index");
         }
-        getPage(null, null, "Home", "index");
         break;
     case "search":
         Shared::set("pagename", "search");
