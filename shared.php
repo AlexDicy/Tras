@@ -24,12 +24,13 @@ class Shared {
         return array_key_exists($key, self::$array);
     }
 
+    public static function set($key, $value) {
+        self::$array[$key] = $value;
+        return $value;
+    }
+    
     public static function set($key, $value, $index) {
-        if (empty($index)) {
-            self::$array[$key] = $value;
-        } else {
-            self::$array[$key][$index] = $value;
-        }
+        self::$array[$key][$index] = $value;
         return $value;
     }
 }
