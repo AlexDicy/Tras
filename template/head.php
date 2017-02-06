@@ -26,6 +26,7 @@
     <link type="text/css" rel="stylesheet" href="//<?php echo Shared::get("host") ?>/assets/styles/md.css?v50">
     <link type="text/css" rel="stylesheet" href="//<?php echo Shared::get("host") ?>/assets/styles/font-awesome.css">
     <link type="text/css" rel="stylesheet" href="//<?php echo Shared::get("host") ?>/assets/styles/feather.css">
+    <link rel="manifest" href="//<?php echo Shared::get("host") ?>/manifest.json">
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
     <style type="text/css">
         @charset "UTF-8";

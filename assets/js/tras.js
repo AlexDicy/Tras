@@ -3,99 +3,100 @@
 var css = "text-shadow: -1px -1px hsl(0,100%,50%), 1px 1px hsl(5.4, 100%, 50%), 3px 2px hsl(10.8, 100%, 50%), 5px 3px hsl(16.2, 100%, 50%), 7px 4px hsl(21.6, 100%, 50%), 9px 5px hsl(27, 100%, 50%), 11px 6px hsl(32.4, 100%, 50%), 13px 7px hsl(37.8, 100%, 50%), 14px 8px hsl(43.2, 100%, 50%), 16px 9px hsl(48.6, 100%, 50%), 18px 10px hsl(54, 100%, 50%), 20px 11px hsl(59.4, 100%, 50%), 22px 12px hsl(64.8, 100%, 50%), 23px 13px hsl(70.2, 100%, 50%), 25px 14px hsl(75.6, 100%, 50%), 27px 15px hsl(81, 100%, 50%), 28px 16px hsl(86.4, 100%, 50%), 30px 17px hsl(91.8, 100%, 50%), 32px 18px hsl(97.2, 100%, 50%), 33px 19px hsl(102.6, 100%, 50%), 35px 20px hsl(108, 100%, 50%), 36px 21px hsl(113.4, 100%, 50%), 38px 22px hsl(118.8, 100%, 50%), 39px 23px hsl(124.2, 100%, 50%), 41px 24px hsl(129.6, 100%, 50%), 42px 25px hsl(135, 100%, 50%), 43px 26px hsl(140.4, 100%, 50%), 45px 27px hsl(145.8, 100%, 50%), 46px 28px hsl(151.2, 100%, 50%), 47px 29px hsl(156.6, 100%, 50%), 48px 30px hsl(162, 100%, 50%), 49px 31px hsl(167.4, 100%, 50%), 50px 32px hsl(172.8, 100%, 50%), 51px 33px hsl(178.2, 100%, 50%), 52px 34px hsl(183.6, 100%, 50%), 53px 35px hsl(189, 100%, 50%), 54px 36px hsl(194.4, 100%, 50%), 55px 37px hsl(199.8, 100%, 50%), 55px 38px hsl(205.2, 100%, 50%), 56px 39px hsl(210.6, 100%, 50%), 57px 40px hsl(216, 100%, 50%), 57px 41px hsl(221.4, 100%, 50%), 58px 42px hsl(226.8, 100%, 50%), 58px 43px hsl(232.2, 100%, 50%), 58px 44px hsl(237.6, 100%, 50%), 59px 45px hsl(243, 100%, 50%), 59px 46px hsl(248.4, 100%, 50%), 59px 47px hsl(253.8, 100%, 50%); font-size: 40px;";
 console.log("%cWarning: %s", css, 'Don\'t use this!!');
 $(function() {
+
 $(".autosize").autosize({append: "\n"});
 $("#new-post-button").on("click", function(){
-	sAlert("#new-post-error", false);
-	var text = $("#new-post");
-	var postVal = text.val();
-	if ($.trim(postVal)) {
-		$.ajax({
-        	url: "/new",
-        	type: "POST",
-        	dataType: "json",
-    	    data: {text: postVal},
-	        success: function(data) {
-            	switch (data.CODE) {
-                	case 200:
-                    	//ok
-						text.val("");
-						window.location.reload(false);
-						//Append new post: TODO
-                    	break;
-                	case 302:
-                    	//db error
-						sAlert("#new-post-error", true);
-                    	break;
-                	case 300:
-                	    //wtf?
-						sAlert("#new-post-error", true);
-            	}
-        	},
-        	error: function(data) {sAlert("#new-post-error", true);}
-    	});
-	}
-	return false;
+    sAlert("#new-post-error", false);
+    var text = $("#new-post");
+    var postVal = text.val();
+    if ($.trim(postVal)) {
+        $.ajax({
+            url: "/new",
+            type: "POST",
+            dataType: "json",
+            data: {text: postVal},
+            success: function(data) {
+                switch (data.CODE) {
+                    case 200:
+                        //ok
+                        text.val("");
+                        window.location.reload(false);
+                        //Append new post: TODO
+                        break;
+                    case 302:
+                        //db error
+                        sAlert("#new-post-error", true);
+                        break;
+                    case 300:
+                        //wtf?
+                        sAlert("#new-post-error", true);
+                }
+            },
+            error: function(data) {sAlert("#new-post-error", true);}
+        });
+    }
+    return false;
 });
 
 $(".btn-add-friend").on("click", function(){
-	var that = $(this);
-	var userId = that.data("user-id");
-	var toggle = !that.hasClass("isfriend");
-	var jsonData = toggle ? {id: userId, add: true} : {id: userId};
-	$.ajax({
-       	url: "/friendsmanager",
-       	type: "POST",
-       	dataType: "json",
+    var that = $(this);
+    var userId = that.data("user-id");
+    var toggle = !that.hasClass("isfriend");
+    var jsonData = toggle ? {id: userId, add: true} : {id: userId};
+    $.ajax({
+           url: "/friendsmanager",
+           type: "POST",
+           dataType: "json",
         data: jsonData,
-	    success: function(data) {
-        	if (data.CODE == 200) {
-				if (!toggle) {
-					that.removeClass("isfriend");
-					that.addClass("fa-plus").removeClass("fa-minus");
-					that.addClass("btn-primary").removeClass("btn-danger");
-				} else {
-					that.addClass("isfriend");
-					that.addClass("fa-minus").removeClass("fa-plus");
-					that.addClass("btn-danger").removeClass("btn-primary");
-				}
-			}
-       	},
+        success: function(data) {
+            if (data.CODE == 200) {
+                if (!toggle) {
+                    that.removeClass("isfriend");
+                    that.addClass("fa-plus").removeClass("fa-minus");
+                    that.addClass("btn-primary").removeClass("btn-danger");
+                } else {
+                    that.addClass("isfriend");
+                    that.addClass("fa-minus").removeClass("fa-plus");
+                    that.addClass("btn-danger").removeClass("btn-primary");
+                }
+            }
+           },
     });
-	return false;
+    return false;
 });
 
 $("#edit-post-button").on("click", function(){
-	sAlert("#edit-post-error", false);
-	var text = $("#edit-post");
-	var postVal = text.val();
-	if ($.trim(postVal)) {
+    sAlert("#edit-post-error", false);
+    var text = $("#edit-post");
+    var postVal = text.val();
+    if ($.trim(postVal)) {
         var postId = $(this).data("post-id");
-		var postUser = $(this).data("post-user");
-		$.ajax({
-        	url: "/editpost",
-        	type: "POST",
-        	dataType: "json",
-    	    data: {id: postId, text: postVal},
-	        success: function(data) {
-            	switch (data.CODE) {
-                	case 200:
-                    	//ok
-						text.val("");
-						window.location.href = "https://tras.pw/post/" + postUser + "/" + postId;
-                    	break;
-                	case 302:
-                    	//db error
-						sAlert("#edit-post-error", true);
-                    	break;
-                	case 300:
-                	    //wtf?
-						sAlert("#edit-post-error", true);
-            	}
-        	},
-        	error: function(data) {sAlert("#edit-post-error", true);}
-    	});
-	}
-	return false;
+        var postUser = $(this).data("post-user");
+        $.ajax({
+            url: "/editpost",
+            type: "POST",
+            dataType: "json",
+            data: {id: postId, text: postVal},
+            success: function(data) {
+                switch (data.CODE) {
+                    case 200:
+                        //ok
+                        text.val("");
+                        window.location.href = "https://tras.pw/post/" + postUser + "/" + postId;
+                        break;
+                    case 302:
+                        //db error
+                        sAlert("#edit-post-error", true);
+                        break;
+                    case 300:
+                        //wtf?
+                        sAlert("#edit-post-error", true);
+                }
+            },
+            error: function(data) {sAlert("#edit-post-error", true);}
+        });
+    }
+    return false;
 });
 
 window.sAlert = function(name, val) {
@@ -121,7 +122,7 @@ window.deletePost = function(postId, element) {
                 switch (data.CODE) {
                     case 200:
                         //ok
-		    			$(element).closest(".post").fadeOut('slow', function() {$(this).remove()});
+                        $(element).closest(".post").fadeOut('slow', function() {$(this).remove()});
                         break;
                     case 302:
                         //db error
@@ -133,123 +134,123 @@ window.deletePost = function(postId, element) {
             error: function(data) {/*!??*/}
         });
     });
-	return false;
+    return false;
 }
 window.windowReload = function() {
 $(".post-menu-toggler").unbind().on('click', function(){
-	if ($(this).hasClass("open")) {
-		$(this).removeClass("open");
-		$(this).parent().children().last().remove();
-	} else {
-		if ($(this).hasClass("owner")) {
-			var id = $(this).data("post-id");
-			var menu = '<li><a href="https://tras.pw/edit/' + id + '">Edit</a></li><li><a href="#">Report</a></li><li><a href="#" onclick="return deletePost(' + id + ', this)">Delete</a></li>';
-		} else {
-			var menu = '<li><a href="#">Report</a></li>';
-		}
-    	$(this).parent().append('<div id="post-menu" class="open" style="position: absolute;"><ul class="z-depth-4 dropdown-menu dropdown-menu-right">' + menu + '</ul></div>');
-		$(this).addClass("open");
-	}
-	return false;
+    if ($(this).hasClass("open")) {
+        $(this).removeClass("open");
+        $(this).parent().children().last().remove();
+    } else {
+        if ($(this).hasClass("owner")) {
+            var id = $(this).data("post-id");
+            var menu = '<li><a href="https://tras.pw/edit/' + id + '">Edit</a></li><li><a href="#">Report</a></li><li><a href="#" onclick="return deletePost(' + id + ', this)">Delete</a></li>';
+        } else {
+            var menu = '<li><a href="#">Report</a></li>';
+        }
+        $(this).parent().append('<div id="post-menu" class="open" style="position: absolute;"><ul class="z-depth-4 dropdown-menu dropdown-menu-right">' + menu + '</ul></div>');
+        $(this).addClass("open");
+    }
+    return false;
 });
 $(".like-btn").unbind().on('click', function(){
-	var that = $(this);
-	var postId = that.data("post-id");
-	var ds = that.next();
-	var jsonData;
-	if (ds.hasClass("active") && that.hasClass("active")) {
-		jsonData = {id: postId, type: 1, add: true};
-	/*} else if (!that.hasClass("active")) {
-		jsonData = {id: postId, delete: true};*/
-	} else {
-		jsonData = {id: postId};
-	}
-	$.ajax({
-       	url: "/opinionmanager",
-       	type: "POST",
-       	dataType: "json",
+    var that = $(this);
+    var postId = that.data("post-id");
+    var ds = that.next();
+    var jsonData;
+    if (ds.hasClass("active") && that.hasClass("active")) {
+        jsonData = {id: postId, type: 1, add: true};
+    /*} else if (!that.hasClass("active")) {
+        jsonData = {id: postId, delete: true};*/
+    } else {
+        jsonData = {id: postId};
+    }
+    $.ajax({
+           url: "/opinionmanager",
+           type: "POST",
+           dataType: "json",
         data: jsonData,
-	    success: function(data) {
-        	if (data.CODE == 200) {
-				if (ds.hasClass("active") && that.hasClass("active")) {
-					ds.removeClass("active");
-				} else if (!that.hasClass("active")) {
-					that.addClass("active");
-				} else {
-					ds.addClass("active");
-				}
-			}
-       	}
+        success: function(data) {
+            if (data.CODE == 200) {
+                if (ds.hasClass("active") && that.hasClass("active")) {
+                    ds.removeClass("active");
+                } else if (!that.hasClass("active")) {
+                    that.addClass("active");
+                } else {
+                    ds.addClass("active");
+                }
+            }
+           }
     });
 });
 $(".dislike-btn").unbind().on('click', function(){
-	var that = $(this);
-	var postId = that.data("post-id");
-	var lk = that.prev();
-	var jsonData;
-	if (lk.hasClass("active") && that.hasClass("active")) {
-		jsonData = {id: postId, type: 0, add: true};
-	/*} else if (!that.hasClass("active")) {
-		jsonData = {id: postId, delete: true};*/
-	} else {
-		jsonData = {id: postId};
-	}
-	$.ajax({
-       	url: "/opinionmanager",
-       	type: "POST",
-       	dataType: "json",
+    var that = $(this);
+    var postId = that.data("post-id");
+    var lk = that.prev();
+    var jsonData;
+    if (lk.hasClass("active") && that.hasClass("active")) {
+        jsonData = {id: postId, type: 0, add: true};
+    /*} else if (!that.hasClass("active")) {
+        jsonData = {id: postId, delete: true};*/
+    } else {
+        jsonData = {id: postId};
+    }
+    $.ajax({
+           url: "/opinionmanager",
+           type: "POST",
+           dataType: "json",
         data: jsonData,
-	    success: function(data) {
-        	if (data.CODE == 200) {
-				if (lk.hasClass("active") && that.hasClass("active")) {
-					lk.removeClass("active");
-				} else if (!that.hasClass("active")) {
-					that.addClass("active");
-				} else {
-					lk.addClass("active");
-				}
-			}
-       	}
+        success: function(data) {
+            if (data.CODE == 200) {
+                if (lk.hasClass("active") && that.hasClass("active")) {
+                    lk.removeClass("active");
+                } else if (!that.hasClass("active")) {
+                    that.addClass("active");
+                } else {
+                    lk.addClass("active");
+                }
+            }
+           }
     });
 });
 $(".share-btn").unbind().on('click', function(){
-	var that = $(this);
-	var postId = that.data("post-id");
-	var userNick = that.data("post-user");
-	var prefix = "#share-post-modal-button-";
-	var modal = $("#share-post-modal");
-	var un = "%%USERNAME%%";
-	var pi = "%%POSTID%%";
-	var tw = $(prefix+"twitter");
-	var fb = $(prefix+"facebook");
-	var gg = $(prefix+"google");
-	var lk = $(prefix+"linkedin");
-	var ml = $(prefix+"mail");
-	var ou = {
-		twitter: tw.attr("href"),
-		facebook: fb.attr("href"),
-		google: gg.attr("href"),
-		linkedin: lk.attr("href"),
-		mail: ml.attr("href")
-	}
-	tw.attr("href", ou.twitter.replace(new RegExp(un, 'g'), userNick).replace(new RegExp(pi, 'g'), postId));
-	fb.attr("href", ou.facebook.replace(new RegExp(un, 'g'), userNick).replace(new RegExp(pi, 'g'), postId));
-	gg.attr("href", ou.google.replace(new RegExp(un, 'g'), userNick).replace(new RegExp(pi, 'g'), postId));
-	lk.attr("href", ou.linkedin.replace(new RegExp(un, 'g'), userNick).replace(new RegExp(pi, 'g'), postId));
-	ml.attr("href", ou.mail.replace(new RegExp(un, 'g'), userNick).replace(new RegExp(pi, 'g'), postId));
-	modal.modal();
-	modal.on('hidden.bs.modal', function () {
-		tw.attr("href", ou.twitter);
-		fb.attr("href", ou.facebook);
-		gg.attr("href", ou.google);
-		lk.attr("href", ou.linkedin);
-		ml.attr("href", ou.mail);
-	});
+    var that = $(this);
+    var postId = that.data("post-id");
+    var userNick = that.data("post-user");
+    var prefix = "#share-post-modal-button-";
+    var modal = $("#share-post-modal");
+    var un = "%%USERNAME%%";
+    var pi = "%%POSTID%%";
+    var tw = $(prefix+"twitter");
+    var fb = $(prefix+"facebook");
+    var gg = $(prefix+"google");
+    var lk = $(prefix+"linkedin");
+    var ml = $(prefix+"mail");
+    var ou = {
+        twitter: tw.attr("href"),
+        facebook: fb.attr("href"),
+        google: gg.attr("href"),
+        linkedin: lk.attr("href"),
+        mail: ml.attr("href")
+    }
+    tw.attr("href", ou.twitter.replace(new RegExp(un, 'g'), userNick).replace(new RegExp(pi, 'g'), postId));
+    fb.attr("href", ou.facebook.replace(new RegExp(un, 'g'), userNick).replace(new RegExp(pi, 'g'), postId));
+    gg.attr("href", ou.google.replace(new RegExp(un, 'g'), userNick).replace(new RegExp(pi, 'g'), postId));
+    lk.attr("href", ou.linkedin.replace(new RegExp(un, 'g'), userNick).replace(new RegExp(pi, 'g'), postId));
+    ml.attr("href", ou.mail.replace(new RegExp(un, 'g'), userNick).replace(new RegExp(pi, 'g'), postId));
+    modal.modal();
+    modal.on('hidden.bs.modal', function () {
+        tw.attr("href", ou.twitter);
+        fb.attr("href", ou.facebook);
+        gg.attr("href", ou.google);
+        lk.attr("href", ou.linkedin);
+        ml.attr("href", ou.mail);
+    });
 });
 
 window.sidebarCollapse = function(element, force) {
     if (force) {
-    	if (!element.children().hasClass("fa-caret-left")) {
+        if (!element.children().hasClass("fa-caret-left")) {
             element.children().addClass("fa-caret-left");
             element.children().removeClass("fa-caret-right");
             $("body").removeClass("aside-collapsed");
@@ -262,55 +263,55 @@ window.sidebarCollapse = function(element, force) {
 $(".sidebar-item-icon").on('click', function() {sidebarCollapse($(this), true)});
 
 $(".opinions-counter").unbind().on('click', function() {
-	var postId = $(this).data("post-id");
-	var json = {id: postId};
-	$.ajax({
-    	url: "/getpostopinions",
-		type: "POST",
-    	dataType: "html",
-    	data: json,
-		success: function(data) {
-			if (data != "") {
-				$(data).insertBefore("#share-post-modal");
-				$("#opinions-list-modal").modal();
-				$("#opinions-modal-close-button").on('click', function() {
-					$("#opinions-list-modal").fadeOut().delay(100).queue(function(){
-						$(this).remove();
-					});
-				});
-				windowReload();
-			}
-    	}
-	});
+    var postId = $(this).data("post-id");
+    var json = {id: postId};
+    $.ajax({
+        url: "/getpostopinions",
+        type: "POST",
+        dataType: "html",
+        data: json,
+        success: function(data) {
+            if (data != "") {
+                $(data).insertBefore("#share-post-modal");
+                $("#opinions-list-modal").modal();
+                $("#opinions-modal-close-button").on('click', function() {
+                    $("#opinions-list-modal").fadeOut().delay(100).queue(function(){
+                        $(this).remove();
+                    });
+                });
+                windowReload();
+            }
+        }
+    });
 });
 }
 $(".notification-link").unbind().on('click', function() {
-	var that = $(this);
-	if (!that.hasClass("viewed")) {
-		$.post("/notificationsmanager", {id: that.data("notification-id")});
-		setTimeout(function() {window.location.href = that.attr("href")}, 200);
-	}
+    var that = $(this);
+    if (!that.hasClass("viewed")) {
+        $.post("/notificationsmanager", {id: that.data("notification-id")});
+        setTimeout(function() {window.location.href = that.attr("href")}, 200);
+    }
 });
 var offset = 1;
 
 $(".load-more-btn").unbind().on('click', function() {
-	var btn = $(this);
-	var json = btn.hasClass("load-more-userpage") ? {page: offset, user: btn.data("user")} : {page: offset};
-	btn.button('loading').delay(1000).queue(function() {
-		$.ajax({
-       		url: "/getposts",
-	       	type: "POST",
-    	   	dataType: "html",
-        	data: json,
-		    success: function(data) {
-    	    	if (data != "") {
-					offset++;
-					$(data).insertBefore(btn);
-					windowReload();
-				}
-				btn.button('reset');
-       		}
-	    });
+    var btn = $(this);
+    var json = btn.hasClass("load-more-userpage") ? {page: offset, user: btn.data("user")} : {page: offset};
+    btn.button('loading').delay(1000).queue(function() {
+        $.ajax({
+               url: "/getposts",
+               type: "POST",
+               dataType: "html",
+            data: json,
+            success: function(data) {
+                if (data != "") {
+                    offset++;
+                    $(data).insertBefore(btn);
+                    windowReload();
+                }
+                btn.button('reset');
+               }
+        });
         btn.dequeue();
     })
 });
