@@ -29,7 +29,7 @@ class Shared {
         return $value;
     }
     
-    public static function set($key, $value, $index) {
+    public static function iset($key, $value, $index) {
         self::$array[$key][$index] = $value;
         return $value;
     }
