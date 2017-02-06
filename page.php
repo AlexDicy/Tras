@@ -3,7 +3,7 @@ $page = Shared::get("path")[1];
 if ($page == "fulllogin") {
     Shared::set("name", "Login");
     if (!empty(Shared::get("path")['2'])) {
-        setcookie("Redirect", $_SERVER['REQUEST_URI'], time()+20, '/');
+        setcookie("Redirect", $_SERVER['REQUEST_URI'], time()+60, '/');
         header("Location: //" . Shared::get("host"));
         exit();
     }
