@@ -21,7 +21,12 @@ OneSignal.push(["init", {
     notifyButton: {
         enable: false
     },
-    persistNotification: false
+    persistNotification: false,
+    promptOptions: {
+        actionMessage: "We'd like to send you notifications for the updates and messages",
+        acceptButtonText: "OK",
+        cancelButtonText: "NO THANKS"
+    }
 }]);
 OneSignal.push(function() {
     OneSignal.showHttpPrompt();
