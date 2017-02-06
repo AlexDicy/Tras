@@ -12,23 +12,3 @@ ga('send', 'pageview');
 (adsbygoogle = window.adsbygoogle || []).push({});
 cookieChoices.showCookieConsentBar('This site uses cookies! By continuing to browse the site you are consenting to our use of cookies.', 'Close', 'Learn more', 'https://tras.pw/privacy');
 </script>
-<script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async></script>
-<script>
-var OneSignal = window.OneSignal || [];
-OneSignal.push(["init", {
-    appId: "2f61a6ba-2c9c-4554-bc06-9bfe9895f1f2",
-    autoRegister: false,
-    notifyButton: {
-        enable: false
-    },
-    persistNotification: false,
-    promptOptions: {
-        actionMessage: "We'd like to send you notifications for the updates and messages",
-        acceptButtonText: "OK",
-        cancelButtonText: "NO THANKS"
-    }
-}]);
-OneSignal.push(function() {
-    OneSignal.showHttpPrompt();
-});
-</script>
