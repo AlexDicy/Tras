@@ -3,88 +3,64 @@
 switch (Shared::get("link")) {
     case "":
     case "home":
-        if (!Shared::get("i")) {
-            Shared::set("isPage", true);
-            Shared::iset("path", "fulllogin", 1);
-            Shared::iset("path", Shared::get("link"), 2);
-        } else {
-            getPage(null, null, "Home", "index");
-        }
+        getPage(null, null, true, "Home", "index");
         break;
     case "search":
-        Shared::set("pagename", "search");
-        Shared::set("name", "Results");
-        Shared::set("file", 'template/base.php');
+        getPage(null, null, null, "Results", "search");
         break;
     case "post":
-        Shared::set("file", 'template/base.php');
         if(isset(Shared::get("path")[1]) && isset(Shared::get("path")[2])) {
-            Shared::set("name", "Post");
-            Shared::set("pagename", "post");
+            getPage(null, null, null, "Post", "post");
         }
         else {
-            header("HTTP/1.0 404 Not Found");
-            Shared::set("name", "Not found");
-            Shared::set("pagename", "404");
+            getPage("404");
         }
         break;
     case "user":
-        Shared::set("file", 'template/base.php');
         if(isset(Shared::get("path")[1])) {
-            Shared::set("pagename", "user");
-            Shared::set("name", "User");
+            getPage(null, null, null, "User", "user");
         } else {
-            header("HTTP/1.0 404 Not Found");
-            Shared::set("name", "Not found");
-            Shared::set("pagename", "404");
+            getPage("404");
         }
         break;
     case "friends":
-        Shared::set("pagename", "friends");
-        Shared::set("name", "Friends");
-        Shared::set("file", 'template/base.php');
+        getPage(null, null, true, "Friends", "friends");
         break;
     case "settings":
-        Shared::set("pagename", "settings");
-        Shared::set("name", "Settings");
-        Shared::set("file", 'template/base.php');
+        getPage(null, null, true, "Settings", "settings");
         break;
     case "friendsmanager":
-        Shared::set("file", 'pages/friendsmanager.php');
+        getPage(null, 2, true, "pages/friendsmanager.php");
         break;
     case "opinionmanager":
-        Shared::set("file", 'pages/opinionmanager.php');
+        getPage(null, 2, true, "pages/opinionmanager.php");
         break;
     case "notificationsmanager":
-        Shared::set("file", 'pages/notificationsmanager.php');
+        getPage(null, 2, true, "pages/notificationsmanager.php");
         break;
     case "getposts":
-        Shared::set("file", 'pages/getposts.php');
+        getPage(null, 2, true, "pages/getposts.php");
         break;
     case "getpostopinions":
-        Shared::set("file", 'pages/getpostopinions.php');
+        getPage(null, 2, true, "pages/getpostopinions.php");
         break;
     case "notifications":
-        Shared::set("pagename", "notifications");
-        Shared::set("name", "Notifications");
-        Shared::set("file", 'template/base.php');
+        getPage(null, null, true, "Notifications", "notifications");
         break;
     case "new":
-        Shared::set("file", 'pages/new.php');
+        getPage(null, 2, true, "pages/new.php");
         break;
     case "delete":
-        Shared::set("file", 'pages/delete.php');
+        getPage(null, 2, true, "pages/delete.php");
         break;
     case "sitemap":
-        Shared::set("file", 'pages/sitemap.php');
+        getPage(null, 2, false, "pages/sitemap.php");
         break;
     case "edit":
-        Shared::set("pagename", "edit");
-        Shared::set("name", "Edit post");
-        Shared::set("file", 'template/base.php');
+        getPage(null, null, true, "Edit post", "edit");
         break;
     case "editpost":
-        Shared::set("file", 'pages/editpost.php');
+        getPage(null, 2, true, "pages/editpost.php");
         break;
     case "page":
         if(isset(Shared::get("path")[1])) getPage("", 1);
@@ -105,31 +81,37 @@ switch (Shared::get("link")) {
         getPage("404");
 }
 
-if (Shared::get("isPage")) {
-    include 'page.php';
-} else if (Shared::has("file")) {
-    include Shared::get("file");
-}
-
-function getPage($content="", $type=0, $name="", $pagename="") {
+function getPage($content="", $type=0, $userpage=false, $name="", $pagename="") {
 
     if (!empty($content)) Shared::set("content", $content);
     if (!empty($name)) Shared::set("name", $name);
     if (!empty($pagename)) Shared::set("pagename", $pagename);
 
-    if ($content == "404") {
-        header("HTTP/1.0 404 Not Found");
-        include 'pagefiles/404.php';
+    if ($userpage && !Shared::get("i")) {
+        Shared::set("isPage", true);
+        Shared::iset("path", "fulllogin", 1);
+        Shared::iset("path", Shared::get("link"), 2);
+        include 'page.php';
         exit();
     }
 
-    if ($type == 1) {
-        include 'page.php';
-    } else {
-        include 'template/base.php';
+    if ($content == "404") {
+        header("HTTP/1.0 404 Not Found");
+        include "pagefiles/404.php";
+        exit();
     }
 
-    //return $page;
+    switch ($type) {
+        case 0:
+            include "template/base.php";
+            break;
+        case 1:
+            include "page.php";
+            break;
+        case 2:
+            include $name;
+            break;
+    }
 }
 
 function getTitle($name, $link, $path, $infoNick){

@@ -21,7 +21,7 @@
 while ($info = mysqli_fetch_array(Shared::get("get")['posts']->getHomePosts())) {
 	include('template/post.php');
 }
-	include('template/loadmore-btn.php');
+include('template/loadmore-btn.php');
 ?>
 </div>
 <?php include('template/right-sidebar.php'); ?>

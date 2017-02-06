@@ -1,5 +1,5 @@
 <?php
-if (isset($userpage) && $userpage) {
+if (isset($userpage) && isset($queryid) && $userpage) {
 	$classes = "load-more-userpage ";
 	$datauser = 'data-user="'.$queryid['id'].'" ';
 } else {
