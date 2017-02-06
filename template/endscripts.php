@@ -18,10 +18,10 @@ var OneSignal = window.OneSignal || [];
 OneSignal.push(["init", {
     appId: "2f61a6ba-2c9c-4554-bc06-9bfe9895f1f2",
     autoRegister: false,
-    subdomainName: 'tras.onesignal.com',
     notifyButton: {
-        enable: true
+        enable: false
     },
     persistNotification: false
 }]);
+OneSignal.showHttpPrompt();
 </script>
