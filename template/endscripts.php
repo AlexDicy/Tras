@@ -23,5 +23,7 @@ OneSignal.push(["init", {
     },
     persistNotification: false
 }]);
-OneSignal.showHttpPrompt();
+OneSignal.push(function() {
+    OneSignal.showHttpPrompt();
+});
 </script>
