@@ -52,6 +52,6 @@ messaging.onMessage(function(payload) {
 function sendTokenToServer(token) {
   var data = new FormData().append('token', token);
   var xhr = new XMLHttpRequest();
-  xhr.open("POST", "https://tras.pw/page/addpushtoken", true);
+  xhr.open("POST", "https://tras.pw/addpushtoken", true);
   xhr.send(data);
 }
