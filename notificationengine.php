@@ -55,7 +55,7 @@ function newNotification($user, $from, $where, $type, $content) {
         $array = array("user" => $user, "from" => $from, "where" => $where, "type" => $type, "content" => $content);
         $alert = getFinalAlert($array);
         while ($token = mysqli_fetch_assoc($pushtoken)) {
-            $settings = "{ \"notification\": {\"title\": \"Tras\", \"body\": \"".$alert['title']."\", \"click_action\" : \"".$alert['link']."\", \"icon\": \"https://tras.pw/images/logo-128.png\" }, \"to\" : \"".$token['token']."\"}";
+            $settings = "{ \"notification\": {\"title\": \"Tras\", \"body\": \"".$alert['title']."\", \"click_action\" : \"https://tras.pw".$alert['link']."\", \"icon\": \"https://tras.pw/images/logo-128.png\" }, \"to\" : \"".$token['token']."\"}";
             $ch = curl_init();
             curl_setopt($ch, CURLOPT_URL, 'https://fcm.googleapis.com/fcm/send');
             curl_setopt($ch, CURLOPT_POST, 1);
