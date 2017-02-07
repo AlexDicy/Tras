@@ -44,6 +44,9 @@ switch (Shared::get("link")) {
     case "getpostopinions":
         getPage(null, 2, true, "pages/getpostopinions.php");
         break;
+    case "addpushtoken":
+        getPage(null, 2, true, "pages/addpushtoken.php");
+        break;
     case "notifications":
         getPage(null, null, true, "Notifications", "notifications");
         break;

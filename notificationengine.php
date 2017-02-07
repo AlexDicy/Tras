@@ -41,6 +41,24 @@ function getNotifications($num) {
 function newNotification($user, $from, $where, $type, $content) {
     $content = escape(htmlentities($content));
     $sql = "INSERT INTO Notifications (`user`, `from`, `where`, `type`, `content`) VALUES ('$user', '$from', '$where', '$type', '$content') ON DUPLICATE KEY UPDATE `hide` = 0";
+    /*
+        curl -X POST 
+        --header "Authorization: key=<server key>" 
+        --header "Content-Type: application/json" 
+        https://fcm.googleapis.com/fcm/send
+        -d "{\"to\":\"<device registration id>\",\"priority\":\"high\",\"notification\":{\"body\": \"FOO BAR BLA BLA\"}}"
+    */
+    /*
+        { "notification": {
+            "title": "Background Message Title",
+            "body": "Background message body",
+            "click_action" : "https://dummypage.com"
+        },
+
+        "to" : "eEz-Q2sG8nQ:APA91bHJQRT0JJ..."
+
+        }
+    */
     if (query($sql)) return true;
     query($sql);
 }
