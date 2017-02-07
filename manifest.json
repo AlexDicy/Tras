@@ -1,0 +1,12 @@
+{  
+  "name": "Tras",  
+  "short_name": "Tras",  
+  "icons": [{  
+        "src": "images/logo-180.png",  
+        "sizes": "180x180",
+        "type": "image/png"
+      }],  
+  "start_url": "/",  
+  "display": "standalone",  
+  "gcm_sender_id": "AAAAtrUBppc:APA91bHnFzZnnlXRn0n2BuM05UWH5pGaOk-Ef1BLfgSRbIk6pYCuNZvUtXaJBGdf7D4PFDZwkpPKUIgzLjo5LaYW8Evjw_j-oEtYqE4W-BU-X3yIQ3Ub4skZdkOW7fCugSNn6uEzeoyi"
+}
