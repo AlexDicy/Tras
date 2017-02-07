@@ -14,13 +14,10 @@ messaging.requestPermission()
       console.log('No Instance ID token available. Request permission to generate one.');
       // Show permission UI.
       //updateUIForPushPermissionRequired();
-      setTokenSentToServer(false);
     }
   })
   .catch(function(err) {
     console.log('An error occurred while retrieving token. ', err);
-    showToken('Error retrieving Instance ID token. ', err);
-    setTokenSentToServer(false);
   });
 })
 .catch(function(err) {
@@ -33,7 +30,6 @@ messaging.onTokenRefresh(function() {
     console.log('Token refreshed.');
     // Indicate that the new Instance ID token has not yet been sent to the
     // app server.
-    setTokenSentToServer(false);
     // Send Instance ID token to app server.
     sendTokenToServer(refreshedToken);
     // ...
