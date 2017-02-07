@@ -39,7 +39,11 @@ function initialiseState() {
       .then(function(subscription) {  
         // Enable any UI which subscribes / unsubscribes from  
         // push messages.  
+<<<<<<< HEAD
     
+=======
+        
+>>>>>>> 3b4c9151044eea8f1c952c22039a9fd0a0907a38
         //var pushButton = document.querySelector('.js-push-button');  
         //pushButton.disabled = false;
 
