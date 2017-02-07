@@ -22,7 +22,7 @@ messaging.setBackgroundMessageHandler(function(payload) {
   const title = 'Tras';
   const options = {
     body: 'You got a notification.',
-    icon: '/images/logo-180.png',
+    icon: '/images/logo-128.png',
     click_action: "https://tras.pw/notifications"
   };
 
