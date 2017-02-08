@@ -1,13 +1,23 @@
 <?php
 
 switch (Shared::get("link")) {
+    //Home
     case "":
     case "home":
         getPage(null, null, true, "Home", "index");
         break;
+
+    //Private Messages
+    case "messages":
+        getPage(null, null, true, "Messages", "index");
+        break;
+
+    //Search
     case "search":
         getPage(null, null, null, "Results", "search");
         break;
+
+    //Posts
     case "post":
         if(isset(Shared::get("path")[1]) && isset(Shared::get("path")[2])) {
             getPage(null, null, null, "Post", "post");
@@ -16,6 +26,26 @@ switch (Shared::get("link")) {
             getPage("404");
         }
         break;
+    case "getposts":
+        getPage(null, 2, true, "pages/getposts.php");
+        break;
+    case "getpostopinions":
+        getPage(null, 2, true, "pages/getpostopinions.php");
+        break;
+    case "new":
+        getPage(null, 2, true, "pages/new.php");
+        break;
+    case "delete":
+        getPage(null, 2, true, "pages/delete.php");
+        break;
+    case "edit":
+        getPage(null, null, true, "Edit post", "edit");
+        break;
+    case "editpost":
+        getPage(null, 2, true, "pages/editpost.php");
+        break;
+
+    //Users
     case "user":
         if(isset(Shared::get("path")[1])) {
             getPage(null, null, null, "User", "user");
@@ -23,6 +53,8 @@ switch (Shared::get("link")) {
             getPage("404");
         }
         break;
+
+    //User Pages
     case "friends":
         getPage(null, null, true, "Friends", "friends");
         break;
@@ -41,32 +73,16 @@ switch (Shared::get("link")) {
     case "readnotification":
         getPage(null, 2, true, "pages/readnotification.php");
         break;
-    case "getposts":
-        getPage(null, 2, true, "pages/getposts.php");
-        break;
-    case "getpostopinions":
-        getPage(null, 2, true, "pages/getpostopinions.php");
-        break;
     case "addpushtoken":
         getPage(null, 2, true, "pages/addpushtoken.php");
         break;
     case "notifications":
         getPage(null, null, true, "Notifications", "notifications");
         break;
-    case "new":
-        getPage(null, 2, true, "pages/new.php");
-        break;
-    case "delete":
-        getPage(null, 2, true, "pages/delete.php");
-        break;
+    
+    //Others
     case "sitemap":
         getPage(null, 2, false, "pages/sitemap.php");
-        break;
-    case "edit":
-        getPage(null, null, true, "Edit post", "edit");
-        break;
-    case "editpost":
-        getPage(null, 2, true, "pages/editpost.php");
         break;
     case "page":
         if(isset(Shared::get("path")[1])) getPage("", 1);
@@ -83,6 +99,8 @@ switch (Shared::get("link")) {
     case "changelog":
         echo file_get_contents("pagefiles/changelog.html");
         break;
+
+    //Any other, is a 404 error
     default:
         getPage("404");
 }
