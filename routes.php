@@ -38,6 +38,9 @@ switch (Shared::get("link")) {
     case "notificationsmanager":
         getPage(null, 2, true, "pages/notificationsmanager.php");
         break;
+    case "readnotification":
+        getPage(null, 2, true, "pages/readnotification.php");
+        break;
     case "getposts":
         getPage(null, 2, true, "pages/getposts.php");
         break;
