@@ -295,17 +295,17 @@ h4.chat-title {
 </style>
 <script>
 $(function () {
-	var timer;
-	$("text-wrapper, text").on("mousedown",function(){
-		var elem = $(this);
-    	timer = setTimeout(function(){
-			var pos = elem.position();
-        	$("#contextMenu").css({"top": pos.top + "px", "left": pos.left + "px"}).show();
-			return false;
-    	}, 2*1000);
-	}).on("mouseup mouseleave",function(){
-    	clearTimeout(timer);
-	})
+    var timer;
+    $("text-wrapper, text").on("mousedown",function(){
+        var elem = $(this);
+        timer = setTimeout(function(){
+            var pos = elem.position();
+            $("#contextMenu").css({"top": pos.top + "px", "left": pos.left + "px"}).show();
+            return false;
+        }, 2*1000);
+    }).on("mouseup mouseleave",function(){
+        clearTimeout(timer);
+    })
 });
 $(document).bind("contextmenu", function(event) {
     var element = $(event.target);
