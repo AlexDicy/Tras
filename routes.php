@@ -9,7 +9,16 @@ switch (Shared::get("link")) {
 
     //Private Messages
     case "messages":
-        getPage(null, null, true, "Messages", "index");
+        getPage(null, null, true, "Messages", "messages");
+        break;
+    case "sendmessage":
+        getPage(null, 2, true, "pages/sendmessage.php");
+        break;
+    case "editmessage":
+        getPage(null, 2, true, "pages/editmessage.php");
+        break;
+    case "deletemessage":
+        getPage(null, 2, true, "pages/sendmessage.php");
         break;
 
     //Search
@@ -21,8 +30,7 @@ switch (Shared::get("link")) {
     case "post":
         if(isset(Shared::get("path")[1]) && isset(Shared::get("path")[2])) {
             getPage(null, null, null, "Post", "post");
-        }
-        else {
+        } else {
             getPage("404");
         }
         break;
