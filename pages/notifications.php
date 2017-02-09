@@ -11,7 +11,7 @@ foreach ($notifications as $n) {
                 <div class="col-xs-10">
                     <div class="panel-body text-center">
                         <h4 class="mt0"><?php echo $n['title'] ?></h4>
-                        <p class="mb0 text-muted"><?php if (!empty($n['content'])) { echo $n['content']." "; } ?><?php echo time_elapsed_string($n['when']) ?></p>
+                        <p class="mb0 text-muted"><?php if (!empty($n['content'])) { echo $n['content']." "; } ?><?php echo Shared::elapsedTime($n['when']) ?></p>
                     </div>
                 </div>
             </div>

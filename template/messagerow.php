@@ -1,16 +1,16 @@
             <tr>
-				<td>
-					<div class="media">
-						<a href="#" class="pull-left">
-							<img src="<?php echo $info['Avatar']; ?>" class="media-photo">
-						</a>
-						<div class="media-body">
-							<span class="media-meta pull-right"><?php echo $info['post_date']; ?></span>
-							<h4 class="title">
-								<?php echo $info['Nick']; ?>
-							</h4>
-							<p class="summary"><?php echo substr($info['content'], 0, 50); echo strlen($info['content'] > 50) ? "...":""; ?></p>
-						</div>
-					</div>
-				</td>
-			</tr>
+                <td>
+                    <a href="//<?php echo Shared::get("host")."/messages/chat/".$info['chat_id']; ?>" class="media">
+                        <div>
+                            <img src="<?php echo $info['Avatar']; ?>" class="media-photo pull-left">
+                            <div class="media-body">
+                                <span class="media-meta pull-right"><?php echo Shared::elapsedTime($info['post_date']); ?></span>
+                                <h4 class="chat-title">
+                                    <?php echo $info['Nick']; ?>
+                                </h4>
+                                <?php echo substr($info['content'], 0, 50); echo strlen($info['content'] > 50) ? "...":""; ?>
+                            </div>
+                        </div>
+                    </a>
+                </td>
+            </tr>
