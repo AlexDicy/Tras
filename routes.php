@@ -11,6 +11,9 @@ switch (Shared::get("link")) {
     case "messages":
         getPage(null, null, true, "Messages", "messages");
         break;
+    case "newchat":
+        getPage(null, 2, true, "pages/newchat.php");
+        break;
     case "sendmessage":
         getPage(null, 2, true, "pages/sendmessage.php");
         break;

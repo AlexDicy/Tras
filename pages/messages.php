@@ -3,6 +3,7 @@ $sql;
 $userid = $_SESSION['info']['id'];
 $home = false;
 $chat = false;
+$new = false;
 if (isset(Shared::get("path")[1]) && isset(Shared::get("path")[2]) && Shared::get("path")[1] == "chat") {
     $chatid = escape(Shared::get("path")[2]);
     $chat = true;
@@ -19,6 +20,10 @@ if (isset(Shared::get("path")[1]) && isset(Shared::get("path")[2]) && Shared::ge
                   JOIN Members
                     ON Messages.user = Members.id
                   WHERE Chats.chat_id = '$chatid' AND Chats.user = '$userid'");
+} else if (isset(Shared::get("path")[1]) && Shared::get("path")[1] == "new") {
+    $friendsids = empty(Shared::get("friendslist")) ? "" : implode(', ', Shared::get("friendslist"));
+    $new = true;
+    $sql = query("SELECT id, Nick FROM Members WHERE id IN (".$friendsids.")");
 } else {
     $home = true;
     $sql = query("SELECT
@@ -143,7 +148,7 @@ $(function () {
                 dataType: "json",
                 data: {
                     content: text,
-                    chat_id: <?php echo Shared::get("path")[2]; ?>
+                    chat_id: "<?php echo Shared::get("path")[2]; ?>"
                 },
                 success: function(data) {
                     if (data.CODE == 700) {
@@ -226,5 +231,48 @@ $(document).bind('click', function() {
     </li>
 </div>
 <?php
+} else if ($new) {
+?>
+<script>
+$(function() {
+    $(".new-chat").on("click", function() {
+        var that = $(this);
+        $.ajax({
+            url: "/newchat",
+            type: "POST",
+            dataType: "json",
+            data: {
+                user_id: that.data("user-id")
+            },
+            success: function(data) {
+                if (data.CODE == 700) {
+                    window.location.href = "https://tras.pw/messages";
+                }
+            }
+        });
+        return false;
+    });
+});
+</script>
+<?php
+    while($info = mysqli_fetch_array($sql)){
+?>
+<a class="new-chat" data-user-id="<?php echo $info['id'] ?>" href="//<?php echo Shared::get("host"); ?>/messages/">
+    <div id="panelPortlet4" class="panel panel-default b0">
+        <div class="row row-table row-flush">
+            <div class="col-xs-4 bg-danger text-center">
+                <em class="fa fa-user fa-2x"></em>
+            </div>
+            <div class="col-xs-8">
+                <div class="panel-body text-center">
+                    <h4 class="mt0"><?php echo $info['Nick'] ?></h4>
+                    <p class="mb0 text-muted"><?php echo $info['id'] ?></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</a>
+<?php
+    }
 }
 include("template/right-sidebar.php");

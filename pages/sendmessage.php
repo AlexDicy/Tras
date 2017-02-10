@@ -4,8 +4,14 @@ if (isset($_POST['content']) && isset($_POST['chat_id'])) {
     $chatId = escape(htmlentities($_POST['chat_id']));
     $user = $_SESSION['info']['id'];
     $sql = query("INSERT INTO Messages (user, chat_id, content) VALUES ('$user', '$chatId', '$text')");
+    $users = query("SELECT user FROM Chats WHERE chat_id = '$chatId' AND user <> '$user'");
     if ($sql) {
         echo "{\"CODE\": 700}";
+        if ($users) {
+            while ($info = mysqli_fetch_array($users)) {
+                newNotification($info['user'], $user, $chatId, 6, substr(base64_decode($text), 0, 50));
+            }
+        }
     } else {
         echo "{\"CODE\": 666}";
     }
