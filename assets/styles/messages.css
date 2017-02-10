@@ -196,6 +196,14 @@ h4.chat-title {
 .message-template {
     display: none;
 }
+#message-input {
+    overflow: hidden;
+    word-wrap: break-word; 
+    resize: none;
+    height: 46px;
+    display: inline-block;
+    width: calc(100% - 160px);
+}
 #contextMenu {
     display: none;
     z-index: 1000;

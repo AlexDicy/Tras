@@ -40,7 +40,7 @@ if (isset(Shared::get("path")[1]) && isset(Shared::get("path")[2]) && Shared::ge
                   WHERE Chats.chat_id IN (SELECT Chats.chat_id FROM Chats WHERE Chats.user = '$userid') AND Chats.user <> '$userid'");
 }
 ?>
-<link type="text/css" rel="stylesheet" href="//<?php echo Shared::get("host") ?>/assets/styles/messages.css?v=2">
+<link type="text/css" rel="stylesheet" href="//<?php echo Shared::get("host") ?>/assets/styles/messages.css?v=4">
 <?php
 if ($home) {
 ?>
@@ -161,7 +161,7 @@ $(function () {
         var input = $("#message-input");
         var text = input.val();
         var messages = $(msg);
-        if (text.length > 0) {
+        if (text == "") {
             $.ajax({
                 url: "/sendmessage",
                 type: "POST",
@@ -173,7 +173,7 @@ $(function () {
                 success: function(data) {
                     if (data.CODE == 700) {
                         input.val("");
-                        sendMessage(text, "right", messages);
+                        sendMessage(text.replace(new RegExp('\r?\n','g'), '<br />'), "right", messages);
                     } else sAlert("#error", true);
                 },
                 error: function() {
@@ -221,7 +221,7 @@ $(document).bind('click', function() {
                     <img class="avatar-image mb center-block img-circle img-responsive thumb64" src="<?php echo $info['Avatar'] ?>">
                 </div>
                 <div class="text-wrapper">
-                    <div class="text"><?php echo str_replace(array("\\r\\n", "\\r", "\\n"), "<br/>", base64_decode($info['content'])); ?></div>
+                    <div class="text"><?php echo str_replace(array("\\r\\n", "\\r", "\\n"), "<br />", base64_decode($info['content'])); ?></div>
                 </div>
             </li>
         <?php
@@ -230,9 +230,7 @@ $(document).bind('click', function() {
         ?>
         </ul>
         <div class="bottom-wrapper clearfix">
-            <div class="message-input-wrapper">
-                <input class="message-input" id="message-input" placeholder="Type a message..." />
-            </div>
+            <textarea class="form-control autosize vresize" id="message-input" placeholder="Type a message..." rows="2" id="new-post"></textarea>
             <div class="send-message">
                 <div class="icon"></div>
                 <div class="text">Send</div>
