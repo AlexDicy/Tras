@@ -80,7 +80,7 @@ $(function () {
     }).on("mouseup mouseleave",function(){
         clearTimeout(timer);
     });
-	$(doument).bind("contextmenu", function(event) {
+	$(document).bind("contextmenu", function(event) {
         var elem = $(this.toElement);
 		if (elem.hasClass("text-wrapper") && elem.hasClass("text")) {
 			var pos = elem.position();
