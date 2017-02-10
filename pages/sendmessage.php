@@ -9,6 +9,7 @@ if (isset($_POST['content']) && isset($_POST['chat_id'])) {
         echo "{\"CODE\": 700}";
         if ($users) {
             while ($info = mysqli_fetch_array($users)) {
+                query("UPDATE Chats SET `read` = 0 WHERE chat_id = '$chatid' AND user = '". $info['user'] ."'");
                 newNotification($info['user'], $user, $chatId, 6, substr(base64_decode($text), 0, 50));
             }
         }

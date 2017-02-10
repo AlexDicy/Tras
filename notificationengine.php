@@ -65,6 +65,7 @@ function newNotification($user, $from, $where, $type, $content) {
             curl_setopt($ch, CURLOPT_POST, 1);
             curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
             curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
             curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json', 'Authorization: key=AAAAtrUBppc:APA91bHnFzZnnlXRn0n2BuM05UWH5pGaOk-Ef1BLfgSRbIk6pYCuNZvUtXaJBGdf7D4PFDZwkpPKUIgzLjo5LaYW8Evjw_j-oEtYqE4W-BU-X3yIQ3Ub4skZdkOW7fCugSNn6uEzeoyi'));
             curl_setopt($ch, CURLOPT_POSTFIELDS, $settings);
             curl_exec($ch);

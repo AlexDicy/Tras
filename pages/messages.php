@@ -20,6 +20,7 @@ if (isset(Shared::get("path")[1]) && isset(Shared::get("path")[2]) && Shared::ge
                   JOIN Members
                     ON Messages.user = Members.id
                   WHERE Chats.chat_id = '$chatid' AND Chats.user = '$userid'");
+        query("UPDATE Chats SET `read` = 1 WHERE chat_id = '$chatid' AND user = '$userid'");
 } else if (isset(Shared::get("path")[1]) && Shared::get("path")[1] == "new") {
     $friendsids = empty(Shared::get("friendslist")) ? "" : implode(', ', Shared::get("friendslist"));
     $new = true;
@@ -135,6 +136,24 @@ $(function () {
         message.draw();
         messages.animate({scrollTop: messages.prop('scrollHeight')}, 300);
     }
+
+    function shouldRefresh() {
+        $.ajax({
+            url: "/pendingmessages",
+            type: "POST",
+            dataType: "json",
+            data: {
+                chat_id: "<?php echo Shared::get("path")[2]; ?>"
+            },
+            success: function(data) {
+                if (data.CODE == 700 && $("#message-input").val().length < 1) {
+                    window.location.reload();
+                }
+            }
+        });
+    }
+
+    var sri = setInterval(shouldRefresh, 5000);
 
     $(".send-message").on("click", function() {
         sAlert("#error", false);
