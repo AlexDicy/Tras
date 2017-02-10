@@ -34,7 +34,7 @@
                         <span class="text-muted">Navigation</span>
                     </li>
                     <?php
-                    $active = array('home' => "", 'account' => "", 'friends' => "");
+                    $active = array("home" => "", "account" => "", "friends" => "", "messages" => "");
                     $a = " class=\" active\"";
                     switch (Shared::get("pagename")) {
                         case 'account':
@@ -44,6 +44,9 @@
                             break;
                         case 'friends':
                             $active['friends'] = $a;
+                            break;
+                        case 'messages':
+                            $active['messages'] = $a;
                             break;
                         default:
                             $active['home'] = $a;
@@ -55,6 +58,11 @@
                     <li>
                         <hr>
                     </li>
+                    <?php if (isLoggedIn()) { ?>
+                    <li<?php echo $active['messages'] ?>>
+                        <a title="Messages" href="/messages/"><em class="sidebar-item-icon icon-speech-bubble"></em><div class="label pull-right label-info"></div><span>Messages</span></a>
+                    </li>
+                    <?php } ?>
                     <li<?php echo $active['account'] ?>>
                         <a title="Account" href="#account-collapse" data-toggle="collapse"><em class="sidebar-item-icon icon-head"></em><em class="sidebar-item-caret fa pull-right fa-angle-right"></em><span>Account</span></a>
                         <ul id="account-collapse" class="nav sidebar-subnav collapse" style="height: 0px;">
