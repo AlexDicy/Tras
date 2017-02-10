@@ -70,7 +70,7 @@ if ($home) {
 <script>
 $(function () {
     var timer;
-    $("text-wrapper, text").on("mousedown",function(){
+    $("text-wrapper, text").on("mousedown", function(){
         var elem = $(this);
         timer = setTimeout(function(){
             var pos = elem.position();
@@ -80,14 +80,13 @@ $(function () {
     }).on("mouseup mouseleave",function(){
         clearTimeout(timer);
     });
-	$(document).bind("contextmenu", function(event) {
-        var elem = $(this.toElement);
-		if (elem.hasClass("text-wrapper") && elem.hasClass("text")) {
-			var pos = elem.position();
-        	$("#contextMenu").css({"top": pos.top + "px", "left": pos.left + "px"}).show();
-			event.preventDefault();
-		}
-    })
+});
+$(document).bind("contextmenu", function(event) {
+    var elem = $(event.toElement);
+    if (elem.hasClass("text-wrapper") || elem.hasClass("text")) {
+        $("#contextMenu").css({"top": event.pageY + "px", "left": event.pageX + "px"}).show();
+        event.preventDefault();
+    }
 });
 $(document).bind('click', function() {
     $('#contextMenu').hide();
