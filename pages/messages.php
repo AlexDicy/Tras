@@ -13,10 +13,12 @@ if (isset(Shared::get("path")[1]) && isset(Shared::get("path")[2]) && Shared::ge
                     Messages.post_date,
                     Messages.id,
                     Messages.user
-                  FROM Messages
+                  FROM Chats
+                  JOIN Messages
+                    ON Messages.chat_id = Messages.chat_id
                   JOIN Members
                     ON Messages.user = Members.id
-                  WHERE Messages.chat_id = '$chatid'");
+                  WHERE Chats.chat_id = '$chatid' AND Chats.user = '$userid'");
 } else {
     $home = true;
     $sql = query("SELECT
