@@ -73,6 +73,7 @@ if ($home) {
 </div>
 <?php
 } else if ($chat) {
+    deleteMessageNotification($userid, $chatid);
 ?>
 <script>
 $(function () {

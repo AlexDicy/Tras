@@ -84,4 +84,10 @@ function deleteNotification($user, $from, $where, $type, $content) {
     if (query($sql)) return true;
     query($sql);
 }
+
+function deleteMessageNotification($user, $where) {
+    $sql = "DELETE FROM Notifications WHERE `user` = '$user' AND `where` = '$where' AND `type` = '6'";
+    if (query($sql)) return true;
+    query($sql);
+}
 ?>
