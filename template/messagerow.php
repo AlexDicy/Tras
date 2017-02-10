@@ -8,7 +8,7 @@
                                 <h4 class="chat-title">
                                     <?php echo $info['Nick']; ?>
                                 </h4>
-                                <?php echo substr($info['content'], 0, 50); echo strlen($info['content'] > 50) ? "...":""; ?>
+                                <?php echo substr(base64_decode($info['content']), 0, 50); echo strlen(base64_decode($info['content']) > 50) ? "...":""; ?>
                             </div>
                         </div>
                     </a>

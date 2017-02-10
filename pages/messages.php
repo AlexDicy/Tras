@@ -80,6 +80,81 @@ $(function () {
     }).on("mouseup mouseleave",function(){
         clearTimeout(timer);
     });
+
+    var msg = document.getElementById("messages");
+    msg.scrollTop = msg.scrollHeight - msg.clientHeight;
+
+    window.scrollMessages = function() {
+        var isScrolled = msg.scrollHeight - msg.clientHeight <= msg.scrollTop + 10;
+        if (isScrolled)
+            msg.scrollTop = msg.scrollHeight - msg.clientHeight;
+    };
+
+    var Message;
+    Message = function (arg) {
+        this.text = arg.text, this.messageSide = arg.messageSide;
+        this.draw = function (that) {
+            return function () {
+                var message;
+                message = $($(".message-template").clone().html());
+                message.addClass(that.messageSide).find(".text").html(that.text);
+                $(".messages").append(message);
+                return setTimeout(function() {
+                    return message.addClass("appeared");
+                }, 0);
+            };
+        }(this);
+        return this;
+    };
+
+    function sAlert(name, val) {
+        if (val) {
+            $(name).fadeIn("fast", function() {
+                $(name).show()
+            });
+        } else {
+            $(name).fadeOut("fast", function() {
+                $(name).hide()
+            });
+        }
+    }
+
+    function sendMessage(text, position, messages) {
+        message = new Message({
+            text: text,
+            messageSide: position
+        });
+        message.draw();
+        messages.animate({scrollTop: messages.prop('scrollHeight')}, 300);
+    }
+
+    $(".send-message").on("click", function() {
+        sAlert("#error", false);
+        var that = $(this);
+        var input = $("#message-input");
+        var text = input.val();
+        var messages = $(msg);
+        if (text.length > 0) {
+            $.ajax({
+                url: "/sendmessage",
+                type: "POST",
+                dataType: "json",
+                data: {
+                    content: text,
+                    chat_id: <?php echo Shared::get("path")[2]; ?>
+                },
+                success: function(data) {
+                    if (data.CODE == 700) {
+                        input.val("");
+                        sendMessage(text, "right", messages);
+                    } else sAlert("#error", true);
+                },
+                error: function() {
+                    sAlert("#error", true);
+                }
+            });
+        }
+    });
 });
 $(document).bind("contextmenu", function(event) {
     var elem = $(event.toElement);
@@ -93,6 +168,7 @@ $(document).bind('click', function() {
 });
 </script>
 <div class="col-md-6">
+<div class="alert alert-danger" style="display: none" id="error"><strong>Error</strong> please try again.</div>
 <div id="contextMenu">
     <ul>
         <li><a href="#">Edit</a></li>
@@ -108,7 +184,7 @@ $(document).bind('click', function() {
             </div>
             <div class="title">Chat</div>
         </div>
-        <ul class="messages">
+        <ul id="messages" class="messages">
         <?php 
         if (mysqli_num_rows($sql) > 0) {
             while ($info = mysqli_fetch_array($sql)) {
@@ -118,7 +194,7 @@ $(document).bind('click', function() {
                     <img class="avatar-image mb center-block img-circle img-responsive thumb64" src="<?php echo $info['Avatar'] ?>">
                 </div>
                 <div class="text-wrapper">
-                    <div class="text"><?php echo $info['content'] ?></div>
+                    <div class="text"><?php echo base64_decode($info['content']); ?></div>
                 </div>
             </li>
         <?php
@@ -128,7 +204,7 @@ $(document).bind('click', function() {
         </ul>
         <div class="bottom-wrapper clearfix">
             <div class="message-input-wrapper">
-                <input class="message-input" placeholder="Type a message..." />
+                <input class="message-input" id="message-input" placeholder="Type a message..." />
             </div>
             <div class="send-message">
                 <div class="icon"></div>
@@ -139,7 +215,9 @@ $(document).bind('click', function() {
 </div>
 <div class="message-template">
     <li class="message">
-        <div class="avatar"></div>
+        <div class="avatar">
+            <img class="avatar-image mb center-block img-circle img-responsive thumb64" src="<?php echo $_SESSION['info']['Avatar']; ?>">
+        </div>
         <div class="text-wrapper">
             <div class="text"></div>
         </div>
