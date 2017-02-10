@@ -70,7 +70,7 @@ if ($home) {
 <script>
 $(function () {
     var timer;
-    $("text-wrapper, text").on("mousedown", function(){
+    $("text-wrapper, text, avatar, avatar-image").on("mousedown", function(){
         var elem = $(this);
         timer = setTimeout(function(){
             var pos = elem.position();
@@ -83,7 +83,7 @@ $(function () {
 });
 $(document).bind("contextmenu", function(event) {
     var elem = $(event.toElement);
-    if (elem.hasClass("text-wrapper") || elem.hasClass("text")) {
+    if (elem.hasClass("text-wrapper") || elem.hasClass("text") || elem.hasClass("avatar") || elem.hasClass("avatar-image")) {
         $("#contextMenu").css({"top": event.pageY + "px", "left": event.pageX + "px"}).show();
         event.preventDefault();
     }
@@ -115,7 +115,7 @@ $(document).bind('click', function() {
         ?>
             <li class="message <?php echo ($info['user'] == $userid) ? "right":"left"; ?> appeared">
                 <div class="avatar">
-                    <img class="mb center-block img-circle img-responsive thumb64" src="<?php echo $info['Avatar'] ?>">
+                    <img class="avatar-image mb center-block img-circle img-responsive thumb64" src="<?php echo $info['Avatar'] ?>">
                 </div>
                 <div class="text-wrapper">
                     <div class="text"><?php echo $info['content'] ?></div>
