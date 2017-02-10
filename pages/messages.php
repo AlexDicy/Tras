@@ -42,7 +42,6 @@ if (isset(Shared::get("path")[1]) && isset(Shared::get("path")[2]) && Shared::ge
 <link type="text/css" rel="stylesheet" href="//<?php echo Shared::get("host") ?>/assets/styles/messages.css">
 <?php
 if ($home) {
-    if (mysqli_num_rows($sql) > 0) {
 ?>
 <div class="table-container">
     <table class="table table-filter">
@@ -61,17 +60,18 @@ if ($home) {
                 </td>
             </tr>
 <?php
+    if (mysqli_num_rows($sql) > 0) {
         while ($info = mysqli_fetch_array($sql)) {
             include('template/messagerow.php');
         }
+    } else {
+        echo "<p>Start a new chat!</p>";
+    }
 ?>
         </tbody>
     </table>
 </div>
 <?php
-    } else {
-        echo "<p>Start a new chat!</p>";
-    }
 } else if ($chat) {
 ?>
 <script>
