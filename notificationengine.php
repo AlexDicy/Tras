@@ -42,7 +42,7 @@ function getFinalAlert($n) {
             $n['title'] = $n['Nick']." has added you as friend";
             $n['link'] = "/user/".$n['Nick'];
             break;
-        case 5:
+        case 6:
             $n['title'] = $n['Nick']." wrote: ".$n['content'];
             $n['link'] = "/messages/chat/".$n['where'];
             break;
