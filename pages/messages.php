@@ -161,7 +161,7 @@ $(function () {
         var input = $("#message-input");
         var text = input.val();
         var messages = $(msg);
-        if (text == "") {
+        if (text != "" && $.trim(text).length != 0) {
             $.ajax({
                 url: "/sendmessage",
                 type: "POST",
@@ -173,7 +173,20 @@ $(function () {
                 success: function(data) {
                     if (data.CODE == 700) {
                         input.val("");
-                        sendMessage(text.replace(new RegExp('\r?\n','g'), '<br />'), "right", messages);
+                        var entityMap = {
+                             '&': '&amp;',
+                             '<': '&lt;',
+                             '>': '&gt;',
+                             '"': '&quot;',
+                             "'": '&#39;',
+                             '/': '&#x2F;',
+                             '`': '&#x60;',
+                             '=': '&#x3D;'
+                         };
+                        text = text.replace(/[&<>"'`=\/]/g, function (s) {
+                            return entityMap[s];
+                        }).replace(new RegExp('\r?\n','g'), '<br />');
+                        sendMessage(text, "right", messages);
                     } else sAlert("#error", true);
                 },
                 error: function() {
