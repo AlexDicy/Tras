@@ -217,27 +217,30 @@ $(".share-btn").unbind().on('click', function(){
     var that = $(this);
     var postId = that.data("post-id");
     var userNick = that.data("post-user");
-    var prefix = "#share-post-modal-button-";
+    var prefix = "#share-post-modal-";
     var modal = $("#share-post-modal");
     var un = "%%USERNAME%%";
     var pi = "%%POSTID%%";
-    var tw = $(prefix+"twitter");
-    var fb = $(prefix+"facebook");
-    var gg = $(prefix+"google");
-    var lk = $(prefix+"linkedin");
-    var ml = $(prefix+"mail");
+    var tw = $(prefix+"button-twitter");
+    var fb = $(prefix+"button-facebook");
+    var gg = $(prefix+"button-google");
+    var lk = $(prefix+"button-linkedin");
+    var ml = $(prefix+"button-mail");
+    var rl = $(prefix+"input-rawlink");
     var ou = {
         twitter: tw.attr("href"),
         facebook: fb.attr("href"),
         google: gg.attr("href"),
         linkedin: lk.attr("href"),
-        mail: ml.attr("href")
+        mail: ml.attr("href"),
+        rawlink: rl.val()
     }
     tw.attr("href", ou.twitter.replace(new RegExp(un, 'g'), userNick).replace(new RegExp(pi, 'g'), postId));
     fb.attr("href", ou.facebook.replace(new RegExp(un, 'g'), userNick).replace(new RegExp(pi, 'g'), postId));
     gg.attr("href", ou.google.replace(new RegExp(un, 'g'), userNick).replace(new RegExp(pi, 'g'), postId));
     lk.attr("href", ou.linkedin.replace(new RegExp(un, 'g'), userNick).replace(new RegExp(pi, 'g'), postId));
     ml.attr("href", ou.mail.replace(new RegExp(un, 'g'), userNick).replace(new RegExp(pi, 'g'), postId));
+    rl.val(ou.rawlink.replace(new RegExp(un, 'g'), userNick).replace(new RegExp(pi, 'g'), postId));
     modal.modal();
     modal.on('hidden.bs.modal', function () {
         tw.attr("href", ou.twitter);
@@ -245,6 +248,7 @@ $(".share-btn").unbind().on('click', function(){
         gg.attr("href", ou.google);
         lk.attr("href", ou.linkedin);
         ml.attr("href", ou.mail);
+        rl.val(ou.rawlink);
     });
 });
 

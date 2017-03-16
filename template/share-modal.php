@@ -4,7 +4,8 @@ $links = array(
     'facebook' => "https://www.facebook.com/sharer/sharer.php?u=https%3A//tras.pw/post/%%USERNAME%%/%%POSTID%%",
     'google' => "https://plus.google.com/share?url=https%3A//tras.pw/post/%%USERNAME%%/%%POSTID%%",
     'linkedin' => "https://www.linkedin.com/shareArticle?mini=true&url=https%3A//tras.pw/post/%%USERNAME%%/%%POSTID%%&title=Post%20by%20%%USERNAME%%&summary=Read%20the%20post%20by%20%%USERNAME%%%20on%20Tras&source=https%3A//tras.pw",
-    'mail' => "mailto:?&subject=Read the post by %%USERNAME%%&body=Read%20the%20post%20by%20%%USERNAME%%%20on%20Tras%0Ahttps%3A//tras.pw/post/%%USERNAME%%/%%POSTID%%"
+    'mail' => "mailto:?&subject=Read the post by %%USERNAME%%&body=Read%20the%20post%20by%20%%USERNAME%%%20on%20Tras%0Ahttps%3A//tras.pw/post/%%USERNAME%%/%%POSTID%%",
+    'rawlink' => "https://tras.pw/post/%%USERNAME%%/%%POSTID%%"
 );
 //class="modal fade in" style="display: block;"
 ?>
@@ -47,6 +48,10 @@ $links = array(
                             <i class="fa fa-envelope fa-stack-1x"></i>
                         </span>
                     </a>
+                    <form>
+                        <label>Direct link</label>
+                        <input type="text" id="share-post-modal-input-rawlink" class="form-control" value="<?php echo $links['rawlink'] ?>"/>
+                    </form>
                 </p>
             </div>
             <div class="modal-footer">
