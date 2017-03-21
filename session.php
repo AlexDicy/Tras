@@ -6,7 +6,7 @@ $salt = "***REMOVED***";
 $username = "***REMOVED***";
 $password = "***REMOVED***";
 $database = "***REMOVED***";
-$host = "mysql.minehoster.ml";
+$host = "mysql.minehoster.us";
 $conn = mysqli_connect($host, $username, $password, $database);
 /*if (isset($_GET['type'])) {
     $type = $_GET['type'];
