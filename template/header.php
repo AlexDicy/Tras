@@ -63,7 +63,7 @@
                                         </div>
                                     </div>
                                     <div class="media-body clearfix">
-                                        <p class="m0"><?php echo $n['title'] ?></p>
+                                        <p class="notification-title"><?php echo $n['title'] ?></p>
                                         <p class="m0 text-gray text-sm"><?php if (!empty($n['content'])) { echo $n['content']." "; } ?><?php echo Shared::elapsedTime($n['when']) ?></p>
                                     </div>
                                 </div>
