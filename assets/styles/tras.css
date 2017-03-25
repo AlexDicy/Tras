@@ -6687,8 +6687,8 @@ body {
   position: absolute;
   left: 0px;
   right: 0px;
-  border-top: 1px solid #e1e1e1;
-  border-bottom: 1px solid #e1e1e1;
+  /* border-top: 1px solid #e1e1e1; */
+  /* border-bottom: 1px solid #e1e1e1; */
 }
 @media only screen and (min-width: 768px) {
   .nav-wrapper {
@@ -7970,7 +7970,7 @@ fieldset[disabled] .btn-orange.active {
 }
 .dropdown-list > .dropdown-menu {
   padding: 0;
-  min-width: 320px;
+  min-width: 360px;
 }
 .dropdown-list .list-group {
   margin: 0;
