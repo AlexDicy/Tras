@@ -9016,8 +9016,9 @@ select,select.custom-file-control,select.form-control {
     z-index: 1;
     border: 0;
     border-radius: 0;
-    box-shadow: 0 2px 2px 0 rgba(0,0,0,.14),0 1px 1px 0 rgba(0,0,0,.2),0 1px 5px 0 rgba(0,0,0,.12);
-    /*display: -webkit-box;
+    box-shadow: 0 1px 6px 0 rgba(0, 0, 0, 0.12), 0 1px 6px 0 rgba(0, 0, 0, 0.12);
+    /*box-shadow: 0 2px 2px 0 rgba(0,0,0,.14),0 1px 1px 0 rgba(0,0,0,.2),0 1px 5px 0 rgba(0,0,0,.12);
+    display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
     -ms-flex-flow: row nowrap;
