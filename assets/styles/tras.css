@@ -12916,7 +12916,7 @@ body .jvectormap-zoomout {
    Component: utils.less
  ========================================================================== */
 
-.notification-text {
+.notification-title {
   white-space: normal;
   margin: 0 !important;
 }
