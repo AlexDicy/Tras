@@ -121,6 +121,7 @@ h4.chat-title {
     border-radius: 5px;
     min-width: 100px;
     position: relative;
+    max-width: 82%;
 }
 .messages .message .text-wrapper::after,
 .messages .message .text-wrapper:before {

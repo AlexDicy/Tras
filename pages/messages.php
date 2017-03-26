@@ -40,7 +40,7 @@ if (isset(Shared::get("path")[1]) && isset(Shared::get("path")[2]) && Shared::ge
                   WHERE Chats.chat_id IN (SELECT Chats.chat_id FROM Chats WHERE Chats.user = '$userid') AND Chats.user <> '$userid' ORDER BY post_date DESC");
 }
 ?>
-<link type="text/css" rel="stylesheet" href="//<?php echo Shared::get("host") ?>/assets/styles/messages.css?v=6">
+<link type="text/css" rel="stylesheet" href="//<?php echo Shared::get("host") ?>/assets/styles/messages.css?v=8">
 <?php
 if ($home) {
 ?>
