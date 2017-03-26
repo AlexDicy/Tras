@@ -5,7 +5,14 @@ if (isset($_POST['content']) && isset($_POST['chat_id'])) {
     $user = $_SESSION['info']['id'];
     $users = query("SELECT user FROM Chats WHERE chat_id = '$chatId'");
     $usersArray = $users ? mysqli_fetch_array($users) : array();
-    if (in_array($user, $usersArray)) {
+    $inArray = false;
+    foreach ($usersArray as $userId) {
+        if ($userId['user'] == $user) {
+            $inArray = true;
+            break;
+        }
+    }
+    if ($inArray) {
         $sql = query("INSERT INTO Messages (user, chat_id, content) VALUES ('$user', '$chatId', '$text')");
         if ($sql && $_POST['content'] != "") {
             echo "{\"CODE\": 700}";
