@@ -70,6 +70,7 @@ h4.chat-title {
     min-height: 340px;
     overflow: auto;
     max-height: 442px;
+    word-wrap: break-word;
 }
 .messages .message {
     clear: both;
