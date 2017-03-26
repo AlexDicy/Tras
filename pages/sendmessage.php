@@ -4,7 +4,7 @@ if (isset($_POST['content']) && isset($_POST['chat_id'])) {
     $chatId = escape($_POST['chat_id']);
     $user = $_SESSION['info']['id'];
     $users = query("SELECT user FROM Chats WHERE chat_id = '$chatId'");
-    $usersArray = mysqli_fetch_array($users);
+    $usersArray = $users ? mysqli_fetch_array($users) : array();
     if (in_array($user, $usersArray)) {
         $sql = query("INSERT INTO Messages (user, chat_id, content) VALUES ('$user', '$chatId', '$text')");
         if ($sql && $_POST['content'] != "") {
