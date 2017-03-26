@@ -74,7 +74,7 @@ h4.chat-title {
 .messages .message {
     clear: both;
     overflow: hidden;
-    margin-bottom: 20px;
+    margin-bottom: 8px;
     transition: all 0.5s linear;
     opacity: 0;
 }
@@ -141,7 +141,7 @@ h4.chat-title {
     margin-top: -4px;
 }
 .messages .message .text-wrapper .text {
-    font-size: 18px;
+    font-size: 16px;
     font-weight: 300;
 }
 .bottom-wrapper {
