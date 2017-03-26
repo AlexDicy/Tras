@@ -6,8 +6,8 @@ if (isset($_POST['content']) && isset($_POST['chat_id'])) {
     $users = query("SELECT user FROM Chats WHERE chat_id = '$chatId'");
     $usersArray = $users ? mysqli_fetch_array($users) : array();
     $inArray = false;
-    foreach ($usersArray as $userId) {
-        if ($userId['user'] == $user) {
+    while ($info = $usersArray) {
+        if ($info['user'] == $user) {
             $inArray = true;
             break;
         }
