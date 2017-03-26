@@ -217,11 +217,11 @@ $(document).bind('click', function() {
 </div>
     <div class="chat-window">
         <div class="top-menu">
-            <div class="buttons">
+            <?php /* <div class="buttons">
                 <div class="button close"></div>
                 <div class="button minimize"></div>
                 <div class="button maximize"></div>
-            </div>
+            </div> */ ?>
             <div class="title">Chat</div>
         </div>
         <ul id="messages" class="messages">
