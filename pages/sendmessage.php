@@ -4,7 +4,7 @@ if (isset($_POST['content']) && isset($_POST['chat_id'])) {
     $chatId = escape($_POST['chat_id']);
     $user = $_SESSION['info']['id'];
     $users = query("SELECT user FROM Chats WHERE chat_id = '$chatId'");
-    if (in_array($user, $users)) {
+    //if (in_array($user, $users)) {
         $sql = query("INSERT INTO Messages (user, chat_id, content) VALUES ('$user', '$chatId', '$text')");
         if ($sql && $_POST['content'] != "") {
             echo "{\"CODE\": 700}";
@@ -19,8 +19,8 @@ if (isset($_POST['content']) && isset($_POST['chat_id'])) {
         } else {
             echo "{\"CODE\": 666}";
         }
-    } else {
-            echo "{\"CODE\": 666}";
-    }
+    //} else {
+    //        echo "{\"CODE\": 666}";
+    //}
 }
 ?>
