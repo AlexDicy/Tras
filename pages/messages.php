@@ -286,7 +286,8 @@ $(function() {
 });
 </script>
 <?php
-    while($info = mysqli_fetch_array($sql)){
+    if ($sql) {
+        while($info = mysqli_fetch_array($sql)){
 ?>
 <a class="new-chat" data-user-id="<?php echo $info['id'] ?>" href="//<?php echo Shared::get("host"); ?>/messages/">
     <div id="panelPortlet4" class="panel panel-default b0">
@@ -304,6 +305,11 @@ $(function() {
     </div>
 </a>
 <?php
+        }
+    } else {
+        ?>
+        <p>No friends to message with :(</p>
+        <?php
     }
 }
 include("template/right-sidebar.php");
