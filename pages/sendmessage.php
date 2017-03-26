@@ -4,9 +4,8 @@ if (isset($_POST['content']) && isset($_POST['chat_id'])) {
     $chatId = escape($_POST['chat_id']);
     $user = $_SESSION['info']['id'];
     $users = query("SELECT user FROM Chats WHERE chat_id = '$chatId'");
-    $usersArray = $users ? mysqli_fetch_array($users) : array("user" => "0");
     $inArray = false;
-    while ($info = $usersArray) {
+    while ($info = mysqli_fetch_array($users)) {
         if ($info['user'] == $user) {
             $inArray = true;
             break;
@@ -17,7 +16,7 @@ if (isset($_POST['content']) && isset($_POST['chat_id'])) {
         if ($sql && $_POST['content'] != "") {
             echo "{\"CODE\": 700}";
             if ($users) {
-                while ($info = $usersArray) {
+                while ($info = mysqli_fetch_array($users)) {
                     if ($info['user'] != $user && $info['user'] != 0) {
                         query("UPDATE Chats SET `read` = 0 WHERE chat_id = '$chatId' AND user = '". $info['user'] ."'");
                         newNotification($info['user'], $user, $chatId, 6, substr(base64_decode($text), 0, 50));
