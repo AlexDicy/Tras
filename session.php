@@ -336,6 +336,7 @@ function query($sql) {
     $result = mysqli_query($conn, $sql);
     return $result;
 }
+
 function escape($unescaped) {
   $replacements = array(
      "\x00"=>'\x00',
@@ -346,7 +347,29 @@ function escape($unescaped) {
      '"'=>'\"',
      "\x1a"=>'\x1a'
   );
-  return strtr($unescaped,$replacements);
+  return strtr($unescaped, $replacements);
+}
+
+function unsafeEscape($unescaped) {
+  $replacements = array(
+     "\x00"=>'\x00',
+     "\\"=>'\\\\',
+     '"'=>'\"',
+     "\x1a"=>'\x1a'
+  );
+  return strtr($unescaped, $replacements);
+}
+
+function safeUnescape($escaped) {
+  $replacements = array(
+     '\n'=>"\n",
+     '\r'=>"\r",
+     //"\\"=>'\\\\',
+     "\'"=>"'",
+     //'"'=>'\"',
+     //"\x1a"=>'\x1a'
+  );
+  return strtr($escaped, $replacements);
 }
 include_once('notificationengine.php');
 ?>

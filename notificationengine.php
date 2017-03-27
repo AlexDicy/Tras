@@ -51,12 +51,13 @@ function getFinalAlert($n) {
 }
 
 function newNotification($user, $from, $where, $type, $content) {
+    $unsafeContent = unsafeEscape($content);
     $content = escape(htmlentities($content));
     $exists = mysqli_num_rows(query("SELECT user FROM Notifications WHERE `user`='$user' AND `from`='$from' AND `type`='$type' AND `where`='$where'"));
     $sql = "INSERT INTO Notifications (`user`, `from`, `where`, `type`, `content`) VALUES ('$user', '$from', '$where', '$type', '$content') ON DUPLICATE KEY UPDATE `hide` = 0";
     $pushtoken = query("SELECT token FROM PushTokens WHERE user='$user'");
     if (!empty($pushtoken) && $exists < 1) {
-        $array = array("user" => $user, "from" => $from, "where" => $where, "type" => $type, "content" => $content);
+        $array = array("user" => $user, "from" => $from, "where" => $where, "type" => $type, "content" => $unsafeContent);
         $alert = getFinalAlert($array);
         while ($token = mysqli_fetch_assoc($pushtoken)) {
             $settings = "{ \"notification\": {\"title\": \"Tras\", \"body\": \"".$alert['title']."\", \"click_action\" : \"https://tras.pw/readnotification/?where=".$alert['where']."&link=".$alert['link']."\", \"icon\": \"https://tras.pw/images/logo-128.png\" }, \"to\" : \"".$token['token']."\"}";

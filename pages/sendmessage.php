@@ -20,14 +20,14 @@ if (isset($_POST['content']) && isset($_POST['chat_id'])) {
             if ($users) {
                 foreach ($usersArray as $info) {
                     query("UPDATE Chats SET `read` = 0 WHERE chat_id = '$chatId' AND user = '". $info ."'");
-                    newNotification($info, $user, $chatId, 6, substr(base64_decode($text), 0, 50));
+                    newNotification($info, $user, $chatId, 6, substr($_POST['content'], 0, 50));
                 }
             }
         } else {
             echo "{\"CODE\": 666}";
         }
     } else {
-            echo "{\"CODE\": 666}";
+        echo "{\"CODE\": 666}";
     }
 }
 ?>
