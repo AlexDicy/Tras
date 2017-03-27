@@ -79,7 +79,7 @@
                                 <hr>
                             </li>
                             <li>
-                                <a title="Notifications" href="/notifications/"><em class="sidebar-item-icon"></em><div class="label pull-right label-primary"><?php echo $notificationscount ?></div><span>Notifications</span></a>
+                                <a title="Notifications" href="/notifications/"><em class="sidebar-item-icon"></em><div class="label pull-right label-primary"><?php echo Shared::get("notificationsCount") ?></div><span>Notifications</span></a>
                             </li>
                             <?php } else { ?>
                             <li>
