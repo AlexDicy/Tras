@@ -234,7 +234,7 @@ $(document).bind('click', function() {
                     <img class="avatar-image mb center-block img-circle img-responsive thumb64" src="<?php echo $info['Avatar'] ?>">
                 </div>
                 <div class="text-wrapper">
-                    <div class="text"><?php echo str_replace(array("\\r\\n", "\\r", "\\n"), "<br />", base64_decode($info['content'])); ?></div>
+                    <div class="text"><?php echo str_replace(array("\r\n", "\r", "\n"), "<br />", base64_decode($info['content'])); ?></div>
                 </div>
             </li>
         <?php
