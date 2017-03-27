@@ -18,7 +18,7 @@
     <meta property="og:type" content="website">
     <meta property="fb:app_id" content="198347767255916">
     <meta name="theme-color" content="#43a8eb">
-    <title><?php echo getTitle(Shared::get("name"), Shared::get("link"), Shared::get("path"), Shared::get("infoNick")) ?></title>
+    <title><?php echo Shared::getTitle(Shared::get("name"), Shared::get("link"), Shared::get("path"), Shared::get("infoNick")) ?></title>
     <link id="favicon" rel="icon" type="image/png" href="/images/logo-128.png" sizes="128x128">
     <link id="favicon" rel="icon" type="image/png" href="/images/logo-min-512.png" sizes="512x512">
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Roboto:300,400,500,700">

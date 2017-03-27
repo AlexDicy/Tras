@@ -37,15 +37,13 @@
             </form>
             <ul class="nav navbar-nav navbar-right">
             <?php
-            $notifications = getNotifications(7);
-            $notificationscount = $notifications['count'];
-            unset($notifications['count']);
+            $notifications = Shared::get("notifications");
             ?>
                 <li id="notifications-popup" class="dropdown dropdown-list">
                     <a href="#" data-target="#notifications-popup" data-toggle="dropdown" class="dropdown-toggle" aria-haspopup="true" aria-expanded="false">
                         <div class="point-pin">
                             <em class="icon-mail fa-fw"></em>
-                            <div class="label pull-right label-primary"><?php echo $notificationscount ?></div>
+                            <div class="label pull-right label-primary"><?php echo Shared::get("notificationsCount") ?></div>
                         </div>
                         <span class="visible-xs-inline ml">View Alerts</span>
                     </a>

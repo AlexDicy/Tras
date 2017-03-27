@@ -20,6 +20,26 @@ class Shared {
         return self::$array[$key];
     }
 
+    public static function getTitle($name, $link, $path, $infoNick) {
+        if (empty($infoNick)) {
+            switch ($link) {
+                case "user":
+                    return $path[1]." on Tras";
+                case "post":
+                    return $path[1]." post on Tras";
+            }
+            if (empty($name)) return "Tras";
+
+            if ($name == "Messages") {
+                $count = Shared::get("notificationsCount");
+                $prefix = empty($count) ? "": "(".$count.") ";
+                return $prefix . $name . " - Tras";
+            }
+            return $name . " - Tras";
+        }
+        return $infoNick." on Tras";
+    }
+
     public static function has($key) {
         return array_key_exists($key, self::$array);
     }
@@ -32,6 +52,10 @@ class Shared {
     public static function iset($key, $value, $index) {
         self::$array[$key][$index] = $value;
         return $value;
+    }
+
+    public static function unsetValue($key, $index) {
+        unset(self::$array[$key][$index]);
     }
 
     public static function elapsedTime($datetime, $full = false) {

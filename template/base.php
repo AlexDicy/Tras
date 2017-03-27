@@ -4,6 +4,13 @@
 <html lang="en">
 <!--<![endif]-->
 <head>
+
+<?php
+Shared::set("notifications", getNotifications(7));
+Shared::set("notificationsCount", Shared::get("notifications")['count']);
+Shared::unsetValue("notifications", "count");
+?>
+
 <?php include 'template/head.php' ?>
 </head>
 <body class="layout-fixed">
