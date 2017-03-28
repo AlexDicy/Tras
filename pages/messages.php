@@ -118,29 +118,22 @@ $(function () {
     };
 
     // Dialog handler
-    function dialogHandle(name, val, text = "") {
-        if(text == "") {
-            // use custom
-            $(name + " > span").html("Please try again.");
-        } else {
-            // use default
-            $(name + " > span").html(text);
-        }
+    function sAlert(name, val, text = "") {
 
         // show or hide
-        if (val == true) {
+        if (val) {
             // Show dialog
             $(name).fadeIn("fast", function() {
-                $(name).show();
+                $(name).show()
             });
-        } else if(val == false) {
+        } else if(!val) {
             // Hide dialog
             $(name).fadeOut("fast", function() {
                 $(name).hide()
             });
         } else {
             // unexpected input
-            console.error("dialogHandle():\r\n", "%cSecond paramater is not true/false.", "color:red;");
+            console.error("sAlert():\r\n", "%cSecond paramater is not true/false.", "color:red;");
         }
     }
 
@@ -172,7 +165,7 @@ $(function () {
     var sri = setInterval(shouldRefresh, 5000);
 
     $(".send-message").on("click", function() {
-        dialogHandle("#error", false);
+        sAlert("#error", false);
         var that = $(this);
         var input = $("#message-input");
         var text = input.val();
@@ -203,10 +196,10 @@ $(function () {
                             return entityMap[s];
                         }).replace(new RegExp('\r?\n','g'), '<br />');
                         sendMessage(text, "right", messages);
-                    } else dialogHandle("#error", true, "Couldn't send message.<br />Please try sending it later.");
+                    } else sAlert("#error", true);
                 },
                 error: function() {
-                    dialogHandle("#error", true, "Couldn't send message.<br />Check your network conditions and try again.");
+                    sAlert("#error", true);
                 }
             });
         }
@@ -226,7 +219,7 @@ $(function () {
     });
 </script>
 <div class="col-md-6">
-<div class="alert alert-danger" style="display: none" id="error"><strong>Error:</strong> <span>Please try again.</span></div>
+<div class="alert alert-danger" style="display: none" id="error"><strong>Error</strong> please try again.</div>
 <div id="contextMenu">
     <ul>
         <li><a href="#">Edit</a></li>
