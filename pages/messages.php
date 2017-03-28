@@ -118,7 +118,7 @@ $(function () {
     };
 
     // Dialog handler
-    function sAlert(name, val, text = "") {
+    function dialogHandle(name, val, text = "") {
         if(text == "") {
             // use custom
             $(name + " > span").html("Please try again.");
@@ -140,7 +140,7 @@ $(function () {
             });
         } else {
             // unexpected input
-            console.error("sAlert():\r\n", "%cSecond paramater is not true/false.", "color:red;");
+            console.error("dialogHandle():\r\n", "%cSecond paramater is not true/false.", "color:red;");
         }
     }
 
@@ -172,7 +172,7 @@ $(function () {
     var sri = setInterval(shouldRefresh, 5000);
 
     $(".send-message").on("click", function() {
-        sAlert("#error", false);
+        dialogHandle("#error", false);
         var that = $(this);
         var input = $("#message-input");
         var text = input.val();
@@ -203,10 +203,10 @@ $(function () {
                             return entityMap[s];
                         }).replace(new RegExp('\r?\n','g'), '<br />');
                         sendMessage(text, "right", messages);
-                    } else sAlert("#error", true);
+                    } else dialogHandle("#error", true, "Couldn't send message.<br />Please try sending it later.");
                 },
                 error: function() {
-                    sAlert("#error", true, "Couldn't send message.<br />Try again later.");
+                    dialogHandle("#error", true, "Couldn't send message.<br />Check your network conditions and try again.");
                 }
             });
         }
