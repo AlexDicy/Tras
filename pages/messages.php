@@ -121,19 +121,19 @@ $(function () {
     function sAlert(name, val, text = "") {
         if(text == "") {
             // use custom
-            $(name + " > span").html(text);
+            $(name + " > span").html("Please try again.");
         } else {
             // use default
-            $(name + " > span").html("Please try again.");
+            $(name + " > span").html(text);
         }
 
         // show or hide
-        if (val) {
+        if (val == true) {
             // Show dialog
             $(name).fadeIn("fast", function() {
                 $(name).show();
             });
-        } else if(!val) {
+        } else if(val == false) {
             // Hide dialog
             $(name).fadeOut("fast", function() {
                 $(name).hide()
