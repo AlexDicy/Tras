@@ -1,48 +1,49 @@
 <?php
-$sql;
-$userid = $_SESSION['info']['id'];
-$home = false;
-$chat = false;
-$new = false;
-if (isset(Shared::get("path")[1]) && isset(Shared::get("path")[2]) && Shared::get("path")[1] == "chat") {
-    $chatid = escape(Shared::get("path")[2]);
-    $chat = true;
-    $sql = query("SELECT
-                    Members.Nick,
-                    Members.Avatar,
-                    Messages.content,
-                    Messages.post_date,
-                    Messages.id,
-                    Messages.user
-                  FROM Chats
-                  JOIN Messages
-                    ON Messages.chat_id = Chats.chat_id
-                  JOIN Members
-                    ON Messages.user = Members.id
-                  WHERE Chats.chat_id = '$chatid' AND Chats.user = '$userid'");
-        query("UPDATE Chats SET `read` = 1 WHERE chat_id = '$chatid' AND user = '$userid'");
-} else if (isset(Shared::get("path")[1]) && Shared::get("path")[1] == "new") {
-    $friendsids = empty(Shared::get("friendslist")) ? "" : implode(', ', Shared::get("friendslist"));
-    $new = true;
-    $sql = query("SELECT id, Nick FROM Members WHERE id IN (".$friendsids.")");
-} else {
-    $home = true;
-    $sql = query("SELECT
-                    Chats.id,
-                    Chats.chat_id,
-                    Members.Nick,
-                    Members.Avatar,
-                    (SELECT Messages.content FROM Messages WHERE Messages.chat_id = Chats.chat_id ORDER BY Messages.post_date DESC LIMIT 1) AS content,
-                    (SELECT Messages.post_date FROM Messages WHERE Messages.chat_id = Chats.chat_id ORDER BY Messages.post_date DESC LIMIT 1) AS post_date
-                  FROM Chats
-                  JOIN Members
-                    ON Chats.user = Members.id
-                  WHERE Chats.chat_id IN (SELECT Chats.chat_id FROM Chats WHERE Chats.user = '$userid') AND Chats.user <> '$userid' ORDER BY post_date DESC");
-}
+    $sql;
+    $userid = $_SESSION['info']['id'];
+    $home = false;
+    $chat = false;
+    $new = false;
+    
+    if (isset(Shared::get("path")[1]) && isset(Shared::get("path")[2]) && Shared::get("path")[1] == "chat") {
+        $chatid = escape(Shared::get("path")[2]);
+        $chat = true;
+        $sql = query("SELECT
+                        Members.Nick,
+                        Members.Avatar,
+                        Messages.content,
+                        Messages.post_date,
+                        Messages.id,
+                        Messages.user
+                    FROM Chats
+                    JOIN Messages
+                        ON Messages.chat_id = Chats.chat_id
+                    JOIN Members
+                        ON Messages.user = Members.id
+                    WHERE Chats.chat_id = '$chatid' AND Chats.user = '$userid'");
+            query("UPDATE Chats SET `read` = 1 WHERE chat_id = '$chatid' AND user = '$userid'");
+    } else if (isset(Shared::get("path")[1]) && Shared::get("path")[1] == "new") {
+        $friendsids = empty(Shared::get("friendslist")) ? "" : implode(', ', Shared::get("friendslist"));
+        $new = true;
+        $sql = query("SELECT id, Nick FROM Members WHERE id IN (".$friendsids.")");
+    } else {
+        $home = true;
+        $sql = query("SELECT
+                        Chats.id,
+                        Chats.chat_id,
+                        Members.Nick,
+                        Members.Avatar,
+                        (SELECT Messages.content FROM Messages WHERE Messages.chat_id = Chats.chat_id ORDER BY Messages.post_date DESC LIMIT 1) AS content,
+                        (SELECT Messages.post_date FROM Messages WHERE Messages.chat_id = Chats.chat_id ORDER BY Messages.post_date DESC LIMIT 1) AS post_date
+                    FROM Chats
+                    JOIN Members
+                        ON Chats.user = Members.id
+                    WHERE Chats.chat_id IN (SELECT Chats.chat_id FROM Chats WHERE Chats.user = '$userid') AND Chats.user <> '$userid' ORDER BY post_date DESC");
+    }
 ?>
 <link type="text/css" rel="stylesheet" href="//<?php echo Shared::get("host") ?>/assets/styles/messages.css?v=10">
 <?php
-if ($home) {
+    if ($home) {
 ?>
 <div class="table-container">
     <table class="table table-filter">
@@ -60,21 +61,21 @@ if ($home) {
                     </a>
                 </td>
             </tr>
-<?php
-    if (mysqli_num_rows($sql) > 0) {
-        while ($info = mysqli_fetch_array($sql)) {
-            include('template/messagerow.php');
-        }
-    } else {
-        echo "<p>Start a new chat!</p>";
-    }
-?>
+            <?php
+                if (mysqli_num_rows($sql) > 0) {
+                    while ($info = mysqli_fetch_array($sql)) {
+                        include('template/messagerow.php');
+                    }
+                } else {
+                    echo "<p>Start a new chat!</p>";
+                }
+            ?>
         </tbody>
     </table>
 </div>
 <?php
-} else if ($chat) {
-    deleteMessageNotification($userid, $chatid);
+    } else if ($chat) {
+        deleteMessageNotification($userid, $chatid);
 ?>
 <script>
 $(function () {
@@ -116,15 +117,30 @@ $(function () {
         return this;
     };
 
-    function sAlert(name, val) {
-        if (val) {
-            $(name).fadeIn("fast", function() {
-                $(name).show()
-            });
+    // Dialog handler
+    function sAlert(name, val, text = "") {
+        if(text == "") {
+            // use custom
+            $(name + " > span").html(text);
         } else {
+            // use default
+            $(name + " > span").html("Please try again.");
+        }
+
+        // show or hide
+        if (val) {
+            // Show dialog
+            $(name).fadeIn("fast", function() {
+                $(name).show();
+            });
+        } else if(!val) {
+            // Hide dialog
             $(name).fadeOut("fast", function() {
                 $(name).hide()
             });
+        } else {
+            // unexpected input
+            console.error("sAlert():\r\n", "%cSecond paramater is not true/false.", "color:red;");
         }
     }
 
@@ -190,25 +206,27 @@ $(function () {
                     } else sAlert("#error", true);
                 },
                 error: function() {
-                    sAlert("#error", true);
+                    sAlert("#error", true, "Couldn't send message.<br />Try again later.");
                 }
             });
         }
     });
 });
-$(document).bind("contextmenu", function(event) {
-    var elem = $(event.toElement);
-    if (elem.hasClass("text-wrapper") || elem.hasClass("text") || elem.hasClass("avatar") || elem.hasClass("avatar-image")) {
-        $("#contextMenu").css({"top": event.pageY + "px", "left": event.pageX + "px"}).show();
-        event.preventDefault();
-    }
-});
-$(document).bind('click', function() {
-    $('#contextMenu').hide();
-});
+    // Show custom context-menu on right click
+    $(document).bind("contextmenu", function(event) {
+        var elem = $(event.toElement);
+        if (elem.hasClass("text-wrapper") || elem.hasClass("text") || elem.hasClass("avatar") || elem.hasClass("avatar-image")) {
+            $("#contextMenu").css({"top": event.pageY + "px", "left": event.pageX + "px"}).show();
+            event.preventDefault();
+        }
+    });
+    // Hide when any click happens
+    $(document).bind('click', function() {
+        $('#contextMenu').hide();
+    });
 </script>
 <div class="col-md-6">
-<div class="alert alert-danger" style="display: none" id="error"><strong>Error</strong> please try again.</div>
+<div class="alert alert-danger" style="display: none" id="error"><strong>Error:</strong> <span>Please try again.</span></div>
 <div id="contextMenu">
     <ul>
         <li><a href="#">Edit</a></li>
