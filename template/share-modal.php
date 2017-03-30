@@ -50,7 +50,7 @@ $links = array(
                     </a>
                     <form>
                         <label>Direct link</label>
-                        <input type="text" id="share-post-modal-input-rawlink" class="form-control" value="<?php echo $links['rawlink'] ?>"/>
+                        <input disabled type="text" id="share-post-modal-input-rawlink" class="form-control" value="<?php echo $links['rawlink'] ?>"/>
                     </form>
                 </p>
             </div>
