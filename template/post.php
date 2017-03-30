@@ -1,16 +1,21 @@
 <?php
-$hasOpinion = $info['has_opinion'];
-$opinion = $info['has_opinion'] == 1 ? true : false;
-$likeClass = $hasOpinion ? " active" : " active";
-$dislikeClass = $hasOpinion ? " active" : " active";
-$value = is_null($hasOpinion);
-if (!$value && $opinion) {
-    $likeClass = " active" ;
-    $dislikeClass = "";
-} else if (!$value && !$opinion) {
-    $likeClass = "";
-    $dislikeClass = " active";
-}
+
+    function formatter($text){
+        return $text;
+    }
+
+    $hasOpinion = $info['has_opinion'];
+    $opinion = $info['has_opinion'] == 1 ? true : false;
+    $likeClass = $hasOpinion ? " active" : " active";
+    $dislikeClass = $hasOpinion ? " active" : " active";
+    $value = is_null($hasOpinion);
+    if (!$value && $opinion) {
+        $likeClass = " active" ;
+        $dislikeClass = "";
+    } else if (!$value && !$opinion) {
+        $likeClass = "";
+        $dislikeClass = " active";
+    }
 ?>
     <div class="post post-margin-bottom">
         <div class="portlet">
@@ -26,7 +31,7 @@ if (!$value && $opinion) {
                 <?php } ?>
             </div>
             <div class="portlet-body">
-                <p><?php echo nl2br($info['content']) ?></p>
+                <p><?php echo nl2br(formatter($info['content'])) ?></p>
             </div>
             <div class="post-footer">
                 <div class="actions">
