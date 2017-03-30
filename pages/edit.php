@@ -23,6 +23,6 @@ $info = mysqli_fetch_array($post);
 		</div>
 	</div>
 	<?php } else { ?>
-		<div class="alert alert-warning"><strong>Error</strong> This post isn't your.</div>
+		<div class="alert alert-warning"><strong>Error</strong> You do not own this post, therefore you cannot edit it.</div>
 	<?php } ?>
 </div>

@@ -6,7 +6,7 @@
                 <h4 class="modal-title">Confirm Deletion</h4>
             </div>
             <div class="modal-body">
-                <p>Do you really want to delete this post?<<br />This action is <b>irreversible</b>./p>
+                <p>Do you really want to delete this post?<br />This action is <b>irreversible</b>.</p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-success" data-dismiss="modal">Close</button>
