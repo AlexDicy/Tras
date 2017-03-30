@@ -1,8 +1,6 @@
 <?php
 
-    function formatter($text){
-        return $text;
-    }
+    $text = $info['content'];
 
     $hasOpinion = $info['has_opinion'];
     $opinion = $info['has_opinion'] == 1 ? true : false;
@@ -31,7 +29,7 @@
                 <?php } ?>
             </div>
             <div class="portlet-body">
-                <p><?php echo nl2br(formatter($info['content'])) ?></p>
+                <p><?php echo nl2br(formatter($text)) ?></p>
             </div>
             <div class="post-footer">
                 <div class="actions">
