@@ -2,6 +2,13 @@
 
     $text = $info['content'];
 
+    // parsing
+    if(strpos($text, '!~') !== false){
+        $text = str_replace("**", "</b><b>", $text);
+        $text = str_replace("__", "</i><i>", $text);
+        $text .= "</i></b>";
+    } 
+
     $hasOpinion = $info['has_opinion'];
     $opinion = $info['has_opinion'] == 1 ? true : false;
     $likeClass = $hasOpinion ? " active" : " active";
