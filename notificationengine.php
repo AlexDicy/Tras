@@ -46,6 +46,10 @@ function getFinalAlert($n) {
             $n['title'] = $n['Nick']." wrote: ".$n['content'];
             $n['link'] = "/messages/chat/".$n['where'];
             break;
+        case 7:
+            $n['title'] = $n['Nick']." replied: ".$n['content'];
+            $n['link'] = "/post/".$_SESSION['info']['Nick']."/".$n['where'];
+            break;
     }
     return $n;
 }

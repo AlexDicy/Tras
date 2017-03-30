@@ -10211,7 +10211,7 @@ Licensed under MIT
 /* Portlet */
 .portlet {
 	background: #fff;
-	padding: 16px 20px;
+	padding: 16px 20px 8px 20px;
   border-radius: 4px;
 }
 
