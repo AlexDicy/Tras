@@ -29,7 +29,7 @@
                 <?php } ?>
             </div>
             <div class="portlet-body">
-                <p><?php echo nl2br(formatter($text)) ?></p>
+                <p><?php echo nl2br($text) ?></p>
             </div>
             <div class="post-footer">
                 <div class="actions">
