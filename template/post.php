@@ -4,8 +4,11 @@
 
     // parsing
     if(strpos($text, '!~') !== false){
-        $text = str_replace("**", "</b><b>", $text);
-        $text = str_replace("__", "</i><i>", $text);
+        $text = str_replace("**", "<b>", $text);
+        $text = str_replace("__", "<i>", $text);
+        $text = str_replace("/*", "</b>", $text);
+        $text = str_replace("/_", "</i>", $text);
+        $text = str_replace("!~", "", $text);
         $text .= "</i></b>";
     } 
 
