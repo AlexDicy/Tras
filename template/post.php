@@ -64,8 +64,8 @@
                 <div class="actions">
                     <!-- Opinion counts -->
                     <a class="opinions-counter" data-post-id="<?php echo $info['id'] ?>">
-                        <i class="fa fa-heart"></i><?php echo empty($info['likes']) ? "0" : $info['likes'] ?> &mdash; 
-                        <i class="fa fa-thumbs-down"></i><?php echo empty($info['dislikes']) ? "0" : $info['dislikes'] ?>
+                        <i class="fa fa-heart"></i> <?php echo empty($info['likes']) ? "0" : $info['likes'] ?> &mdash; 
+                        <i class="fa fa-thumbs-down"></i> <?php echo empty($info['dislikes']) ? "0" : $info['dislikes'] ?>
                     </a>
 
                     <!-- Opinion buttons -->
