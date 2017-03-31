@@ -61,8 +61,8 @@
             </div>
             <div class="post-footer">
                 <div class="actions">
-                    <a class="opinions-counter" data-post-id="<?php echo $info['id'] ?>"><?php echo empty($info['likes']) ? "0" : $info['likes'] ?>/<?php echo empty($info['dislikes']) ? "0" : $info['dislikes'] ?></a>
-                    <?php if (isLoggedIn() && $info['user_id'] != $userid) { ?>
+                    <a class="opinions-counter" data-post-id="<?php echo $info['id'] ?>"><?php echo empty($info['likes']) ? "0" : $info['likes'] ?> likes and <?php echo empty($info['dislikes']) ? "0" : $info['dislikes'] ?> dislikes</a>
+                    <?php if (isLoggedIn() && $info['user'] != $userid) { ?>
                     <a href="javascript:;" data-post-id="<?php echo $info['id'] ?>" class="like-btn pbtn pbtn-blue<?php echo $likeClass ?>">
                         <i class="fa fa-heart"></i>
                         Like
