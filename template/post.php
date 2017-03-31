@@ -40,6 +40,8 @@
         $likeClass = "";
         $dislikeClass = " active";
     }
+
+    $userid = $_SESSION['info']['id'];
 ?>
     <div class="post post-margin-bottom">
         <div class="portlet">
@@ -60,7 +62,7 @@
             <div class="post-footer">
                 <div class="actions">
                     <a class="opinions-counter" data-post-id="<?php echo $info['id'] ?>"><?php echo empty($info['likes']) ? "0" : $info['likes'] ?>/<?php echo empty($info['dislikes']) ? "0" : $info['dislikes'] ?></a>
-                    <?php if (isLoggedIn()) { ?>
+                    <?php if (isLoggedIn() && $info['user_id'] != $userid) { ?>
                     <a href="javascript:;" data-post-id="<?php echo $info['id'] ?>" class="like-btn pbtn pbtn-blue<?php echo $likeClass ?>">
                         <i class="fa fa-heart"></i>
                         Like
