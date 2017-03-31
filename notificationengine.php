@@ -71,17 +71,15 @@ function newNotification($user, $from, $where, $type, $content) {
         $array = array("user" => $user, "from" => $from, "where" => $where, "type" => $type, "content" => $unsafeContent, "collapsible" => false);
         $alert = getFinalAlert($array);
         while ($token = mysqli_fetch_assoc($pushtoken)) {
+            $collapseKey = $alert["collapsible"] !== false ? ",\"collapse_key\": \"".$alert["collapsible"]."\"" : "";
             $settings = "{
                 \"notification\": {
                     \"title\": \"Tras\",
                     \"body\": \"".$alert['title']."\",
                     \"click_action\": \"https://tras.pw/readnotification/?where=".$alert['where']."&link=".$alert['link']."\",
                     \"icon\": \"https://tras.pw/images/logo-128.png\" },
-                    \"to\": \"".$token['token']."\",
-                    ". ($alert["collapsible"] !== false) ? "
-                    \"collapse_key\": \"".$alert["collapsible"]."\"
-                    " : ""
-                    ."}";
+                    \"to\": \"".$token['token']."\"
+                    ".$collapseKey."}";
             $ch = curl_init();
             curl_setopt($ch, CURLOPT_URL, 'https://fcm.googleapis.com/fcm/send');
             curl_setopt($ch, CURLOPT_POST, 1);
