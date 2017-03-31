@@ -27,6 +27,7 @@ Shared::unsetValue("notifications", "count");
             </div>
         </section>
         <?php include "template/delete-post-modal.php"; ?>
+        <?php include "template/delete-reply-modal.php"; ?>
         <?php include "template/share-modal.php"; ?>
         <footer>
             <span>© <?php echo date('Y'); ?> - Tras</span>

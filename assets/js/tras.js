@@ -136,6 +136,32 @@ window.deletePost = function(postId, element) {
     });
     return false;
 }
+window.deleteReply = function(replyId) {
+    $("#delete-reply-modal").modal("show");
+    $("#delete-reply-button").on("click", function () {
+        $.ajax({
+            url: "/deletereply",
+            type: "POST",
+            dataType: "json",
+            data: {id: replyId},
+            success: function(data) {
+                switch (data.CODE) {
+                    case 200:
+                        //ok
+                        $("#reply-id-" + replyId).fadeOut('slow', function() {$(this).remove()});
+                        break;
+                    case 302:
+                        //db error
+                        break;
+                    case 300:
+                        //wtf?
+                }
+            },
+            error: function(data) {/*!??*/}
+        });
+    });
+    return false;
+}
 //Start windowReload
 window.windowReload = function() {
 $(".post-menu-toggler").unbind().on('click', function(){

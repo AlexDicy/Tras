@@ -104,27 +104,6 @@
                     echo "</ul>";
                 }
                 ?>
-                <style>
-.replies {
-    padding: 0;
-    margin: 0;
-    list-style: none;
-    max-height: 200px;
-    overflow: auto;
-}
-.replies li {
-    margin: 0;
-    margin-top: 10px;
-}
-.replies li > div {
-    display:table-cell;
-}
-.reply-avatar {
-    margin-right: 5px;
-    float: left;
-}
-
-                </style>
             </div>
         </div>
     </div>

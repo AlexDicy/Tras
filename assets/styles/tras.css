@@ -10198,6 +10198,25 @@ A component of Metronic Theme - #1 Selling Bootstrap 3 Admin Theme in Themefores
 Licensed under MIT
 ***/
 
+.replies {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    max-height: 200px;
+    overflow: auto;
+}
+.replies li {
+    margin: 0;
+    margin-top: 10px;
+}
+.replies li > div {
+    display:table-cell;
+}
+.reply-avatar {
+    margin-right: 5px;
+    float: left;
+}
+
 .content {
 	padding: 30px;
 	background: #f1f3fa;
