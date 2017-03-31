@@ -62,7 +62,10 @@
             <div class="post-footer">
                 <div class="actions">
                     <!-- Opinion counts -->
-                    <a class="opinions-counter" data-post-id="<?php echo $info['id'] ?>"><?php echo empty($info['likes']) ? "0" : $info['likes'] ?> <small>LIKES</small> - <?php echo empty($info['dislikes']) ? "0" : $info['dislikes'] ?> <small>DISLIKES</small></a>
+                    <a class="opinions-counter" data-post-id="<?php echo $info['id'] ?>">
+                        <i class="fa fa-heart"></i><?php echo empty($info['likes']) ? "0" : $info['likes'] ?> &mdash; 
+                        <i class="fa fa-thumbs-down"></i><?php echo empty($info['dislikes']) ? "0" : $info['dislikes'] ?>
+                    </a>
 
                     <!-- Opinion buttons -->
                     <?php if (isLoggedIn()) { ?>
@@ -75,8 +78,6 @@
                                 <i class="fa fa-thumbs-down"></i>
                                 Dislike
                             </a>
-                        <?php else: ?>
-                            <small>You cannot vote on your own post.</small>
                         <?php endif; ?>
                     <!-- Share -->
                     <a href="javascript:;" data-post-id="<?php echo $info['id'] ?>" data-post-user="<?php echo $info['Nick'] ?>" class="share-btn pbtn pbtn-white active">
