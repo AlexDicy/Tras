@@ -1,7 +1,7 @@
 <div class="posts-col col-md-6">
 	<div class="alert alert-warning" style="display: none" id="new-post-error"><strong>Error</strong> There was an error while posting, please try again.</div>
 	<div class="post post-margin-bottom">
-		<div class="portlet">
+		<div class="portlet full-margin-bottom">
 			<div class="portlet-title">
 				<div class="caption">
 					<span class="caption-subject">New post</span>
