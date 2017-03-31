@@ -4,12 +4,24 @@
 
     // parsing
     if(strpos($text, '!~') !== false){
+        // Bold
         $text = str_replace("**", "<b>", $text);
-        $text = str_replace("__", "<i>", $text);
         $text = str_replace("/*", "</b>", $text);
+
+        // Italics
+        $text = str_replace("__", "<i>", $text);
         $text = str_replace("/_", "</i>", $text);
+
+        // Superscript
+        $text = str_replace("^^", "<sup>", $text);
+        $text = str_replace("/^", "</sup>", $text);
+
+        // Subscript
+        $text = str_replace("&&", "<sub>", $text);
+        $text = str_replace("/&", "</sub>", $text);
+        
         $text = str_replace("!~", "", $text);
-        $text .= "</i></b>";
+        $text .= "</i></b></sup></sub>";
     } 
 
     $hasOpinion = $info['has_opinion'];
