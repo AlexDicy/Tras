@@ -61,16 +61,24 @@
             </div>
             <div class="post-footer">
                 <div class="actions">
-                    <a class="opinions-counter" data-post-id="<?php echo $info['id'] ?>"><?php echo empty($info['likes']) ? "0" : $info['likes'] ?> likes and <?php echo empty($info['dislikes']) ? "0" : $info['dislikes'] ?> dislikes</a>
-                    <?php if (isLoggedIn() && $info['user'] != $userid) { ?>
-                    <a href="javascript:;" data-post-id="<?php echo $info['id'] ?>" class="like-btn pbtn pbtn-blue<?php echo $likeClass ?>">
-                        <i class="fa fa-heart"></i>
-                        Like
-                    </a>
-                    <a href="javascript:;" data-post-id="<?php echo $info['id'] ?>" class="dislike-btn pbtn pbtn-red<?php echo $dislikeClass ?>">
-                        <i class="fa fa-thumbs-down"></i>
-                        Dislike
-                    </a>
+                    <!-- Opinion counts -->
+                    <a class="opinions-counter" data-post-id="<?php echo $info['id'] ?>"><?php echo empty($info['likes']) ? "0" : $info['likes'] ?> <small>LIKES</small> - <?php echo empty($info['dislikes']) ? "0" : $info['dislikes'] ?> <small>DISLIKES</small></a>
+
+                    <!-- Opinion buttons -->
+                    <?php if (isLoggedIn()) { ?>
+                        <?php if($info['user'] != $userid): ?>
+                            <a href="javascript:;" data-post-id="<?php echo $info['id'] ?>" class="like-btn pbtn pbtn-blue<?php echo $likeClass ?>">
+                                <i class="fa fa-heart"></i>
+                                Like
+                            </a>
+                            <a href="javascript:;" data-post-id="<?php echo $info['id'] ?>" class="dislike-btn pbtn pbtn-red<?php echo $dislikeClass ?>">
+                                <i class="fa fa-thumbs-down"></i>
+                                Dislike
+                            </a>
+                        <?php else: ?>
+                            <small>You cannot vote on your own post.</small>
+                        <?php endif; ?>
+                    <!-- Share -->
                     <a href="javascript:;" data-post-id="<?php echo $info['id'] ?>" data-post-user="<?php echo $info['Nick'] ?>" class="share-btn pbtn pbtn-white active">
                         <i class="fa fa-share"></i>
                         Share
