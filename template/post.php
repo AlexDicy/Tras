@@ -42,7 +42,7 @@
         $dislikeClass = " active";
     }
 
-    $userid = $_SESSION['info']['id'];
+    $userid = isLoggedIn() ? $_SESSION['info']['id'] : 0;
 ?>
     <div class="post post-margin-bottom">
         <div class="portlet">

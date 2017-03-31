@@ -48,7 +48,7 @@ class GetPosts {
                     JOIN Members
                     ON Replies.user = Members.id
                     
-                    WHERE Replies.post = '$id' ORDER BY Replies.date ASC LIMIT $limit");
+                    WHERE Replies.post = '$id' ORDER BY Replies.date DESC LIMIT $limit");
     }
 
     function getHomePosts() {
