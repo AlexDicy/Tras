@@ -18,8 +18,6 @@ Shared::unsetValue("notifications", "count");
     <div class="app-container">
         <?php include "template/header.php"; ?>
         <?php include "template/sidebar.php"; ?>
-        <?php include "template/delete-post-modal.php"; ?>
-        <?php include "template/share-modal.php"; ?>
         <section>
             <div class="app">
                 <h3><?php echo Shared::get("name") ?></h3>
@@ -28,6 +26,8 @@ Shared::unsetValue("notifications", "count");
                 </div>
             </div>
         </section>
+        <?php include "template/delete-post-modal.php"; ?>
+        <?php include "template/share-modal.php"; ?>
         <footer>
             <span>© <?php echo date('Y'); ?> - Tras</span>
         </footer>

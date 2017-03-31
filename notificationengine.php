@@ -24,14 +24,17 @@ function getFinalAlert($n) {
         case 1:
             $n['title'] = $n['Nick']." likes your post";
             $n['link'] = "/post/".$_SESSION['info']['Nick']."/".$n['where'];
+            $n['collapsible'] = $n['where'];
             break;
         case 2:
             $n['title'] = $n['Nick']." dislikes your post";
             $n['link'] = "/post/".$_SESSION['info']['Nick']."/".$n['where'];
+            $n['collapsible'] = $n['where'];
             break;
         case 3:
             $n['title'] = $n['Nick']." replied to your post";
             $n['link'] = "/post/".$_SESSION['info']['Nick']."/".$n['where'];
+            $n['collapsible'] = $n['where'];
             break;
         case 4:
             $n['title'] = "Tras alert";
@@ -41,14 +44,18 @@ function getFinalAlert($n) {
         case 5:
             $n['title'] = $n['Nick']." has added you as friend";
             $n['link'] = "/user/".$n['Nick'];
+            $n['collapsible'] = $n['Nick'];
             break;
         case 6:
             $n['title'] = $n['Nick']." wrote: ".$n['content'];
             $n['link'] = "/messages/chat/".$n['where'];
+            $n['collapsible'] = $n['where'];
             break;
+        //Didn't the third work the same? I didn't see it
         case 7:
             $n['title'] = $n['Nick']." replied: ".$n['content'];
             $n['link'] = "/post/".$_SESSION['info']['Nick']."/".$n['where'];
+            $n['collapsible'] = $n['where'];
             break;
     }
     return $n;
@@ -61,10 +68,20 @@ function newNotification($user, $from, $where, $type, $content) {
     $sql = "INSERT INTO Notifications (`user`, `from`, `where`, `type`, `content`) VALUES ('$user', '$from', '$where', '$type', '$content') ON DUPLICATE KEY UPDATE `hide` = 0";
     $pushtoken = query("SELECT token FROM PushTokens WHERE user='$user'");
     if (!empty($pushtoken) && $exists < 1) {
-        $array = array("user" => $user, "from" => $from, "where" => $where, "type" => $type, "content" => $unsafeContent);
+        $array = array("user" => $user, "from" => $from, "where" => $where, "type" => $type, "content" => $unsafeContent, "collapsible" => false);
         $alert = getFinalAlert($array);
         while ($token = mysqli_fetch_assoc($pushtoken)) {
-            $settings = "{ \"notification\": {\"title\": \"Tras\", \"body\": \"".$alert['title']."\", \"click_action\" : \"https://tras.pw/readnotification/?where=".$alert['where']."&link=".$alert['link']."\", \"icon\": \"https://tras.pw/images/logo-128.png\" }, \"to\" : \"".$token['token']."\"}";
+            $settings = "{
+                \"notification\": {
+                    \"title\": \"Tras\",
+                    \"body\": \"".$alert['title']."\",
+                    \"click_action\": \"https://tras.pw/readnotification/?where=".$alert['where']."&link=".$alert['link']."\",
+                    \"icon\": \"https://tras.pw/images/logo-128.png\" },
+                    \"to\": \"".$token['token']."\",
+                    ". ($alert["collapsible"] !== false) ? "
+                    \"collapse_key\": \"".$alert["collapsible"]."\"
+                    " : ""
+                    ."}";
             $ch = curl_init();
             curl_setopt($ch, CURLOPT_URL, 'https://fcm.googleapis.com/fcm/send');
             curl_setopt($ch, CURLOPT_POST, 1);

@@ -1,9 +1,10 @@
 <?php
 
+    $replies = Shared::get("get")['posts']->getReplies($info['id'], 20);
     $text = $info['content'];
 
     // parsing
-    if(strpos($text, '!~') !== false){
+    if (strpos($text, '!~') !== false){
         // Bold
         $text = str_replace("**", "<b>", $text);
         $text = str_replace("/*", "</b>", $text);
@@ -93,33 +94,20 @@
                         Reply
                     </a>*/ ?>
                 </div>
-                <?php /*<input type="text" data-post-id="<?php echo $info['id'] ?>" placeholder="Reply to <?php echo $info['Nick'] ?>'s post" class="form-control send-reply-input" />
-				<?php
-				if ($replies) {
-					echo "<ul class=\"replies\">";
-					while ($reply = mysqli_fetch_array($replies)) {
-						?>
-					<li>
-						<div class="reply-avatar">
-							<img class="mb center-block img-circle img-responsive thumb32" src="<?php echo $reply['avatar'] ?>" />
-						</div>
-						<div>
-							<a href="/user/<?php echo $reply['Nick'] ?>"><?php echo $reply['Nick'] ?></a>
-						<?php
-							echo "{$reply['content']}";
-						?>
-							<p class="m0 text-gray text-sm"><?php echo Shared::elapsedTime($reply['date']) ?> <?php if ($reply['user'] == $_SESSION['info']['id']) { ?><a href="javascript:;">Delete</a><?php } ?></p>
-						</div>
-				<?php
-						echo "</li>";
-					}
-					echo "</ul>";
-				}
-				?>
-				<style>
+                <input type="text" data-post-id="<?php echo $info['id'] ?>" data-post-user="<?php echo $info['user'] ?>" placeholder="Reply to <?php echo $info['Nick'] ?>'s post" class="form-control send-reply-input" />
+                <?php
+                if ($replies) {
+                    echo "<ul class=\"replies\">";
+                    while ($reply = mysqli_fetch_array($replies)) {
+                        include "template/reply.php";
+                    }
+                    echo "</ul>";
+                }
+                ?>
+                <style>
 .replies {
     padding: 0;
-	margin: 0;
+    margin: 0;
     list-style: none;
     max-height: 200px;
     overflow: auto;
@@ -136,8 +124,7 @@
     float: left;
 }
 
-				</style>
-				*/ ?>
+                </style>
             </div>
         </div>
     </div>
