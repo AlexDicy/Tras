@@ -17,8 +17,12 @@
         $text = str_replace("/^", "</sup>", $text);
 
         // Subscript
-        $text = str_replace("&&", "<sub>", $text);
-        $text = str_replace("/&", "</sub>", $text);
+        $text = str_replace("~~", "<sub>", $text);
+        $text = str_replace("/~", "</sub>", $text);
+
+        // Quote
+        $text = str_replace(">>", "<blockquote>", $text);
+        $text = str_replace("/>", "</blockquote>", $text);
         
         $text = str_replace("!~", "", $text);
         $text .= "</i></b></sup></sub>";
