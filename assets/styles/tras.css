@@ -10416,8 +10416,8 @@ Licensed under MIT
 .pagination > li.active > a,
 .pagination > li.active:hover > a {
 	color: #fff;
-	background: #8775a7;
-	border-color: #8775a7;
+	background: #43a8eb;
+	border-color: #43a8eb;
 }
 
 /* Inputs */
