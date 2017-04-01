@@ -2,7 +2,8 @@
 <?php
 $page = 1;
 if (isset($_GET['page'])) {
-    $page = (int) $_GET['page'];
+    $get = (int) $_GET['page'];
+    $page = $get > 0 ? $get : 1;
 }
 $notifications = getNotificationsByOffset(escape($page) * 10, 10);
 $count = getNotificationsCount(true);
