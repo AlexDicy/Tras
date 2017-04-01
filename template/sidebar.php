@@ -106,6 +106,13 @@
                         </ul>
                     </li>
                     <?php } ?>
+
+                    <li>
+                        <hr>
+                    </li>
+                    <li>
+                        <a title="Report a bug" href="//github.com/Tras/TrasReport/issues/new"><em class="sidebar-item-icon icon-bug"></em><span>Report a Bug</span></a>
+                    </li>
                 </ul>
             </div>
         </nav>

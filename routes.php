@@ -58,7 +58,13 @@ switch (Shared::get("link")) {
     case "editpost":
         getPage(null, 2, true, "pages/editpost.php");
         break;
-
+    //Replies
+    case "sendreply":
+        getPage(null, 2, true, "pages/sendreply.php");
+        break;
+    case "deletereply":
+        getPage(null, 2, true, "pages/deletereply.php");
+        break;
     //Users
     case "user":
         if(isset(Shared::get("path")[1])) {

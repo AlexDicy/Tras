@@ -136,6 +136,33 @@ window.deletePost = function(postId, element) {
     });
     return false;
 }
+window.deleteReply = function(replyId) {
+    $("#delete-reply-modal").modal("show");
+    $("#delete-reply-button").on("click", function () {
+        $.ajax({
+            url: "/deletereply",
+            type: "POST",
+            dataType: "json",
+            data: {id: replyId},
+            success: function(data) {
+                switch (data.CODE) {
+                    case 200:
+                        //ok
+                        $("#reply-id-" + replyId).fadeOut('slow', function() {$(this).remove()});
+                        break;
+                    case 302:
+                        //db error
+                        break;
+                    case 300:
+                        //wtf?
+                }
+            },
+            error: function(data) {/*!??*/}
+        });
+    });
+    return false;
+}
+//Start windowReload
 window.windowReload = function() {
 $(".post-menu-toggler").unbind().on('click', function(){
     if ($(this).hasClass("open")) {
@@ -166,9 +193,9 @@ $(".like-btn").unbind().on('click', function(){
         jsonData = {id: postId};
     }
     $.ajax({
-           url: "/opinionmanager",
-           type: "POST",
-           dataType: "json",
+        url: "/opinionmanager",
+        type: "POST",
+        dataType: "json",
         data: jsonData,
         success: function(data) {
             if (data.CODE == 200) {
@@ -196,9 +223,9 @@ $(".dislike-btn").unbind().on('click', function(){
         jsonData = {id: postId};
     }
     $.ajax({
-           url: "/opinionmanager",
-           type: "POST",
-           dataType: "json",
+        url: "/opinionmanager",
+        type: "POST",
+        dataType: "json",
         data: jsonData,
         success: function(data) {
             if (data.CODE == 200) {
@@ -288,7 +315,26 @@ $(".opinions-counter").unbind().on('click', function() {
         }
     });
 });
+
+$(".send-reply-input").unbind().on('keyup', function(event) {
+    if (event.keyCode == 13) {
+        var json = {content: $(this).val(), post_id: $(this).data("post-id"), user: $(this).data("post-user")};
+        $.ajax({
+            url: "/sendreply",
+            type: "POST",
+            dataType: "json",
+            data: json,
+            success: function(data) {
+                if (data.CODE == 700) {
+                    document.location.reload();
+                }
+            }
+        });
+    }
+});
 }
+//Stop windowReload
+
 $(".notification-link").unbind().on('click', function() {
     var that = $(this);
     if (!that.hasClass("viewed")) {

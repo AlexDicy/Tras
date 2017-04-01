@@ -63,6 +63,9 @@ class Shared {
         $ago = new DateTime($datetime);
         $diff = $now->diff($ago);
 
+        if ($diff->days > 100) return date("d M H:i Y", strtotime($datetime));
+        if ($diff->days > 6) return date("d M H:i", strtotime($datetime));
+
         $diff->w = floor($diff->d / 7);
         $diff->d -= $diff->w * 7;
 
