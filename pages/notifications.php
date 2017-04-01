@@ -5,7 +5,7 @@ foreach ($notifications as $n) {
     <a class="notification-link" data-notification-id="<?php echo $n['id'] ?>" href="<?php echo $n['link'] ?>">
         <div class="panel panel-default b0<?php echo $n['viewed'] == 1 ? " bg-gray-lighter viewed":""; ?>">
             <div class="row row-table row-flush">
-                <div class="col-xs-2 bg-danger text-center">
+                <div class="col-xs-2 text-center">
                     <img class="sidebar-avatar mb-sm mt-sm center-block img-responsive thumb64" src="<?php echo $n['Avatar'] ?>" alt="Avatar image"/>
                 </div>
                 <div class="col-xs-10">
