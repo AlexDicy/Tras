@@ -7,7 +7,7 @@ $info = mysqli_fetch_array($post);
 <div class="alert alert-warning" style="display: none" id="edit-post-error"><strong>Error</strong> There was an error while editing, please try again.</div>
 <div class="post post-margin-bottom">
 	<?php if ($userid == $info['user_id']) { ?>
-	<div class="portlet">
+	<div class="portlet full-margin-bottom">
 		<div class="portlet-title">
 			<div class="caption">
 				<span class="caption-subject">Edit your post</span>
