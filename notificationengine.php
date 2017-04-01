@@ -1,11 +1,15 @@
 <?php
 function getNotifications($num) {
+    return getNotificationsByOffset(0, $num);
+}
+
+function getNotificationsByOffset($start, $num) {
     $array = array();
     $array['count'] = "";
     if (isLoggedIn()) {
         $userid = $_SESSION['info']['id'];
         $where = "WHERE user = $userid AND Notifications.from <> $userid AND Notifications.hide = 0";
-        $query = query("SELECT Notifications.id, Notifications.user, Notifications.from, Notifications.where, Notifications.type, Notifications.when, Notifications.content, Notifications.viewed, Members.Avatar, Members.Nick FROM Notifications LEFT JOIN Members ON Members.id = Notifications.from     $where ORDER BY id DESC LIMIT $num");
+        $query = query("SELECT Notifications.id, Notifications.user, Notifications.from, Notifications.where, Notifications.type, Notifications.when, Notifications.content, Notifications.viewed, Members.Avatar, Members.Nick FROM Notifications LEFT JOIN Members ON Members.id = Notifications.from $where ORDER BY id DESC LIMIT $start, $num");
         $count = mysqli_num_rows(query("SELECT id FROM Notifications $where AND viewed = 0 AND hide = 0 LIMIT 100"));
         $array['count'] = ($count == 0 ? "":($count == 100 ? "99+":$count));
         while ($n = mysqli_fetch_assoc($query)) {
@@ -14,6 +18,14 @@ function getNotifications($num) {
         }
     }
     return $array;
+}
+
+function getNotificationsCount($all = true) {
+    if (isLoggedIn()) {
+        $userid = $_SESSION['info']['id'];
+        return mysqli_num_rows(query("SELECT id FROM Notifications WHERE user = $userid AND Notifications.from <> $userid AND hide = 0 LIMIT 1000"));
+    }
+    return 0;
 }
 
 function getFinalAlert($n) {

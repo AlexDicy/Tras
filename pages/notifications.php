@@ -1,5 +1,13 @@
 <div class="col-md-6">
 <?php
+$page = 1;
+if (isset($_GET['page'])) {
+    $page = (int) $_GET['page'];
+}
+$notifications = getNotificationsByOffset(escape($page) * 10, 10);
+$count = getNotificationsCount(true);
+unset($notifications['count']);
+
 foreach ($notifications as $n) {
 ?>
     <a class="notification-link" data-notification-id="<?php echo $n['id'] ?>" href="<?php echo $n['link'] ?>">
@@ -20,5 +28,15 @@ foreach ($notifications as $n) {
 <?php
 }
 ?>
+<ul class="pagination">
+    <?php
+    for ($i = 1; $i <= $count/10; $i++) {
+        $class = $page == $i ? ' class="active"' : "";
+    ?>
+    <li <?= $class ?>><a href="/notifications/?page=<?= $i ?>"><?= $i ?></a></li>
+    <?php
+    }
+    ?>
+</ul>
 </div>
 <?php include("template/right-sidebar.php");
