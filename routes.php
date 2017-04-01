@@ -120,6 +120,11 @@ switch (Shared::get("link")) {
         echo file_get_contents("pagefiles/changelog.html");
         break;
 
+    //Admin
+    case "admin":
+        getPage(null, null, true, "Administration", "admin");
+        break;
+
     //Any other, is a 404 error
     default:
         getPage("404");
