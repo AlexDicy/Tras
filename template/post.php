@@ -48,8 +48,8 @@
         <div class="portlet">
             <div class="portlet-title">
                 <div class="caption">
-                    <a href="/user/<?php echo $info['Nick'] ?>/"><span class="caption-subject"><?php echo $info['Nick'] ?>IsBad<?php if ($info['verified'] == 1) { ?><a> <i class="fa fa-check-circle" style="color: #42A5F5;"></i></a><?php } else if ($info['verified'] == 2) { ?><a> <i class="fa fa-check-circle" style="color: #4CAF50;"></i></a><?php } ?></span></a>
-                    <a href="/post/<?php echo $info['Nick']."/".$info['id'] ?>/"><span class="caption-helper"><small> <?php echo date("H:i d/m/1980", strtotime($info['date'])) ?></small></span></a>
+                    <a href="/user/<?php echo $info['Nick'] ?>/"><span class="caption-subject"><?php echo $info['Nick'] ?><?php if ($info['verified'] == 1) { ?><a> <i class="fa fa-check-circle" style="color: #42A5F5;"></i></a><?php } else if ($info['verified'] == 2) { ?><a> <i class="fa fa-check-circle" style="color: #4CAF50;"></i></a><?php } ?></span></a>
+                    <a href="/post/<?php echo $info['Nick']."/".$info['id'] ?>/"><span class="caption-helper"><small> <?php echo date("H:i d/m/Y", strtotime($info['date'])) ?></small></span></a>
                 </div>
                 <?php if (isLoggedIn()) { ?>
                 <div class="actions post-menu">
