@@ -94,7 +94,7 @@
                         Reply
                     </a>*/ ?>
                 </div>
-                <input type="text" data-post-id="<?php echo $info['id'] ?>" data-post-user="<?php echo $info['user'] ?>" placeholder="Reply to <?php echo $info['Nick'] ?>'s post" class="form-control send-reply-input" />
+                <?php if (isLoggedIn()) { ?><input type="text" data-post-id="<?php echo $info['id'] ?>" data-post-user="<?php echo $info['user'] ?>" placeholder="Reply to <?php echo $info['Nick'] ?>'s post" class="form-control send-reply-input" /> <?php } ?>
                 <?php
                 if ($replies) {
                     echo "<ul class=\"replies\">";
