@@ -45,7 +45,7 @@
     $userid = isLoggedIn() ? $_SESSION['info']['id'] : 0;
 ?>
     <div class="post post-margin-bottom">
-        <div class="portlet <?= isLoggedIn() ? "" : " full-margin-bottom" ?>">
+        <div class="portlet<?= isLoggedIn() ? "" : " full-margin-bottom" ?>">
             <div class="portlet-title">
                 <div class="caption">
                     <a href="/user/<?php echo $info['Nick'] ?>/"><span class="caption-subject"><?php echo $info['Nick'] ?><?php if ($info['verified'] == 1) { ?><a> <i class="fa fa-check-circle" style="color: #42A5F5;"></i></a><?php } else if ($info['verified'] == 2) { ?><a> <i class="fa fa-check-circle" style="color: #4CAF50;"></i></a><?php } ?></span></a>
