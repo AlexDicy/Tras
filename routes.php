@@ -34,7 +34,7 @@ switch (Shared::get("link")) {
 
     //Posts
     case "post":
-        if(isset(Shared::get("path")[1]) && isset(Shared::get("path")[2])) {
+        if (isset(Shared::get("path")[1]) && isset(Shared::get("path")[2])) {
             getPage(null, null, null, "Post", "post");
         } else {
             getPage("404");

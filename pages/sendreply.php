@@ -12,7 +12,7 @@ if (isset($_POST['content']) && isset($_POST['post_id']) && isset($_POST['user']
     
     $sql = query("INSERT INTO Replies (user, post, content) VALUES ('$user', '$postId', '$text')");
     
-    if ($sql) {
+    if ($sql && $user != $userId) {
         echo "{\"CODE\": 700}";
         newNotification($userId, $user, $postId, 7, substr($_POST['content'], 0, 50));
     } else {
