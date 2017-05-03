@@ -1,9 +1,9 @@
 <div class="col-md-6">
 <?php
-$page = 1;
+$page = 0;
 if (isset($_GET['page'])) {
     $get = (int) $_GET['page'];
-    $page = $get > 0 ? $get : 1;
+    $page = $get >= 0 ? $get : 0;
 }
 $notifications = getNotificationsByOffset(escape($page) * 10, 10);
 $count = getNotificationsCount(true);
@@ -20,7 +20,7 @@ foreach ($notifications as $n) {
                 <div class="col-xs-10">
                     <div class="panel-body text-center">
                         <h4 class="mt0"><?php echo $n['title'] ?></h4>
-                        <p class="mb0 text-muted"><?php if (!empty($n['content'])) { echo $n['content']." "; } ?><?php echo Shared::elapsedTime($n['when']) ?></p>
+                        <p class="mb0 text-muted"><?php if (!empty($n['content'])) { echo Shared::removeFormatting($n['content'])." "; } ?><?php echo Shared::elapsedTime($n['when']) ?></p>
                     </div>
                 </div>
             </div>
@@ -32,9 +32,10 @@ foreach ($notifications as $n) {
 <ul class="pagination">
     <?php
     for ($i = 1; $i <= $count/10; $i++) {
-        $class = $page == $i ? ' class="active"' : "";
+        $p = $i - 1;
+        $class = $page == $p ? ' class="active"' : "";
     ?>
-    <li <?= $class ?>><a href="/notifications/?page=<?= $i ?>"><?= $i ?></a></li>
+    <li <?= $class ?>><a href="/notifications/?page=<?= $p ?>"><?= $p ?></a></li>
     <?php
     }
     ?>

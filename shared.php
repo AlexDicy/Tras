@@ -89,5 +89,60 @@ class Shared {
         if (!$full) $string = array_slice($string, 0, 1);
         return $string ? implode(', ', $string) . ' ago' : 'just now';
     }
+
+    public static function parsePost($text) {
+        if (strpos($text, '!~') !== false) {
+            // Bold
+            $text = str_replace("**", "<b>", $text);
+            $text = str_replace("/*", "</b>", $text);
+
+            // Italics
+            $text = str_replace("__", "<i>", $text);
+            $text = str_replace("/_", "</i>", $text);
+
+            // Superscript
+            $text = str_replace("^^", "<sup>", $text);
+            $text = str_replace("/^", "</sup>", $text);
+
+            // Subscript
+            $text = str_replace("~~", "<sub>", $text);
+            $text = str_replace("/~", "</sub>", $text);
+
+            // Quote
+            $text = str_replace("&gt;&gt;", "<blockquote>", $text);
+            $text = str_replace("/&gt;", "</blockquote>", $text);
+
+            $text = str_replace("!~", "", $text);
+            $text .= "</i></b></sup></sub>";
+        }
+        return $text;
+    }
+
+    public static function removeFormatting($text) {
+        if (strpos($text, '!~') !== false) {
+            // Bold
+            $text = str_replace("**", "", $text);
+            $text = str_replace("/*", "", $text);
+
+            // Italics
+            $text = str_replace("__", "", $text);
+            $text = str_replace("/_", "", $text);
+
+            // Superscript
+            $text = str_replace("^^", "", $text);
+            $text = str_replace("/^", "", $text);
+
+            // Subscript
+            $text = str_replace("~~", "", $text);
+            $text = str_replace("/~", "", $text);
+
+            // Quote
+            $text = str_replace("&gt;&gt;", "", $text);
+            $text = str_replace("/&gt;", "", $text);
+
+            $text = str_replace("!~", "", $text);
+        }
+        return $text;
+    }
 }
 ?>
