@@ -32,44 +32,45 @@ function getFinalAlert($n) {
     if (!isset($n['Nick'])) {
         $n['Nick'] = mysqli_fetch_assoc(query("SELECT Nick FROM Members WHERE id = '". $n['from'] ."'"))['Nick'];
     }
+    $linkbase = "https://tras.pw/readnotification/?where=".$n['where']."&link=";
     switch ($n['type']) {
         case 1:
             $n['title'] = $n['Nick']." likes your post";
-            $n['link'] = "/post/".$_SESSION['info']['Nick']."/".$n['where'];
+            $n['link'] = $linkbase."/post/".$_SESSION['info']['Nick']."/".$n['where'];
             $n['collapsible'] = $n['where'];
             break;
         case 2:
             $n['title'] = $n['Nick']." dislikes your post";
-            $n['link'] = "/post/".$_SESSION['info']['Nick']."/".$n['where'];
+            $n['link'] = $linkbase."/post/".$_SESSION['info']['Nick']."/".$n['where'];
             $n['collapsible'] = $n['where'];
             break;
         case 3:
             $n['title'] = $n['Nick']." replied to your post";
-            $n['link'] = "/post/".$_SESSION['info']['Nick']."/".$n['where'];
+            $n['link'] = $linkbase."/post/".$_SESSION['info']['Nick']."/".$n['where'];
             $n['collapsible'] = $n['where'];
             $n['forceSend'] = true;
             break;
         case 4:
             $n['title'] = "Tras alert";
-            $n['link'] = "/alert/".$n['id'];
+            $n['link'] = $linkbase."/alert/".$n['id'];
             $n['Avatar'] = "https://tras.pw/images/logo-min.png";
             $n['forceSend'] = true;
             break;
         case 5:
             $n['title'] = $n['Nick']." has added you as friend";
-            $n['link'] = "/user/".$n['Nick'];
+            $n['link'] = $linkbase."/user/".$n['Nick'];
             $n['collapsible'] = $n['Nick'];
             break;
         case 6:
             $n['title'] = $n['Nick']." wrote: ".$n['content'];
-            $n['link'] = "/messages/chat/".$n['where'];
+            $n['link'] = $linkbase."/messages/chat/".$n['where'];
             $n['collapsible'] = $n['where'];
             $n['forceSend'] = true;
             break;
         //Didn't the third work the same? I didn't see it
         case 7:
             $n['title'] = $n['Nick']." replied: ".$n['content'];
-            $n['link'] = "/post/".$_SESSION['info']['Nick']."/".$n['where'];
+            $n['link'] = $linkbase."/post/".$_SESSION['info']['Nick']."/".$n['where'];
             $n['collapsible'] = $n['where'];
             $n['forceSend'] = true;
             break;
@@ -94,7 +95,7 @@ function newNotification($user, $from, $where, $type, $content) {
                 \"notification\": {
                     \"title\": \"Tras\",
                     \"body\": \"".$alert['title']."\",
-                    \"click_action\": \"https://tras.pw/readnotification/?where=".$alert['where']."&link=".$alert['link']."\",
+                    \"click_action\": \"".$alert['link']."\",
                     \"icon\": \"https://tras.pw/images/logo-128.png\" },
                     \"to\": \"".$token['token']."\" $collapseKey }";
             $ch = curl_init();

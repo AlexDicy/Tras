@@ -335,13 +335,13 @@ $(".send-reply-input").unbind().on('keyup', function(event) {
 }
 //Stop windowReload
 
-$(".notification-link").unbind().on('click', function() {
+/*$(".notification-link").unbind().on('click', function() {
     var that = $(this);
     if (!that.hasClass("viewed")) {
         $.post("/notificationsmanager", {id: that.data("notification-id")});
         setTimeout(function() {window.location.href = that.attr("href")}, 200);
     }
-});
+});*/
 var offset = 1;
 
 $(".load-more-btn").unbind().on('click', function() {
