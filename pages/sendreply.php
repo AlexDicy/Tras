@@ -10,7 +10,7 @@ if (isset($_POST['content']) && isset($_POST['post_id']) && isset($_POST['user']
     $exists = query("SELECT id FROM Posts WHERE id = '$postId' AND user = '$userId'");
     if (!$exists || mysqli_num_rows($exists) < 0) exit("{\"CODE\": 666}");
     
-    $sql = query("INSERT INTO Replies (user, post, content) VALUES ('$user', '$postId', '$text')");
+    $sql = query("INSERT INTO Posts (user, post, content) VALUES ('$user', '$postId', '$text')");
     
     if ($sql && $user != $userId) {
         echo "{\"CODE\": 700}";
