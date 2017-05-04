@@ -41,9 +41,15 @@ class GetPosts {
 
                     (SELECT SUM(Opinions.type = 0) FROM Opinions WHERE Opinions.post = root.id)
                     AS dislikes,
+
+                    (SELECT SUM(Posts.post = root.id) FROM Posts WHERE Posts.post = root.id)
+                    AS numreplies,
                     
                     root.id, root.user, root.post, root.content, root.date, Members.Nick, Members.verified, Members.avatar,
-                    lrs.id AS lrid, lrs.user AS lruser, lrs.post AS lrpost, lrs.content AS lrcontent, lrs.date AS lrdate, lrsm.Nick AS lrmNick, lrsm.verified AS lrmverified, lrsm.avatar AS lrmavatar
+                    lrs.id AS lrid, lrs.user AS lruser, lrs.post AS lrpost, lrs.content AS lrcontent, lrs.date AS lrdate, lrsm.Nick AS lrmNick, lrsm.verified AS lrmverified, lrsm.avatar AS lrmavatar,
+                    
+                    (SELECT SUM(Posts.post = lrid) FROM Posts WHERE Posts.post = lrid)
+                    AS lrnumreplies
 
                     FROM Posts AS root
                     LEFT JOIN Posts lrs ON lrs.id = (
