@@ -33,22 +33,24 @@ class GetPosts {
         if ($limit > 100) $limit = 100;
 
         return query("SELECT
-                    (SELECT Opinions.Type FROM Opinions WHERE Opinions.post = Posts.id AND Opinions.user = $this->user)
+                    (SELECT Opinions.Type FROM Opinions WHERE Opinions.post = root.id AND Opinions.user = $this->user)
                     AS has_opinion,
                     
-                    (SELECT SUM(Opinions.type = 1) FROM Opinions WHERE Opinions.post = Posts.id)
+                    (SELECT SUM(Opinions.type = 1) FROM Opinions WHERE Opinions.post = root.id)
                     AS likes,
 
-                    (SELECT SUM(Opinions.type = 0) FROM Opinions WHERE Opinions.post = Posts.id)
+                    (SELECT SUM(Opinions.type = 0) FROM Opinions WHERE Opinions.post = root.id)
                     AS dislikes,
                     
-                    Posts.id, Posts.user, Posts.post, Posts.content, Posts.date, Members.Nick, Members.verified, Members.avatar
+                    root.id, root.user, root.post, root.content, root.date, Members.Nick, Members.verified, Members.avatar,
+                    LastReply.id AS lrid, LastReply.user AS lruser, LastReply.post AS lrpost, LastReply.content AS lrcontent, LastReply.date AS lrdate, LastReplyM.Nick AS lrmNick, LastReplyM.verified  AS lrmverified, LastReplyM.avatar  AS lrmavatar
                     
-                    FROM Posts
-                    JOIN Members
-                    ON Posts.user = Members.id
+                    FROM Posts AS root
+                    JOIN Members ON root.user = Members.id
+                    LEFT JOIN Posts AS LastReply ON root.id = LastReply.post
+                    LEFT JOIN Members AS LastReplyM ON LastReply.user = Members.id
                     
-                    WHERE Posts.post = '$id' ORDER BY Posts.date DESC LIMIT $limit");
+                    WHERE root.post = '$id' ORDER BY root.date DESC LIMIT $limit");
     }
 
     function getHomePosts() {
