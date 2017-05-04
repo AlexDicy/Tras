@@ -2,7 +2,7 @@
 	<div class="right-sidebar">
 		<?php
 		if (isLoggedIn()) {
-			$userid = $_SESSION['info']['id'];
+			$userid = $USERDATA['info']['id'];
 			$notInclude = empty(Shared::get("friendslist")) ? $userid : "$userid, ".implode(', ', Shared::get("friendslist"));
 			$whoToFollow = query("SELECT id, nick, avatar FROM Members WHERE confirmed = 1 AND id NOT IN ($notInclude) ORDER BY RAND() LIMIT 10");
 			if (mysqli_num_rows($whoToFollow) > 0) {

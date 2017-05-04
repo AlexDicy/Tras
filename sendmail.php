@@ -7,7 +7,7 @@ $preheader = $sent ? "We inform you that..." : $_POST['preheader'];
 $body = $sent ? "" : $_POST['body'];
 require_once('session.php');
 reloadInfo();
-if (!$sent && $_SESSION['info']['id'] == 6) {
+if (!$sent && $USERDATA['info']['id'] == 6) {
     sendMail($subject, nl2br(htmlentities($body)), $to, $preheader);
 } else if (!$sent) $title = "ADMIN NOT LOGGED IN, Email not sent";
 ?>

@@ -19,7 +19,7 @@ if (isset($reply['lrnumreplies'])) {
 		<p class="m0 text-gray text-sm">
             <a class="text-gray" href="/post/<?= $reply['nick'] ?>/<?= $reply['id'] ?>"><?= Shared::elapsedTime($reply['date']) ?></a> 
             <?= isset($numreplies) ? $numreplies.$numrepliesText : "" ?>
-            <?php if (isLoggedIn() && $reply['user'] == $_SESSION['info']['id']) { ?>
+            <?php if (isLoggedIn() && $reply['user'] == $USERDATA['info']['id']) { ?>
             <a href="javascript:deleteReply(<?= $reply['id'] ?>);">Delete</a>
             <?php } if (isLoggedIn()) { ?><a href="javascript:replyToReply(<?= $reply['id'] ?>);"> Reply</a><?php } ?>
         </p>
@@ -34,7 +34,7 @@ if (isset($reply['lrnumreplies'])) {
 		<p class="m0 text-gray text-sm">
             <a class="text-gray" href="/post/<?= $reply['lrmnick'] ?>/<?= $reply['lrid'] ?>"><?= Shared::elapsedTime($reply['lrdate']) ?></a> 
             <?= isset($lrnumreplies) ? $lrnumreplies.$lrnumrepliesText : "" ?>
-            <?php if (isLoggedIn() && $reply['lruser'] == $_SESSION['info']['id']) { ?>
+            <?php if (isLoggedIn() && $reply['lruser'] == $USERDATA['info']['id']) { ?>
             <a href="javascript:deleteReply(<?= $reply['lrid'] ?>);">Delete</a>
             <?php } if (isLoggedIn()) { ?><a href="javascript:replyToReply(<?= $reply['lrid'] ?>);"> Reply</a><?php } ?></p>
 	</div>

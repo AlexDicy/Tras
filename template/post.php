@@ -16,7 +16,7 @@
         $dislikeClass = " active";
     }
 
-    $userid = isLoggedIn() ? $_SESSION['info']['id'] : 0;
+    $userid = isLoggedIn() ? $USERDATA['info']['id'] : 0;
 ?>
     <div class="post post-margin-bottom">
         <div class="portlet<?= isLoggedIn() ? "" : " full-margin-bottom" ?>">
@@ -27,7 +27,7 @@
                 </div>
                 <?php if (isLoggedIn()) { ?>
                 <div class="actions post-menu">
-                    <a href="#menu" class="post-menu-toggler<?php if ($info['user'] == $_SESSION['info']['id']) {echo " owner";} ?>" data-post-id="<?php echo $info['id'] ?>" data-post-user="<?php echo $info['nick'] ?>"><span class="caret"></span></a>
+                    <a href="#menu" class="post-menu-toggler<?php if ($info['user'] == $USERDATA['info']['id']) {echo " owner";} ?>" data-post-id="<?php echo $info['id'] ?>" data-post-user="<?php echo $info['nick'] ?>"><span class="caret"></span></a>
                 </div>
                 <?php } ?>
             </div>

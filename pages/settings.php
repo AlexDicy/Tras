@@ -25,7 +25,7 @@ switch (Shared::get("path")[1]) {
 ?>
     <h4>Basic Info</h4>
     <p>Avatar</p>
-    <img style="border-radius: 4px;" class="mb img-responsive thumb64" src="<?php echo $_SESSION['info']['avatar'] ?>">
+    <img style="border-radius: 4px;" class="mb img-responsive thumb64" src="<?php echo $USERDATA['info']['avatar'] ?>">
     <div class="alert alert-danger" style="display: none" id="uploaderror"><strong>Error</strong> <p id="p-u-e">An error occurred, try again.</p></div>
     <div class="alert alert-info" style="display: none" id="image-uploading"><strong>Uploading</strong><div class="progress progress-striped active"><div class="progress-bar progress-bar-danger" id="upload-progress-bar" style="width: 100%"></div></div></div>
     <div id="image-resize-container" class="col-md-12" style="display:none; width:300px; height:300px; margin-bottom:76px; padding:0 0;"><a id="image-upload-button" style="margin-bottom: 6px;" class="btn btn-primary">Upload</a><div id="image-resize"></div></div>

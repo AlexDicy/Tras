@@ -1,6 +1,6 @@
 <?php
 $nick = escape(Shared::get("path")[1]);
-$userid = empty($_SESSION['info']['id']) ? 0 : $_SESSION['info']['id'];
+$userid = empty($USERDATA['info']['id']) ? 0 : $USERDATA['info']['id'];
 $sql = query("SELECT id, avatar, verified FROM Members WHERE nick = '$nick'");
 $queryid = mysqli_fetch_array($sql)
 ?>
@@ -8,7 +8,7 @@ $queryid = mysqli_fetch_array($sql)
     <h3 class="pull-left" style="margin: -16px 0 8px 0;"><a href="/user/<?php echo $nick ?>"><?php echo $nick ?><?php if ($queryid['verified'] == 1) { ?><a> <i class="fa fa-check-circle" style="color: #42A5F5;"></i></a><?php } else if ($queryid['verified'] == 2) { ?><a> <i class="fa fa-check-circle" style="color: #4CAF50;"></i></a><?php } ?></a></h3>
     <img class="pull-right mb center-block img-circle img-responsive thumb128" src="<?php echo $queryid['avatar'] ?>">
 <?php
-if (isLoggedIn() && $nick != $_SESSION['info']['nick']) {
+if (isLoggedIn() && $nick != $USERDATA['info']['nick']) {
     if (in_array($queryid['id'], Shared::get("friendslist"))) $class = "btn-danger fa fa-minus isfriend";
     else $class = "btn-primary fa fa-plus";
 ?>

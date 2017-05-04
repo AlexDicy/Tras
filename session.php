@@ -8,6 +8,16 @@ $password = "***REMOVED***";
 $database = "***REMOVED***";
 $host = "mysql.minehoster.us";
 $conn = mysqli_connect($host, $username, $password, $database);
+$sessionId = isset($_COOKIE['TrasID']) ? escape($_COOKIE['TrasID']) : "notLoggedIn";
+$userId = isset($_COOKIE['userID']) ? escape($_COOKIE['userID']) : 0;
+
+unset($host, $username, $password, $database);
+
+//Never change this variable
+$USERDATA = array();
+
+loadUserData();
+
 /*if (isset($_GET['type'])) {
     $type = $_GET['type'];
 }*/
@@ -53,7 +63,15 @@ switch ($type) {
         break;
 }
 
-function verifyPassword($id, $pass){
+function loadUserData() {
+    global $sessionId, $userId, $USERDATA;
+    if (isLoggedIn()) {
+        query("INSERT INTO Sessions SET id = '" . $sessionId . "', user = '$userId' ON DUPLICATE KEY UPDATE last_access = NOW()");
+        $USERDATA["info"] = mysqli_fetch_assoc(query("SELECT * FROM Members WHERE Members.id = (SELECT user FROM Sessions WHERE Sessions.user = '$userId' AND Sessions.id = '$sessionId')"));
+    }
+}
+
+function verifyPassword($id, $pass) {
     global $salt;
     $id = escape($id);
     $hash = mysqli_fetch_assoc(query("SELECT password FROM Members WHERE (nick = '$id' OR id = '$id' OR email = '$id')"))['password'];
@@ -62,25 +80,20 @@ function verifyPassword($id, $pass){
     else return false;
 }
 
-function login($reg)  {
-    global $username;
-    global $password;
-    $token = md5(uniqid() . uniqid() . $password);
+function login($reg) {
+    global $username, $password, $sessionId, $userId, $USERDATA;
     $username = escape($username);
     if (verifyPassword($username, $password)) {
-        $data = query("SELECT * FROM Members WHERE (nick = '$username' OR email = '$username')");
-        setcookie("Redirect", "Delete me", time()-60*60*24*30, '/');
-        session_regenerate_id(true);
-        $_SESSION["ID"] = session_id();
-        $_SESSION["info"] = $info = mysqli_fetch_assoc($data);
-        $tquery = query("UPDATE Members SET token = '$token' WHERE id = " . $_SESSION['info']['id']);
-        if ($tquery) if (isset($_POST['remember']) && $_POST['remember'] == "true") {
-            setcookie("RM", $token, time()+60*60*24*30, '/');
-        }
-        $_SESSION['token'] = $token;
+        $id = mysqli_fetch_assoc(query("SELECT id FROM Members WHERE (nick = '$username' OR email = '$username')"))["id"];
+        setcookie("Redirect", "Delete me", time()-60*60*24*30, "/");
+        $userId = $id;
+        $sessionId = randomText();
+        loadUserData();
+        setcookie("TrasID", $sessionId, time()+86400*30, "/");
+        setcookie("userID", $userId, time()+86400*30, "/");
         if ($reg) {
-            if (sendConfirmEmail($info)) echo "{\"CODE\": 700}";
-            else if (sendConfirmEmail($info)) echo "{\"CODE\": 700}";
+            if (sendConfirmEmail($USERDATA)) echo "{\"CODE\": 700}";
+            else if (sendConfirmEmail($USERDATA)) echo "{\"CODE\": 700}"; // Odd, quick retry
             else echo "{\"CODE\": 704}";
         } else echo "{\"CODE\": 700}";
     } else {
@@ -110,41 +123,19 @@ function sendConfirmEmail($info) {
     }
 }
 
-function reloadInfo() {
-    if (isLoggedIn()) {
-        $info = query("SELECT * FROM Members WHERE id = '" . $_SESSION['info']['id'] . "'");
-        if (mysqli_num_rows($info) > 0) {
-            $_SESSION['info'] = mysqli_fetch_assoc($info);
-            $_SESSION["ID"] = session_id();
-            if (isset($_COOKIE['RM']) && !headers_sent()) {
-                setcookie("RM", $_SESSION['info']['token'], time()+60*60*24*30, '/');
-            }
-        }
-    } else {
-        $_SESSION['info'] = array();
-    }
-}
-
-function reloadFromToken() {
-    $info = query("SELECT * FROM Members WHERE token = '" . $_COOKIE['RM'] . "'");
-    if (mysqli_num_rows($info) > 0) {
-        $_SESSION['info'] = mysqli_fetch_assoc($info);
-        $_SESSION["ID"] = session_id();
-        return true;
-    } return false;
-}
-
 function confirmEmail($id) {
+    global $USERDATA;
     $confirm = query("UPDATE Members SET confirmed = 1 WHERE id = $id");
     query("DELETE FROM Confirm WHERE id = $id");
     if ($confirm) {
-        $_SESSION['info']['confirmed'] = 1;
+        $USERDATA['info']['confirmed'] = 1;
         return true;
     } return false;
 }
 
 function checkEmailConfirm() {
-    if (isset($_SESSION['info']['confirmed']) && $_SESSION['info']['confirmed'] == 1) {
+    global $USERDATA;
+    if (isset($USERDATA['info']['confirmed']) && $USERDATA['info']['confirmed'] == 1) {
         setcookie("Confirm", "602", time()+60);
         header("Location: /page/confirm-email");
         echo "{\"CODE\": 602}";
@@ -191,7 +182,7 @@ function register() {
     } else echo "{\"CODE\":  604}";
 }
 
-function recover()  {
+function recover() {
     global $username;
     $username = escape($username);
     $data = query("SELECT * FROM Members WHERE nick = '$username' OR email = '$username'");
@@ -236,25 +227,23 @@ function sendMail($subject, $body, $to, $preheader) {
 
 function recoverPass($code) {
     $code = escape($code);
-    $id = query("SELECT id FROM Recover WHERE code = '$code'");
     if (mysqli_num_rows($id) > 0) {
-        $id = mysqli_fetch_assoc($id)['id'];
-        $_SESSION['recover']['id'] = $id;
-        $_SESSION['recover']['code'] = $code;
+        setcookie("Recover-Code", $code);
         header("Location: https://tras.pw/page/recover");
     } else echo "{\"CODE\": 703}</br><p>This link is not valid. Request another reset.</p>";
 }
 
 function recoverPassword() {
     global $password;
-    if (isset($_SESSION['recover']) && isCodeValid($_SESSION['recover']['code'])) {
+    if (isset($_COOKIE['Recover-Code']) && isCodeValid($_COOKIE['Recover-Code'])) {
         if (strlen($password) > 3) {
             if (strlen($password) < 200) {
                 $hash = password_hash($password, PASSWORD_DEFAULT);
-                $query = query("UPDATE Members SET password = '$hash' WHERE id = " . $_SESSION['recover']['id']);
-                $remove = query("DELETE FROM Recover WHERE code = '" . $_SESSION['recover']['code'] . "'");
+                $id =  mysqli_fetch_assoc(query("SELECT id FROM Recover WHERE code = '$code'"))['id'];
+                $query = query("UPDATE Members SET password = '$hash' WHERE id = " . $id);
+                $remove = query("DELETE FROM Recover WHERE code = '" . $_COOKIE['Recover-Code'] . "'");
                 if ($query && $remove) {
-                    unset($_SESSION['recover']);
+                    setcookie("Recover-Code", "Delete me", time()-3600);
                     echo "{\"CODE\": 706}";
                 } else echo "{\"CODE\": 704}";
             } else echo "{\"CODE\": 701}";
@@ -263,12 +252,13 @@ function recoverPassword() {
 }
 
 function changePassword($old, $new) {
+    global $USERDATA;
     $old = escape($old);
     $new = escape($new);
     if (strlen($new) > 3 && strlen($new) < 200 && isLoggedIn()) {
-        if (verifyPassword($_SESSION['info']['id'], $old)) {
+        if (verifyPassword($USERDATA['info']['id'], $old)) {
             $hash = password_hash($new, PASSWORD_DEFAULT);
-            $query = query("UPDATE Members SET password = '$hash' WHERE id = " . $_SESSION['info']['id']);
+            $query = query("UPDATE Members SET password = '$hash' WHERE id = " . $USERDATA['info']['id']);
             echo "{\"CODE\": 700}";
         } else echo "{\"CODE\": 703}";
     } else echo "{\"CODE\": 702}";
@@ -284,8 +274,9 @@ function isCodeValid($code) {
 }
 
 function getFriendsList() {
+    global $USERDATA;
     $array = array();
-    $query = query("SELECT Friends.To FROM Friends WHERE Friends.From = " . $_SESSION['info']['id']);
+    $query = query("SELECT Friends.To FROM Friends WHERE Friends.From = " . $USERDATA['info']['id']);
     while ($row = mysqli_fetch_array($query)) {
         $array[] = $row;
     }
@@ -293,37 +284,24 @@ function getFriendsList() {
 }
 
 function getFriendsCount($id) {
+    global $USERDATA;
     if (!isset($id)) {
-        $id = $_SESSION['info']['id'];
+        $id = $USERDATA['info']['id'];
     }
     $sql = query("SELECT COUNT(Friends.To) FROM Friends WHERE Friends.To = $id");
     return mysqli_fetch_array($sql)[0];
 }
 
-function logout()  {
-    $token = md5(uniqid() . session_id() . uniqid());
-    $query = true;
-    $cookie = false;
-    if (isset($_COOKIE['RM'])) {
-        $query = query("UPDATE Members SET token = '$token' WHERE id = ". $_SESSION['info']['id'] ." AND token = '" . $_COOKIE['RM'] ."'");
-        $cookie = true;
-    }
-    if ($query) {
-        if ($cookie) setcookie("RM", "Delete me", time()-60*60*24*30, '/');
-        echo "{\"CODE\": 500}";
-        $_SESSION['ID'] = "";
-        $_SESSION = array();
-        session_destroy();
-    }
+function logout() {
+    global $USERDATA;
+    echo "{\"CODE\": 500}";
+    $USERDATA = array();
 }
 
 function isLoggedIn() {
-    if (isset($_SESSION['ID'])) {
+    global $sessionId, $userId;
+    if ($sessionId != "notLoggedIn" && $userId != 0) {
         return true;
-    } else {
-        if(isset($_COOKIE["RM"])) {
-            return reloadFromToken();
-        }
     }
     return false;
 }
@@ -371,5 +349,53 @@ function safeUnescape($escaped) {
   );
   return strtr($escaped, $replacements);
 }
+
+function randomText($length = 40, $type = 'alnum') {
+	switch ( $type ) {
+		case 'alnum':
+			$pool = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+			break;
+		case 'alpha':
+			$pool = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+			break;
+		case 'hexdec':
+			$pool = '0123456789abcdef';
+			break;
+		case 'numeric':
+			$pool = '0123456789';
+			break;
+		case 'nozero':
+			$pool = '123456789';
+			break;
+		case 'distinct':
+			$pool = '2345679ACDEFHJKLMNPRSTUVWXYZ';
+			break;
+		default:
+			$pool = (string) $type;
+			break;
+	}
+
+	$cryptoRandSecure = function ($min, $max) {
+		$range = $max - $min;
+		if ($range < 0) return $min; // not so random...
+		$log = log($range, 2);
+		$bytes = (int) ($log / 8) + 1; // length in bytes
+		$bits = (int) $log + 1; // length in bits
+		$filter = (int) (1 << $bits) - 1; // set all lower bits to 1
+		do {
+			$rnd = hexdec(bin2hex(openssl_random_pseudo_bytes($bytes)));
+			$rnd = $rnd & $filter; // discard irrelevant bits
+		} while ($rnd >= $range);
+		return $min + $rnd;
+	};
+
+	$token = "";
+	$max = strlen($pool);
+	for ($i = 0; $i < $length; $i++) {
+		$token .= $pool[$cryptoRandSecure(0, $max)];
+	}
+	return $token;
+}
+
 include_once('notificationengine.php');
 ?>

@@ -76,6 +76,6 @@ if ($uploadOk == 0 || !$proceed) {
 }
 function setAvatar() {
     global $file_name;
-    query("UPDATE Members SET avatar = 'https://tras.pw/$file_name' WHERE id = " . $_SESSION['info']['id']);
+    query("UPDATE Members SET avatar = 'https://tras.pw/$file_name' WHERE id = " . $USERDATA['info']['id']);
 }
 ?>

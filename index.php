@@ -7,8 +7,6 @@ require_once "shared.php";
 
 Shared::initialize();
 
-reloadInfo();
-
 Shared::set("title", "Tras");
 
 Shared::set("description", "");
@@ -18,12 +16,12 @@ Shared::set("pagename", "index");
 Shared::set("name", "");
 Shared::set("infoNick", "");
 
-Shared::set("nickname", $i ? $_SESSION['info']['nick'] : "Not Logged In");
-Shared::set("friends", $i ? "Friends: ".getFriendsCount($_SESSION['info']['id']) : "Friends: 0");
-Shared::set("avatar", $i ? $_SESSION['info']['avatar'] : "https://tras.pw/assets/images/guest.png");
+Shared::set("nickname", $i ? $USERDATA['info']['nick'] : "Not Logged In");
+Shared::set("friends", $i ? "Friends: ".getFriendsCount($USERDATA['info']['id']) : "Friends: 0");
+Shared::set("avatar", $i ? $USERDATA['info']['avatar'] : "https://tras.pw/assets/images/guest.png");
 Shared::set("friendslist", $i ? getFriendsList() : array());
 
-Shared::set("get", ["posts" => new GetPosts($i ? $_SESSION['info']['id'] : 0, Shared::get("friendslist"))]);
+Shared::set("get", ["posts" => new GetPosts($i ? $USERDATA['info']['id'] : 0, Shared::get("friendslist"))]);
 
 
 if (substr(Shared::get("link"), 0, 1) == "?") Shared::set("link", "");

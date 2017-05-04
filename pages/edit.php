@@ -1,6 +1,6 @@
 <?php
 $id = escape(Shared::get("path")[1]);
-$userid = $_SESSION['info']['id'];
+$userid = $USERDATA['info']['id'];
 $post = query("SELECT Posts.id, Posts.content, Members.nick, Members.id as user_id FROM Posts JOIN Members ON Members.id = Posts.user WHERE Posts.id = '$id' AND Posts.user = '$userid'");
 $info = mysqli_fetch_array($post);
 ?>

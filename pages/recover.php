@@ -1,7 +1,7 @@
 <?php if (isLoggedIn()) {
     include 'alreadyin.php';
 } else {
-    $i = isset($_SESSION['recover']);
+    $i = isset($_COOKIE['Recover-Code']);
     $text = $i ? "Type here your new password" : "We will send you instructions to reset your password";
     $type = $i ? "password" : "text";
     $placeholder = $i ? "New password" : "Username or email";
