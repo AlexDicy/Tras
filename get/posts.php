@@ -43,12 +43,22 @@ class GetPosts {
                     AS dislikes,
                     
                     root.id, root.user, root.post, root.content, root.date, Members.Nick, Members.verified, Members.avatar,
-                    LastReply.id AS lrid, LastReply.user AS lruser, LastReply.post AS lrpost, LastReply.content AS lrcontent, LastReply.date AS lrdate, LastReplyM.Nick AS lrmNick, LastReplyM.verified  AS lrmverified, LastReplyM.avatar  AS lrmavatar
-                    
+                    lrs.id AS lrid, lrs.user AS lruser, lrs.post AS lrpost, lrs.content AS lrcontent, lrs.date AS lrdate, lrsm.Nick AS lrmNick, lrsm.verified AS lrmverified, lrsm.avatar AS lrmavatar
+
                     FROM Posts AS root
+                    LEFT JOIN Posts lrs ON lrs.id = (
+                        SELECT id
+                        FROM Posts lr
+                        WHERE lr.post = root.id
+                        ORDER BY lr.date LIMIT 1
+                    )
+                    LEFT JOIN Members lrsm ON lrsm.id = (
+                        SELECT id
+                        FROM Members lrm
+                        WHERE lrm.id = lrs.user
+                        LIMIT 1
+                    )
                     JOIN Members ON root.user = Members.id
-                    LEFT JOIN Posts AS LastReply ON root.id = LastReply.post
-                    LEFT JOIN Members AS LastReplyM ON LastReply.user = Members.id
                     
                     WHERE root.post = '$id' ORDER BY root.date DESC LIMIT $limit");
     }

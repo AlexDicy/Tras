@@ -162,6 +162,29 @@ window.deleteReply = function(replyId) {
     });
     return false;
 }
+
+window.replyToReply = function(replyId, replyUser) {
+    $("#replytoreply-modal").modal("show");
+    $("#replytoreply-button").on("click", function () {
+        var json = {content: $("#replytoreply-text").val(), post_id: replyId, user: replyUser};
+        $.ajax({
+            url: "/sendreply",
+            type: "POST",
+            dataType: "json",
+            data: json,
+            success: function(data) {
+                switch (data.CODE) {
+                    case 700:
+                        //ok
+                        window.location.href = "https://tras.pw/post/" + replyUser + "/" + replyId;
+                        break;
+                }
+            },
+            error: function(data) {/*!??*/}
+        });
+    });
+    return false;
+}
 //Start windowReload
 window.windowReload = function() {
 $(".post-menu-toggler").unbind().on('click', function(){
