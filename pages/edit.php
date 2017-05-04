@@ -1,7 +1,7 @@
 <?php
 $id = escape(Shared::get("path")[1]);
 $userid = $_SESSION['info']['id'];
-$post = query("SELECT Posts.id, Posts.content, Members.Nick, Members.id as user_id FROM Posts JOIN Members ON Members.id = Posts.user WHERE Posts.id = '$id' AND Posts.user = '$userid'");
+$post = query("SELECT Posts.id, Posts.content, Members.nick, Members.id as user_id FROM Posts JOIN Members ON Members.id = Posts.user WHERE Posts.id = '$id' AND Posts.user = '$userid'");
 $info = mysqli_fetch_array($post);
 ?>
 <div class="alert alert-warning" style="display: none" id="edit-post-error"><strong>Error</strong> There was an error while editing, please try again.</div>
@@ -18,7 +18,7 @@ $info = mysqli_fetch_array($post);
 		</div>
 		<div class="post-footer">
 			<div class="actions">
-				<a href="#" id="edit-post-button" data-post-id="<?php echo $id ?>" data-post-user="<?php echo $info['Nick'] ?>" class="post-btn pbtn pbtn-blue active">Edit</a>
+				<a href="#" id="edit-post-button" data-post-id="<?php echo $id ?>" data-post-user="<?php echo $info['nick'] ?>" class="post-btn pbtn pbtn-blue active">Edit</a>
 			</div>
 		</div>
 	</div>

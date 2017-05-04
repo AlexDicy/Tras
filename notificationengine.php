@@ -9,7 +9,7 @@ function getNotificationsByOffset($start, $num) {
     if (isLoggedIn()) {
         $userid = $_SESSION['info']['id'];
         $where = "WHERE user = $userid AND Notifications.from <> $userid AND Notifications.hide = 0";
-        $query = query("SELECT Notifications.id, Notifications.user, Notifications.from, Notifications.where, Notifications.type, Notifications.when, Notifications.content, Notifications.viewed, Members.Avatar, Members.Nick FROM Notifications LEFT JOIN Members ON Members.id = Notifications.from $where ORDER BY id DESC LIMIT $start, $num");
+        $query = query("SELECT Notifications.id, Notifications.user, Notifications.from, Notifications.where, Notifications.type, Notifications.when, Notifications.content, Notifications.viewed, Members.avatar, Members.nick FROM Notifications LEFT JOIN Members ON Members.id = Notifications.from $where ORDER BY id DESC LIMIT $start, $num");
         $count = mysqli_num_rows(query("SELECT id FROM Notifications $where AND viewed = 0 AND hide = 0 LIMIT 100"));
         $array['count'] = ($count == 0 ? "":($count == 100 ? "99+":$count));
         while ($n = mysqli_fetch_assoc($query)) {
@@ -29,48 +29,48 @@ function getNotificationsCount($all = true) {
 }
 
 function getFinalAlert($n) {
-    if (!isset($n['Nick'])) {
-        $n['Nick'] = mysqli_fetch_assoc(query("SELECT Nick FROM Members WHERE id = '". $n['from'] ."'"))['Nick'];
+    if (!isset($n['nick'])) {
+        $n['nick'] = mysqli_fetch_assoc(query("SELECT nick FROM Members WHERE id = '". $n['from'] ."'"))['nick'];
     }
     $linkbase = "https://tras.pw/readnotification/?where=".$n['where']."&link=";
     switch ($n['type']) {
         case 1:
-            $n['title'] = $n['Nick']." likes your post";
-            $n['link'] = $linkbase."/post/".$_SESSION['info']['Nick']."/".$n['where'];
+            $n['title'] = $n['nick']." likes your post";
+            $n['link'] = $linkbase."/post/".$_SESSION['info']['nick']."/".$n['where'];
             $n['collapsible'] = $n['where'];
             break;
         case 2:
-            $n['title'] = $n['Nick']." dislikes your post";
-            $n['link'] = $linkbase."/post/".$_SESSION['info']['Nick']."/".$n['where'];
+            $n['title'] = $n['nick']." dislikes your post";
+            $n['link'] = $linkbase."/post/".$_SESSION['info']['nick']."/".$n['where'];
             $n['collapsible'] = $n['where'];
             break;
         case 3:
-            $n['title'] = $n['Nick']." replied to your post";
-            $n['link'] = $linkbase."/post/".$_SESSION['info']['Nick']."/".$n['where'];
+            $n['title'] = $n['nick']." replied to your post";
+            $n['link'] = $linkbase."/post/".$_SESSION['info']['nick']."/".$n['where'];
             $n['collapsible'] = $n['where'];
             $n['forceSend'] = true;
             break;
         case 4:
             $n['title'] = "Tras alert";
             $n['link'] = $linkbase."/alert/".$n['id'];
-            $n['Avatar'] = "https://tras.pw/images/logo-min.png";
+            $n['avatar'] = "https://tras.pw/images/logo-min.png";
             $n['forceSend'] = true;
             break;
         case 5:
-            $n['title'] = $n['Nick']." has added you as friend";
-            $n['link'] = $linkbase."/user/".$n['Nick'];
-            $n['collapsible'] = $n['Nick'];
+            $n['title'] = $n['nick']." has added you as friend";
+            $n['link'] = $linkbase."/user/".$n['nick'];
+            $n['collapsible'] = $n['nick'];
             break;
         case 6:
-            $n['title'] = $n['Nick']." wrote: ".$n['content'];
+            $n['title'] = $n['nick']." wrote: ".$n['content'];
             $n['link'] = $linkbase."/messages/chat/".$n['where'];
             $n['collapsible'] = $n['where'];
             $n['forceSend'] = true;
             break;
         //Didn't the third work the same? I didn't see it
         case 7:
-            $n['title'] = $n['Nick']." replied: ".$n['content'];
-            $n['link'] = $linkbase."/post/".$_SESSION['info']['Nick']."/".$n['where'];
+            $n['title'] = $n['nick']." replied: ".$n['content'];
+            $n['link'] = $linkbase."/post/".$_SESSION['info']['nick']."/".$n['where'];
             $n['collapsible'] = $n['where'];
             $n['forceSend'] = true;
             break;

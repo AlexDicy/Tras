@@ -1,6 +1,6 @@
 <?php
-session_name("TrasID");
-session_start();
+//session_name("TrasID");
+//session_start();
 $username = $password = $email = $type = $newpassword = "";
 $salt = "***REMOVED***";
 $username = "***REMOVED***";
@@ -56,7 +56,7 @@ switch ($type) {
 function verifyPassword($id, $pass){
     global $salt;
     $id = escape($id);
-    $hash = mysqli_fetch_assoc(query("SELECT Password FROM Members WHERE (Nick = '$id' OR id = '$id' OR Email = '$id')"))['Password'];
+    $hash = mysqli_fetch_assoc(query("SELECT password FROM Members WHERE (nick = '$id' OR id = '$id' OR email = '$id')"))['password'];
     //Accept both new and old hashes
     if (password_verify($pass, $hash) || $hash == md5($pass . $salt)) return true;
     else return false;
@@ -68,16 +68,16 @@ function login($reg)  {
     $token = md5(uniqid() . uniqid() . $password);
     $username = escape($username);
     if (verifyPassword($username, $password)) {
-        $data = query("SELECT * FROM Members WHERE (Nick = '$username' OR Email = '$username')");
+        $data = query("SELECT * FROM Members WHERE (nick = '$username' OR email = '$username')");
         setcookie("Redirect", "Delete me", time()-60*60*24*30, '/');
         session_regenerate_id(true);
         $_SESSION["ID"] = session_id();
         $_SESSION["info"] = $info = mysqli_fetch_assoc($data);
-        $tquery = query("UPDATE Members SET Token = '$token' WHERE id = " . $_SESSION['info']['id']);
+        $tquery = query("UPDATE Members SET token = '$token' WHERE id = " . $_SESSION['info']['id']);
         if ($tquery) if (isset($_POST['remember']) && $_POST['remember'] == "true") {
             setcookie("RM", $token, time()+60*60*24*30, '/');
         }
-        $_SESSION['Token'] = $token;
+        $_SESSION['token'] = $token;
         if ($reg) {
             if (sendConfirmEmail($info)) echo "{\"CODE\": 700}";
             else if (sendConfirmEmail($info)) echo "{\"CODE\": 700}";
@@ -89,7 +89,7 @@ function login($reg)  {
 }
 
 function sendConfirmEmail($info) {
-    $email = $info['Email'];
+    $email = $info['email'];
     $from = "info@tras.pw";
     $code = md5(uniqid().uniqid());
     $confirmurl = "https://tras.pw/session.php?confirm=" . $code;
@@ -117,7 +117,7 @@ function reloadInfo() {
             $_SESSION['info'] = mysqli_fetch_assoc($info);
             $_SESSION["ID"] = session_id();
             if (isset($_COOKIE['RM']) && !headers_sent()) {
-                setcookie("RM", $_SESSION['info']['Token'], time()+60*60*24*30, '/');
+                setcookie("RM", $_SESSION['info']['token'], time()+60*60*24*30, '/');
             }
         }
     } else {
@@ -126,7 +126,7 @@ function reloadInfo() {
 }
 
 function reloadFromToken() {
-    $info = query("SELECT * FROM Members WHERE Token = '" . $_COOKIE['RM'] . "'");
+    $info = query("SELECT * FROM Members WHERE token = '" . $_COOKIE['RM'] . "'");
     if (mysqli_num_rows($info) > 0) {
         $_SESSION['info'] = mysqli_fetch_assoc($info);
         $_SESSION["ID"] = session_id();
@@ -135,16 +135,16 @@ function reloadFromToken() {
 }
 
 function confirmEmail($id) {
-    $confirm = query("UPDATE Members SET Confirmed = 1 WHERE id = $id");
+    $confirm = query("UPDATE Members SET confirmed = 1 WHERE id = $id");
     query("DELETE FROM Confirm WHERE id = $id");
     if ($confirm) {
-        $_SESSION['info']['Confirmed'] = 1;
+        $_SESSION['info']['confirmed'] = 1;
         return true;
     } return false;
 }
 
 function checkEmailConfirm() {
-    if (isset($_SESSION['info']['Confirmed']) && $_SESSION['info']['Confirmed'] == 1) {
+    if (isset($_SESSION['info']['confirmed']) && $_SESSION['info']['confirmed'] == 1) {
         setcookie("Confirm", "602", time()+60);
         header("Location: /page/confirm-email");
         echo "{\"CODE\": 602}";
@@ -181,9 +181,9 @@ function register() {
         if (3 < strlen($username) && 3 < strlen($password) && 4 < strlen($email) && (20 > strlen($username) && 200 > strlen($password) && 100 > strlen($email))) {
             $username = escape($username);
             $email = escape($email);
-            $check = query("SELECT * FROM Members WHERE (Nick = '$username') OR (Email = '$email')");
+            $check = query("SELECT * FROM Members WHERE (nick = '$username') OR (email = '$email')");
             if (mysqli_num_rows($check) == 0) {
-                $rs = query("INSERT INTO Members (Nick, Password, Email) VALUES ('$username', '" . password_hash($password, PASSWORD_DEFAULT) . "', '$email')");
+                $rs = query("INSERT INTO Members (nick, password, email) VALUES ('$username', '" . password_hash($password, PASSWORD_DEFAULT) . "', '$email')");
                 reloadInfo();
                 login(true);
             } else echo "{\"CODE\":  603}";
@@ -194,12 +194,12 @@ function register() {
 function recover()  {
     global $username;
     $username = escape($username);
-    $data = query("SELECT * FROM Members WHERE Nick = '$username' OR Email = '$username'");
+    $data = query("SELECT * FROM Members WHERE nick = '$username' OR email = '$username'");
     if (mysqli_num_rows($data) == 0) {
         echo "{\"CODE\": 703}";
     } else {
         $info = mysqli_fetch_assoc($data);
-        $email = $info['Email'];
+        $email = $info['email'];
         $from = "info@tras.pw";
         $code = md5(uniqid().uniqid());
         $reseturl = "https://tras.pw/session.php?recover=" . $code;
@@ -251,7 +251,7 @@ function recoverPassword() {
         if (strlen($password) > 3) {
             if (strlen($password) < 200) {
                 $hash = password_hash($password, PASSWORD_DEFAULT);
-                $query = query("UPDATE Members SET Password = '$hash' WHERE id = " . $_SESSION['recover']['id']);
+                $query = query("UPDATE Members SET password = '$hash' WHERE id = " . $_SESSION['recover']['id']);
                 $remove = query("DELETE FROM Recover WHERE code = '" . $_SESSION['recover']['code'] . "'");
                 if ($query && $remove) {
                     unset($_SESSION['recover']);
@@ -268,7 +268,7 @@ function changePassword($old, $new) {
     if (strlen($new) > 3 && strlen($new) < 200 && isLoggedIn()) {
         if (verifyPassword($_SESSION['info']['id'], $old)) {
             $hash = password_hash($new, PASSWORD_DEFAULT);
-            $query = query("UPDATE Members SET Password = '$hash' WHERE id = " . $_SESSION['info']['id']);
+            $query = query("UPDATE Members SET password = '$hash' WHERE id = " . $_SESSION['info']['id']);
             echo "{\"CODE\": 700}";
         } else echo "{\"CODE\": 703}";
     } else echo "{\"CODE\": 702}";
@@ -305,7 +305,7 @@ function logout()  {
     $query = true;
     $cookie = false;
     if (isset($_COOKIE['RM'])) {
-        $query = query("UPDATE Members SET Token = '$token' WHERE id = ". $_SESSION['info']['id'] ." AND Token = '" . $_COOKIE['RM'] ."'");
+        $query = query("UPDATE Members SET token = '$token' WHERE id = ". $_SESSION['info']['id'] ." AND token = '" . $_COOKIE['RM'] ."'");
         $cookie = true;
     }
     if ($query) {

@@ -8,20 +8,20 @@ $file = "./sitemap.xml";
 if (!file_exists($file) || filemtime($file) < time() - 3600) {
     $content;
     ob_start();
-    $sql = query("/*qc=on*/ SELECT Members.Nick, Posts.id FROM Posts JOIN Members ON Members.id = Posts.user");
+    $sql = query("/*qc=on*/ SELECT Members.nick, Posts.id FROM Posts JOIN Members ON Members.id = Posts.user");
     while ($string = mysqli_fetch_array($sql)) {
 ?>
     <url>
-        <loc>https://tras.pw/post/<?php echo $string['Nick']."/".$string['id']; ?></loc>
+        <loc>https://tras.pw/post/<?php echo $string['nick']."/".$string['id']; ?></loc>
         <changefreq>weekly</changefreq>
     </url>
 <?php
     }
-    $sql = query("/*qc=on*/ SELECT Nick FROM Members");
+    $sql = query("/*qc=on*/ SELECT nick FROM Members");
     while ($string = mysqli_fetch_array($sql)) {
 ?>
     <url>
-        <loc>https://tras.pw/user/<?php echo $string['Nick']; ?></loc>
+        <loc>https://tras.pw/user/<?php echo $string['nick']; ?></loc>
         <changefreq>weekly</changefreq>
     </url>
 <?php

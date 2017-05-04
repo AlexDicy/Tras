@@ -57,7 +57,7 @@
                                 <div class="media">
                                     <div class="pull-left">
                                         <div class="point-pin">
-                                            <img src="<?php echo $n['Avatar'] ?>" alt="user msg" class="img-responsive thumb32 img-circle">
+                                            <img src="<?php echo $n['avatar'] ?>" alt="user msg" class="img-responsive thumb32 img-circle">
                                         </div>
                                     </div>
                                     <div class="media-body clearfix">

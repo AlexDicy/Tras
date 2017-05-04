@@ -15,7 +15,7 @@ foreach ($notifications as $n) {
         <div class="panel panel-default b0<?php echo $n['viewed'] == 1 ? " bg-gray-lighter viewed":""; ?>">
             <div class="row row-table row-flush">
                 <div class="col-xs-2 text-center">
-                    <img class="sidebar-avatar mb-sm mt-sm center-block img-responsive thumb64" src="<?php echo $n['Avatar'] ?>" alt="Avatar image"/>
+                    <img class="sidebar-avatar mb-sm mt-sm center-block img-responsive thumb64" src="<?php echo $n['avatar'] ?>" alt="Avatar image"/>
                 </div>
                 <div class="col-xs-10">
                     <div class="panel-body text-center">

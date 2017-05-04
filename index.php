@@ -18,9 +18,9 @@ Shared::set("pagename", "index");
 Shared::set("name", "");
 Shared::set("infoNick", "");
 
-Shared::set("nickname", $i ? $_SESSION['info']['Nick'] : "Not Logged In");
+Shared::set("nickname", $i ? $_SESSION['info']['nick'] : "Not Logged In");
 Shared::set("friends", $i ? "Friends: ".getFriendsCount($_SESSION['info']['id']) : "Friends: 0");
-Shared::set("avatar", $i ? $_SESSION['info']['Avatar'] : "https://tras.pw/assets/images/guest.png");
+Shared::set("avatar", $i ? $_SESSION['info']['avatar'] : "https://tras.pw/assets/images/guest.png");
 Shared::set("friendslist", $i ? getFriendsList() : array());
 
 Shared::set("get", ["posts" => new GetPosts($i ? $_SESSION['info']['id'] : 0, Shared::get("friendslist"))]);

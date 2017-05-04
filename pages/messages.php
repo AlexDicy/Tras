@@ -9,8 +9,8 @@
         $chatid = escape(Shared::get("path")[2]);
         $chat = true;
         $sql = query("SELECT
-                        Members.Nick,
-                        Members.Avatar,
+                        Members.nick,
+                        Members.avatar,
                         Messages.content,
                         Messages.post_date,
                         Messages.id,
@@ -25,14 +25,14 @@
     } else if (isset(Shared::get("path")[1]) && Shared::get("path")[1] == "new") {
         $friendsids = empty(Shared::get("friendslist")) ? "" : implode(', ', Shared::get("friendslist"));
         $new = true;
-        $sql = query("SELECT id, Nick FROM Members WHERE id IN (".$friendsids.")");
+        $sql = query("SELECT id, nick FROM Members WHERE id IN (".$friendsids.")");
     } else {
         $home = true;
         $sql = query("SELECT
                         Chats.id,
                         Chats.chat_id,
-                        Members.Nick,
-                        Members.Avatar,
+                        Members.nick,
+                        Members.avatar,
                         (SELECT Messages.content FROM Messages WHERE Messages.chat_id = Chats.chat_id ORDER BY Messages.post_date DESC LIMIT 1) AS content,
                         (SELECT Messages.post_date FROM Messages WHERE Messages.chat_id = Chats.chat_id ORDER BY Messages.post_date DESC LIMIT 1) AS post_date
                     FROM Chats
@@ -242,7 +242,7 @@ $(function () {
         ?>
             <li class="message <?php echo ($info['user'] == $userid) ? "right":"left"; ?> appeared">
                 <div class="avatar">
-                    <img class="avatar-image mb center-block img-circle img-responsive thumb64" src="<?php echo $info['Avatar'] ?>">
+                    <img class="avatar-image mb center-block img-circle img-responsive thumb64" src="<?php echo $info['avatar'] ?>">
                 </div>
                 <div class="text-wrapper">
                     <div class="text"><?php echo str_replace(array("\r\n", "\r", "\n"), "<br />", base64_decode($info['content'])); ?></div>
@@ -265,7 +265,7 @@ $(function () {
 <div class="message-template">
     <li class="message">
         <div class="avatar">
-            <img class="avatar-image mb center-block img-circle img-responsive thumb64" src="<?php echo $_SESSION['info']['Avatar']; ?>">
+            <img class="avatar-image mb center-block img-circle img-responsive thumb64" src="<?php echo $_SESSION['info']['avatar']; ?>">
         </div>
         <div class="text-wrapper">
             <div class="text"></div>
@@ -308,7 +308,7 @@ $(function() {
             </div>
             <div class="col-xs-8">
                 <div class="panel-body text-center">
-                    <h4 class="mt0"><?php echo $info['Nick'] ?></h4>
+                    <h4 class="mt0"><?php echo $info['nick'] ?></h4>
                     <p class="mb0 text-muted"><?php echo $info['id'] ?></p>
                 </div>
             </div>

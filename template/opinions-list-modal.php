@@ -11,17 +11,17 @@ if (isset($_POST['id'])) {
             <div class="modal-body">
                 <p class="text-center">
                     <?php
-                    $result = query("SELECT Opinions.user, Opinions.type, Opinions.date, Members.Nick, Members.Avatar FROM Opinions JOIN Members ON Opinions.user = Members.id WHERE Opinions.post = '".escape($_POST['id'])."'");
+                    $result = query("SELECT Opinions.user, Opinions.type, Opinions.date, Members.nick, Members.avatar FROM Opinions JOIN Members ON Opinions.user = Members.id WHERE Opinions.post = '".escape($_POST['id'])."'");
                     while ($info = mysqli_fetch_array($result)) {
                     ?>
                     <div class="panel panel-default b0">
                         <div class="portlet-handler ui-sortable-handle">
                             <div class="row row-table row-flush">
-                                <div class="sidebar-avatar text-center" style="background-image:url(<?php echo $info['Avatar'] ?>);"></div>
+                                <div class="sidebar-avatar text-center" style="background-image:url(<?php echo $info['avatar'] ?>);"></div>
                                 <div class="col-xs-8">
                                     <div class="panel-body text-center">
                                         <div class="pull-left" style="margin-left: 20px;position: absolute;margin-top: -8px;">
-                                            <a href="/user/<?php echo $info['Nick'] ?>/"<h4 class="mt0"><?php echo $info['Nick'] ?></h4></a>
+                                            <a href="/user/<?php echo $info['nick'] ?>/"<h4 class="mt0"><?php echo $info['nick'] ?></h4></a>
                                             <p class="mb0 text-muted">Type: <?php echo $info['type'] == 1 ? "Like" : "Dislike" ?></p>
                                         </div>
                                         <div class="pull-right">

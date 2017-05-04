@@ -14,10 +14,10 @@ if (isset($reply['lrnumreplies'])) {
         <img class="mb center-block img-circle img-responsive thumb32" src="<?php echo $reply['avatar'] ?>" />
     </div>
     <div>
-        <a href="/user/<?= $reply['Nick'] ?>"><?php echo $reply['Nick'] ?></a>
+        <a href="/user/<?= $reply['nick'] ?>"><?php echo $reply['nick'] ?></a>
         <?php echo $reply['content']; ?>
 		<p class="m0 text-gray text-sm">
-            <a class="text-gray" href="/post/<?= $reply['Nick'] ?>/<?= $reply['id'] ?>"><?= Shared::elapsedTime($reply['date']) ?></a> 
+            <a class="text-gray" href="/post/<?= $reply['nick'] ?>/<?= $reply['id'] ?>"><?= Shared::elapsedTime($reply['date']) ?></a> 
             <?= isset($numreplies) ? $numreplies.$numrepliesText : "" ?>
             <?php if (isLoggedIn() && $reply['user'] == $_SESSION['info']['id']) { ?>
             <a href="javascript:deleteReply(<?= $reply['id'] ?>);">Delete</a>
@@ -29,10 +29,10 @@ if (isset($reply['lrnumreplies'])) {
         <img class="mb center-block img-circle img-responsive thumb32" src="<?php echo $reply['lrmavatar'] ?>" />
     </div>
     <div>
-        <a href="/user/<?= $reply['lrmNick'] ?>"><?php echo $reply['lrmNick'] ?></a>
+        <a href="/user/<?= $reply['lrmnick'] ?>"><?php echo $reply['lrmnick'] ?></a>
         <?php echo $reply['lrcontent']; ?>
 		<p class="m0 text-gray text-sm">
-            <a class="text-gray" href="/post/<?= $reply['lrmNick'] ?>/<?= $reply['lrid'] ?>"><?= Shared::elapsedTime($reply['lrdate']) ?></a> 
+            <a class="text-gray" href="/post/<?= $reply['lrmnick'] ?>/<?= $reply['lrid'] ?>"><?= Shared::elapsedTime($reply['lrdate']) ?></a> 
             <?= isset($lrnumreplies) ? $lrnumreplies.$lrnumrepliesText : "" ?>
             <?php if (isLoggedIn() && $reply['lruser'] == $_SESSION['info']['id']) { ?>
             <a href="javascript:deleteReply(<?= $reply['lrid'] ?>);">Delete</a>

@@ -4,7 +4,7 @@
 		if (isLoggedIn()) {
 			$userid = $_SESSION['info']['id'];
 			$notInclude = empty(Shared::get("friendslist")) ? $userid : "$userid, ".implode(', ', Shared::get("friendslist"));
-			$whoToFollow = query("SELECT id, Nick, Avatar FROM Members WHERE confirmed = 1 AND id NOT IN ($notInclude) ORDER BY RAND() LIMIT 10");
+			$whoToFollow = query("SELECT id, nick, avatar FROM Members WHERE confirmed = 1 AND id NOT IN ($notInclude) ORDER BY RAND() LIMIT 10");
 			if (mysqli_num_rows($whoToFollow) > 0) {
 		?>
 		<div class="post post-margin-bottom">

@@ -22,12 +22,12 @@
         <div class="portlet<?= isLoggedIn() ? "" : " full-margin-bottom" ?>">
             <div class="portlet-title">
                 <div class="caption">
-                    <a href="/user/<?php echo $info['Nick'] ?>/"><span class="caption-subject"><?php echo $info['Nick'] ?><?php if ($info['verified'] == 1) { ?><a> <i class="fa fa-check-circle" style="color: #42A5F5;"></i></a><?php } else if ($info['verified'] == 2) { ?><a> <i class="fa fa-check-circle" style="color: #4CAF50;"></i></a><?php } ?></span></a>
-                    <a href="/post/<?php echo $info['Nick']."/".$info['id'] ?>/"><span class="caption-helper"><small> <?php echo date("H:i d/m/Y", strtotime($info['date'])) ?></small></span></a>
+                    <a href="/user/<?php echo $info['nick'] ?>/"><span class="caption-subject"><?php echo $info['nick'] ?><?php if ($info['verified'] == 1) { ?><a> <i class="fa fa-check-circle" style="color: #42A5F5;"></i></a><?php } else if ($info['verified'] == 2) { ?><a> <i class="fa fa-check-circle" style="color: #4CAF50;"></i></a><?php } ?></span></a>
+                    <a href="/post/<?php echo $info['nick']."/".$info['id'] ?>/"><span class="caption-helper"><small> <?php echo date("H:i d/m/Y", strtotime($info['date'])) ?></small></span></a>
                 </div>
                 <?php if (isLoggedIn()) { ?>
                 <div class="actions post-menu">
-                    <a href="#menu" class="post-menu-toggler<?php if ($info['user'] == $_SESSION['info']['id']) {echo " owner";} ?>" data-post-id="<?php echo $info['id'] ?>" data-post-user="<?php echo $info['Nick'] ?>"><span class="caret"></span></a>
+                    <a href="#menu" class="post-menu-toggler<?php if ($info['user'] == $_SESSION['info']['id']) {echo " owner";} ?>" data-post-id="<?php echo $info['id'] ?>" data-post-user="<?php echo $info['nick'] ?>"><span class="caret"></span></a>
                 </div>
                 <?php } ?>
             </div>
@@ -55,11 +55,11 @@
                             </a>
                         <?php endif; ?>
                     <!-- Share -->
-                    <a href="javascript:;" data-post-id="<?php echo $info['id'] ?>" data-post-user="<?php echo $info['Nick'] ?>" class="share-btn pbtn pbtn-white active">
+                    <a href="javascript:;" data-post-id="<?php echo $info['id'] ?>" data-post-user="<?php echo $info['nick'] ?>" class="share-btn pbtn pbtn-white active">
                         <i class="fa fa-share"></i>
                         Share
                     </a>
-                    <?php } /*<a href="javascript:;" data-post-id="<?php echo $info['id'] ?>" data-post-user="<?php echo $info['Nick'] ?>" class="share-btn pbtn pbtn-white active">
+                    <?php } /*<a href="javascript:;" data-post-id="<?php echo $info['id'] ?>" data-post-user="<?php echo $info['nick'] ?>" class="share-btn pbtn pbtn-white active">
                         <i class="fa fa-comment"></i>
                         Reply
                     </a>
@@ -68,7 +68,7 @@
                         Reply
                     </a>*/ ?>
                 </div>
-                <?php if (isLoggedIn()) { ?><input type="text" data-post-id="<?php echo $info['id'] ?>" data-post-user="<?php echo $info['user'] ?>" placeholder="Reply to <?php echo $info['Nick'] ?>'s post" class="form-control send-reply-input" /> <?php } ?>
+                <?php if (isLoggedIn()) { ?><input type="text" data-post-id="<?php echo $info['id'] ?>" data-post-user="<?php echo $info['user'] ?>" placeholder="Reply to <?php echo $info['nick'] ?>'s post" class="form-control send-reply-input" /> <?php } ?>
                 <?php
                 if ($replies) {
                     echo "<ul class=\"replies\">";
