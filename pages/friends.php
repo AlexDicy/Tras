@@ -1,5 +1,5 @@
 <?php
-$userid = $USERDATA['info']['id'];
+$userid =  Shared::$USERDATA['info']['id'];
 Shared::set("friendsids", empty(Shared::get("friendslist")) ? "" : implode(', ', Shared::get("friendslist")));
 $sql = query("SELECT id, nick FROM Members WHERE id IN (".Shared::get("friendsids").") LIMIT 30");
 while($info = mysqli_fetch_array($sql)){

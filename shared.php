@@ -2,6 +2,7 @@
 
 class Shared {
     private static $array = array();
+    public static $USERDATA = array();
 
     public static function initialize() {
         if (!array_key_exists("initialized", self::$array)) {

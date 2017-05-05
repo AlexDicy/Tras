@@ -1,7 +1,7 @@
 <?php
 if (isset($_POST['text']) && isLoggedIn()) {
     $text = escape(htmlentities($_POST['text']));
-    $user = $USERDATA['info']['id'];
+    $user =  Shared::$USERDATA['info']['id'];
     $sql = query("INSERT INTO Posts (user, content) VALUES ('$user', '$text')");
     if ($sql) {
 ?>

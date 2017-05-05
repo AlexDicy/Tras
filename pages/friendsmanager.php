@@ -1,7 +1,7 @@
 <?php
 if (isset($_POST['id']) && isLoggedIn()) {
     $friend = escape($_POST['id']);
-    $user = $USERDATA['info']['id'];
+    $user =  Shared::$USERDATA['info']['id'];
     if (isset($_POST['add'])) {
         $sql = query("INSERT IGNORE INTO Friends(Friends.Result,Friends.From,Friends.To) VALUES ((1000000000*'$user')+'$friend','$user','$friend')");
         newNotification($friend, $user, 0, 5, "");

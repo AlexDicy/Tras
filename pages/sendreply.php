@@ -2,7 +2,7 @@
 if (isset($_POST['content']) && isset($_POST['post_id']) && isset($_POST['user'])) {
     $text = escape(htmlentities($_POST['content']));
     $postId = escape($_POST['post_id']);
-    $user = $USERDATA['info']['id'];
+    $user =  Shared::$USERDATA['info']['id'];
     $userId = escape($_POST['user']);
 
     if (empty($_POST['content'])) exit("{\"CODE\": 666}");

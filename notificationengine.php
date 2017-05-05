@@ -4,11 +4,10 @@ function getNotifications($num) {
 }
 
 function getNotificationsByOffset($start, $num) {
-    global $USERDATA;
     $array = array();
     $array['count'] = "";
     if (isLoggedIn()) {
-        $userid = $USERDATA['info']['id'];
+        $userid = Shared::$USERDATA['info']['id'];
         $where = "WHERE user = $userid AND Notifications.from <> $userid AND Notifications.hide = 0";
         $query = query("SELECT Notifications.id, Notifications.user, Notifications.from, Notifications.where, Notifications.type, Notifications.when, Notifications.content, Notifications.viewed, Members.avatar, Members.nick FROM Notifications LEFT JOIN Members ON Members.id = Notifications.from $where ORDER BY id DESC LIMIT $start, $num");
         $count = mysqli_num_rows(query("SELECT id FROM Notifications $where AND viewed = 0 AND hide = 0 LIMIT 100"));
@@ -22,16 +21,14 @@ function getNotificationsByOffset($start, $num) {
 }
 
 function getNotificationsCount($all = true) {
-    global $USERDATA;
     if (isLoggedIn()) {
-        $userid = $USERDATA['info']['id'];
+        $userid = Shared::$USERDATA['info']['id'];
         return mysqli_num_rows(query("SELECT id FROM Notifications WHERE user = $userid AND Notifications.from <> $userid AND hide = 0 LIMIT 1000"));
     }
     return 0;
 }
 
 function getFinalAlert($n) {
-    global $USERDATA;
     if (!isset($n['nick'])) {
         $n['nick'] = mysqli_fetch_assoc(query("SELECT nick FROM Members WHERE id = '". $n['from'] ."'"))['nick'];
     }
@@ -39,17 +36,17 @@ function getFinalAlert($n) {
     switch ($n['type']) {
         case 1:
             $n['title'] = $n['nick']." likes your post";
-            $n['link'] = $linkbase."/post/".$USERDATA['info']['nick']."/".$n['where'];
+            $n['link'] = $linkbase."/post/".Shared::$USERDATA['info']['nick']."/".$n['where'];
             $n['collapsible'] = $n['where'];
             break;
         case 2:
             $n['title'] = $n['nick']." dislikes your post";
-            $n['link'] = $linkbase."/post/".$USERDATA['info']['nick']."/".$n['where'];
+            $n['link'] = $linkbase."/post/".Shared::$USERDATA['info']['nick']."/".$n['where'];
             $n['collapsible'] = $n['where'];
             break;
         case 3:
             $n['title'] = $n['nick']." replied to your post";
-            $n['link'] = $linkbase."/post/".$USERDATA['info']['nick']."/".$n['where'];
+            $n['link'] = $linkbase."/post/".Shared::$USERDATA['info']['nick']."/".$n['where'];
             $n['collapsible'] = $n['where'];
             $n['forceSend'] = true;
             break;
@@ -73,7 +70,7 @@ function getFinalAlert($n) {
         //Didn't the third work the same? I didn't see it
         case 7:
             $n['title'] = $n['nick']." replied: ".$n['content'];
-            $n['link'] = $linkbase."/post/".$USERDATA['info']['nick']."/".$n['where'];
+            $n['link'] = $linkbase."/post/".Shared::$USERDATA['info']['nick']."/".$n['where'];
             $n['collapsible'] = $n['where'];
             $n['forceSend'] = true;
             break;

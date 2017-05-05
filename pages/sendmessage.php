@@ -2,7 +2,7 @@
 if (isset($_POST['content']) && isset($_POST['chat_id'])) {
     $text = escape(base64_encode(htmlentities($_POST['content'])));
     $chatId = escape($_POST['chat_id']);
-    $user = $USERDATA['info']['id'];
+    $user =  Shared::$USERDATA['info']['id'];
     $users = query("SELECT user FROM Chats WHERE chat_id = '$chatId'");
     $inArray = false;
     $usersArray = array();

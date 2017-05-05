@@ -2,7 +2,7 @@
 if (isset($_POST['page'])) {
     $i = isLoggedIn();
     $page = 20 + $_POST['page'] * 10;
-    $userid = $i ? $USERDATA['info']['id'] : 0;
+    $userid = $i ?  Shared::$USERDATA['info']['id'] : 0;
     if (isset($_POST['user']) && !empty($_POST['user'])) {
         $from = "= '".escape($_POST['user'])."'";
     } else if ($i) {

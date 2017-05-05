@@ -1,4 +1,4 @@
 <?php
-if ($USERDATA['info']['rank'] != 48) exit("Why are you here?");
+if ( Shared::$USERDATA['info']['rank'] != 48) exit("Why are you here?");
 ?>
-<h4>Welcome, <?= $USERDATA['info']['nick'] ?></h4>
+<h4>Welcome, <?=  Shared::$USERDATA['info']['nick'] ?></h4>

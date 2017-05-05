@@ -1,6 +1,6 @@
 <?php
     $sql;
-    $userid = $USERDATA['info']['id'];
+    $userid =  Shared::$USERDATA['info']['id'];
     $home = false;
     $chat = false;
     $new = false;
@@ -265,7 +265,7 @@ $(function () {
 <div class="message-template">
     <li class="message">
         <div class="avatar">
-            <img class="avatar-image mb center-block img-circle img-responsive thumb64" src="<?php echo $USERDATA['info']['avatar']; ?>">
+            <img class="avatar-image mb center-block img-circle img-responsive thumb64" src="<?php echo  Shared::$USERDATA['info']['avatar']; ?>">
         </div>
         <div class="text-wrapper">
             <div class="text"></div>

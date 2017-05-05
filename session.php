@@ -1,6 +1,5 @@
 <?php
-//session_name("TrasID");
-//session_start();
+require_once "shared.php";
 $username = $password = $email = $type = $newpassword = "";
 $salt = "***REMOVED***";
 $username = "***REMOVED***";
@@ -12,9 +11,6 @@ $sessionId = isset($_COOKIE['TrasID']) ? escape($_COOKIE['TrasID']) : "notLogged
 $userId = isset($_COOKIE['userID']) ? escape($_COOKIE['userID']) : 0;
 
 unset($host, $username, $password, $database);
-
-//Never change this variable
-$USERDATA = array();
 
 loadUserData();
 
@@ -64,10 +60,10 @@ switch ($type) {
 }
 
 function loadUserData() {
-    global $sessionId, $userId, $USERDATA;
+    global $sessionId, $userId;
     if (isLoggedIn()) {
         query("INSERT INTO Sessions SET id = '" . $sessionId . "', user = '$userId' ON DUPLICATE KEY UPDATE last_access = NOW()");
-        $USERDATA["info"] = mysqli_fetch_assoc(query("SELECT * FROM Members WHERE Members.id = (SELECT user FROM Sessions WHERE Sessions.user = '$userId' AND Sessions.id = '$sessionId')"));
+        Shared::$USERDATA["info"] = mysqli_fetch_assoc(query("SELECT * FROM Members WHERE Members.id = (SELECT user FROM Sessions WHERE Sessions.user = '$userId' AND Sessions.id = '$sessionId')"));
     }
 }
 
@@ -81,7 +77,7 @@ function verifyPassword($id, $pass) {
 }
 
 function login($reg) {
-    global $username, $password, $sessionId, $userId, $USERDATA;
+    global $username, $password, $sessionId, $userId;
     $username = escape($username);
     if (verifyPassword($username, $password)) {
         $id = mysqli_fetch_assoc(query("SELECT id FROM Members WHERE (nick = '$username' OR email = '$username')"))["id"];
@@ -92,8 +88,8 @@ function login($reg) {
         setcookie("TrasID", $sessionId, time()+86400*30, "/");
         setcookie("userID", $userId, time()+86400*30, "/");
         if ($reg) {
-            if (sendConfirmEmail($USERDATA)) echo "{\"CODE\": 700}";
-            else if (sendConfirmEmail($USERDATA)) echo "{\"CODE\": 700}"; // Odd, quick retry
+            if (sendConfirmEmail(Shared::$USERDATA)) echo "{\"CODE\": 700}";
+            else if (sendConfirmEmail(Shared::$USERDATA)) echo "{\"CODE\": 700}"; // Odd, quick retry
             else echo "{\"CODE\": 704}";
         } else echo "{\"CODE\": 700}";
     } else {
@@ -124,18 +120,16 @@ function sendConfirmEmail($info) {
 }
 
 function confirmEmail($id) {
-    global $USERDATA;
     $confirm = query("UPDATE Members SET confirmed = 1 WHERE id = $id");
     query("DELETE FROM Confirm WHERE id = $id");
     if ($confirm) {
-        $USERDATA['info']['confirmed'] = 1;
+        Shared::$USERDATA['info']['confirmed'] = 1;
         return true;
     } return false;
 }
 
 function checkEmailConfirm() {
-    global $USERDATA;
-    if (isset($USERDATA['info']['confirmed']) && $USERDATA['info']['confirmed'] == 1) {
+    if (isset(Shared::$USERDATA['info']['confirmed']) && Shared::$USERDATA['info']['confirmed'] == 1) {
         setcookie("Confirm", "602", time()+60);
         header("Location: /page/confirm-email");
         echo "{\"CODE\": 602}";
@@ -252,13 +246,12 @@ function recoverPassword() {
 }
 
 function changePassword($old, $new) {
-    global $USERDATA;
     $old = escape($old);
     $new = escape($new);
     if (strlen($new) > 3 && strlen($new) < 200 && isLoggedIn()) {
-        if (verifyPassword($USERDATA['info']['id'], $old)) {
+        if (verifyPassword(Shared::$USERDATA['info']['id'], $old)) {
             $hash = password_hash($new, PASSWORD_DEFAULT);
-            $query = query("UPDATE Members SET password = '$hash' WHERE id = " . $USERDATA['info']['id']);
+            $query = query("UPDATE Members SET password = '$hash' WHERE id = " . Shared::$USERDATA['info']['id']);
             echo "{\"CODE\": 700}";
         } else echo "{\"CODE\": 703}";
     } else echo "{\"CODE\": 702}";
@@ -274,9 +267,8 @@ function isCodeValid($code) {
 }
 
 function getFriendsList() {
-    global $USERDATA;
     $array = array();
-    $query = query("SELECT Friends.To FROM Friends WHERE Friends.From = " . $USERDATA['info']['id']);
+    $query = query("SELECT Friends.To FROM Friends WHERE Friends.From = " . Shared::$USERDATA['info']['id']);
     while ($row = mysqli_fetch_array($query)) {
         $array[] = $row;
     }
@@ -284,18 +276,20 @@ function getFriendsList() {
 }
 
 function getFriendsCount($id) {
-    global $USERDATA;
     if (!isset($id)) {
-        $id = $USERDATA['info']['id'];
+        $id = Shared::$USERDATA['info']['id'];
     }
     $sql = query("SELECT COUNT(Friends.To) FROM Friends WHERE Friends.To = $id");
     return mysqli_fetch_array($sql)[0];
 }
 
 function logout() {
-    global $USERDATA;
+    global $sessionId, $userId;
+    setcookie("TrasID", "Delete me", time()-3600);
+    setcookie("userID", "Delete me", time()-3600);
     echo "{\"CODE\": 500}";
-    $USERDATA = array();
+    Shared::$USERDATA = array();
+    query("DELETE FROM Sessions WHERE id = '" . $sessionId . "' AND user = '$userId'");
 }
 
 function isLoggedIn() {
