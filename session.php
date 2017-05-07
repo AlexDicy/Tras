@@ -225,7 +225,7 @@ function recoverPass($code) {
     if (mysqli_num_rows($id) > 0) {
         setcookie("Recover-Code", $code);
         header("Location: https://tras.pw/page/recover");
-    } else echo "{\"CODE\": 703}</br><p>This link is not valid. Request another reset.</p>";
+    } else echo "<p>This link is not valid. Request another reset.</p>";
 }
 
 function recoverPassword() {
