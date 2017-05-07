@@ -230,13 +230,15 @@ function recoverPass($code) {
 
 function recoverPassword() {
     global $password;
-    if (isset($_COOKIE['Recover-Code']) && isCodeValid($_COOKIE['Recover-Code'])) {
+    $plainRecoverCode = $_COOKIE['Recover-Code'];
+    $recoverCode = escape($plainRecoverCode);
+    if (isset($plainRecoverCode) && isCodeValid($recoverCode)) {
         if (strlen($password) > 3) {
             if (strlen($password) < 200) {
                 $hash = password_hash($password, PASSWORD_DEFAULT);
                 $id =  mysqli_fetch_assoc(query("SELECT id FROM Recover WHERE code = '$code'"))['id'];
                 $query = query("UPDATE Members SET password = '$hash' WHERE id = " . $id);
-                $remove = query("DELETE FROM Recover WHERE code = '" . $_COOKIE['Recover-Code'] . "'");
+                $remove = query("DELETE FROM Recover WHERE code = '" . $recoverCode . "'");
                 if ($query && $remove) {
                     setcookie("Recover-Code", "Delete me", time()-3600);
                     echo "{\"CODE\": 706}";
