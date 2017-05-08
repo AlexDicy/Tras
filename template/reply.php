@@ -21,7 +21,7 @@ if (isset($reply['lrnumreplies'])) {
             <?= isset($numreplies) ? $numreplies.$numrepliesText : "" ?>
             <?php if (isLoggedIn() && $reply['user'] ==  Shared::$USERDATA['info']['id']) { ?>
             <a href="javascript:deleteReply(<?= $reply['id'] ?>);">Delete</a>
-            <?php } if (isLoggedIn()) { ?><a href="javascript:replyToReply(<?= $reply['id'] ?>);"> Reply</a><?php } ?>
+            <?php } if (isLoggedIn()) { ?><a href="javascript:replyToReply(<?= $reply['id'].", ".$reply['user'] ?>);"> Reply</a><?php } ?>
         </p>
 	</div>
     <?php if (isset($reply['lrid'])) { ?>
@@ -36,7 +36,7 @@ if (isset($reply['lrnumreplies'])) {
             <?= isset($lrnumreplies) ? $lrnumreplies.$lrnumrepliesText : "" ?>
             <?php if (isLoggedIn() && $reply['lruser'] ==  Shared::$USERDATA['info']['id']) { ?>
             <a href="javascript:deleteReply(<?= $reply['lrid'] ?>);">Delete</a>
-            <?php } if (isLoggedIn()) { ?><a href="javascript:replyToReply(<?= $reply['lrid'] ?>);"> Reply</a><?php } ?></p>
+            <?php } if (isLoggedIn()) { ?><a href="javascript:replyToReply(<?= $reply['lrid'].", ".$reply['lruser'] ?>);"> Reply</a><?php } ?></p>
 	</div>
     <?php } ?>
 </li>
