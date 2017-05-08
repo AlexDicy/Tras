@@ -58,7 +58,7 @@ class GetPosts {
                         SELECT id
                         FROM Posts lr
                         WHERE lr.post = root.id
-                        ORDER BY lr.date LIMIT 1
+                        ORDER BY lr.date DESC LIMIT 1
                     )
                     LEFT JOIN Members lrsm ON lrsm.id = (
                         SELECT id

@@ -8,7 +8,7 @@
 			if (mysqli_num_rows($whoToFollow) > 0) {
 		?>
 		<div class="post post-margin-bottom">
-			<div class="portlet" id="who-to-follow">
+			<div class="portlet full-margin-bottom" id="who-to-follow">
 				<div class="portlet-title">
 					<div class="caption">
 						<span class="caption-subject">Casual users to follow</span>
