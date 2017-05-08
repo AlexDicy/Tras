@@ -230,7 +230,10 @@ function recoverPass($code) {
 
 function recoverPassword() {
     global $password;
-    $plainRecoverCode = $_COOKIE['Recover-Code'];
+
+    if (!isset($_POST['code'])) exit("{\"CODE\": 703}");
+
+    $plainRecoverCode = $_POST['code'];
     $recoverCode = escape($plainRecoverCode);
     if (isset($plainRecoverCode) && isCodeValid($recoverCode)) {
         if (strlen($password) > 3) {

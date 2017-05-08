@@ -31,9 +31,6 @@
     </form>
 </div>
 <script>
-<?php
-    if ($i) echo "(function() { document.cookie = \"Recover-Code=".$_GET["code"]."\"; })();\n";
-?>
 function sAlert(name, val) {
     if (val) {
         $(name).fadeIn("fast", function() {$(name).show()});
@@ -54,7 +51,7 @@ function recover() {
         type: "POST",
         dataType: "json",
 <?php if ($i) { ?>
-        data: {type: "recover", password: $("#resetInput").val()},
+        data: {code: <?= $_GET['code'] ?>type: "recover", password: $("#resetInput").val()},
 <?php } else { ?>
         data: {type: "recover", username: $("#resetInput").val()},
 <?php } ?>
