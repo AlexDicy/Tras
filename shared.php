@@ -6,8 +6,9 @@ class Shared {
 
     public static function initialize() {
         if (!array_key_exists("initialized", self::$array)) {
+            $link = parse_url($_SERVER["REQUEST_URI"], PHP_URL_PATH);
             self::$array["initialized"] = true;
-            self::$array["url"] = trim($_SERVER['REQUEST_URI'], "/");
+            self::$array["url"] = trim($link, "/");
             self::$array["parsed"] = parse_url(self::$array["url"], PHP_URL_SCHEME).'://'.parse_url(self::$array["url"], PHP_URL_HOST);
             self::$array["link"] = explode("/", str_replace(self::$array["parsed"], "", self::$array["url"]));
             self::$array["path"] = self::$array["link"];

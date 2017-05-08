@@ -105,7 +105,7 @@ switch (Shared::get("link")) {
         getPage(null, 2, false, "pages/sitemap.php");
         break;
     case "page":
-        if(isset(Shared::get("path")[1])) getPage("", 1);
+        if (isset(Shared::get("path")[1])) getPage("", 1);
         else {
             getPage("404");
         }

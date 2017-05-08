@@ -9,7 +9,6 @@
     $fa = $i ? "fa-lock" : "fa-envelope";
     $success = $i ? "Password changed, redirecting in 3 seconds." : "Email sent, can't read? Check in your spam folder.";
     $error = $i ? "There was an error while checking your account, please request another reset." : "No account found with these info, check your username/email.";
-    if ($i) setcookie("Recover-Code", $_GET["code"]);
 ?>
 <div class="panel-heading text-center">
     <img src="/images/logo-blue.png" alt="Image" class="center-block img-rounded" />
@@ -32,6 +31,9 @@
     </form>
 </div>
 <script>
+<?php
+    if ($i) echo "(function() { document.cookie = \"Recover-Code=".$_GET["code"]."\"; })();\n";
+?>
 function sAlert(name, val) {
     if (val) {
         $(name).fadeIn("fast", function() {$(name).show()});
