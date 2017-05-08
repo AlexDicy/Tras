@@ -223,8 +223,8 @@ function recoverPass($code) {
     $code = escape($code);
     $id = query("SELECT id FROM Recover WHERE code = '$code'");
     if (mysqli_num_rows($id) > 0) {
-        setcookie("Recover-Code", $code);
-        header("Location: https://tras.pw/page/recover");
+        //setcookie("Recover-Code", $code);
+        header("Location: https://tras.pw/page/recover/?code=$code");
     } else echo "<p>This link is not valid. Request another reset.</p>";
 }
 

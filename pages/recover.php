@@ -1,7 +1,7 @@
 <?php if (isLoggedIn()) {
     include 'alreadyin.php';
 } else {
-    $i = isset($_COOKIE['Recover-Code']);
+    $i = isset($_GET["code"]);
     $text = $i ? "Type here your new password" : "We will send you instructions to reset your password";
     $type = $i ? "password" : "text";
     $placeholder = $i ? "New password" : "Username or email";
@@ -9,6 +9,7 @@
     $fa = $i ? "fa-lock" : "fa-envelope";
     $success = $i ? "Password changed, redirecting in 3 seconds." : "Email sent, can't read? Check in your spam folder.";
     $error = $i ? "There was an error while checking your account, please request another reset." : "No account found with these info, check your username/email.";
+    if ($i) setcookie("Recover-Code", $_GET["code"]);
 ?>
 <div class="panel-heading text-center">
     <img src="/images/logo-blue.png" alt="Image" class="center-block img-rounded" />
