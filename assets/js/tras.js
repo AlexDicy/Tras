@@ -163,25 +163,34 @@ window.deleteReply = function(replyId) {
     return false;
 }
 
+window.replyToReplyLastTime = 0;
+
 window.replyToReply = function(replyId, replyUser) {
     $("#replytoreply-modal").modal("show");
     $("#replytoreply-button").on("click", function () {
-        var json = {content: $("#replytoreply-text").val(), post_id: replyId, user: replyUser};
-        $.ajax({
-            url: "/sendreply",
-            type: "POST",
-            dataType: "json",
-            data: json,
-            success: function(data) {
-                switch (data.CODE) {
-                    case 700:
-                        //ok
-                        window.location.href = "https://tras.pw/post/" + replyUser + "/" + replyId;
-                        break;
-                }
-            },
-            error: function(data) {/*!??*/}
-        });
+        var replyContent = $("#replytoreply-text").val();
+        // Do not send 1k of times if someone clicks too many times
+        var time = new Date().getTime();
+        if (window.replyToReplyLastTime <= time) {
+            window.replyToReplyLastTime = time + 5000;
+            var json = {content: replyContent, post_id: replyId, user: replyUser};
+            $.ajax({
+                url: "/sendreply",
+                type: "POST",
+                dataType: "json",
+                data: json,
+                success: function(data) {
+                    switch (data.CODE) {
+                        case 700:
+                            //ok
+                            $("#replytoreply-text").val("");
+                            window.location.href = "https://tras.pw/post/" + replyUser + "/" + replyId;
+                            break;
+                    }
+                },
+                error: function(data) {/*!??*/}
+            });
+        }
     });
     return false;
 }
