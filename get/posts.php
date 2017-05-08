@@ -20,11 +20,13 @@ class GetPosts {
                     (SELECT SUM(Opinions.type = 0) FROM Opinions WHERE Opinions.post = Posts.id)
                     AS dislikes,
 
-                    Posts.id, Posts.user, Posts.content, Posts.date, Members.nick, Members.verified
+                    Posts.id, Posts.user, Posts.content, Posts.post, Posts.date, Members.nick, Members.verified, MainPostUser.nick AS post_nick
 
                     FROM Posts
-                    JOIN Members
-                    ON Posts.user = Members.id
+                    JOIN Members ON Posts.user = Members.id
+
+                    LEFT JOIN Posts AS MainPost ON Posts.post = MainPost.id
+                    LEFT JOIN Members AS MainPostUser ON MainPost.user = MainPostUser.id
     
                     WHERE Posts.id = '$id'");
     }
@@ -72,12 +74,12 @@ class GetPosts {
     function getHomePosts() {
         if (is_null($this->homePosts)) {
             $fromids = empty($this->friends) ? $this->user : $this->user.", ".implode(', ', $this->friends);
-            $this->homePosts = query("SELECT (SELECT Opinions.Type FROM Opinions WHERE Opinions.post = Posts.id AND Opinions.user = $this->user) AS has_opinion, (SELECT SUM(Opinions.type = 1) FROM Opinions WHERE Opinions.post = Posts.id) AS likes, (SELECT SUM(Opinions.type = 0) FROM Opinions WHERE Opinions.post = Posts.id) AS dislikes, Posts.id, Posts.user, Posts.content, Posts.date, Members.nick, Members.verified FROM Posts JOIN Members ON Posts.user = Members.id WHERE Posts.user IN ($fromids) AND Posts.post = 0 ORDER BY Posts.id DESC LIMIT 30");
+            $this->homePosts = query("SELECT (SELECT Opinions.Type FROM Opinions WHERE Opinions.post = Posts.id AND Opinions.user = $this->user) AS has_opinion, (SELECT SUM(Opinions.type = 1) FROM Opinions WHERE Opinions.post = Posts.id) AS likes, (SELECT SUM(Opinions.type = 0) FROM Opinions WHERE Opinions.post = Posts.id) AS dislikes, Posts.id, Posts.user, Posts.content, Posts.post, Posts.date, Members.nick, Members.verified FROM Posts JOIN Members ON Posts.user = Members.id WHERE Posts.user IN ($fromids) AND Posts.post = 0 ORDER BY Posts.id DESC LIMIT 30");
         }
         return $this->homePosts;
     }
 
     function getUserPosts($id) {
-        return query("SELECT (SELECT Opinions.Type FROM Opinions WHERE Opinions.post = Posts.id AND Opinions.user = $this->user) AS has_opinion, (SELECT SUM(Opinions.type = 1) FROM Opinions WHERE Opinions.post = Posts.id) AS likes, (SELECT SUM(Opinions.type = 0) FROM Opinions WHERE Opinions.post = Posts.id) AS dislikes, Posts.id, Posts.user, Posts.content, Posts.date, Members.nick, Members.verified FROM Posts JOIN Members ON Posts.user = Members.id WHERE Posts.user = '$id' ORDER BY Posts.id DESC LIMIT 30");
+        return query("SELECT (SELECT Opinions.Type FROM Opinions WHERE Opinions.post = Posts.id AND Opinions.user = $this->user) AS has_opinion, (SELECT SUM(Opinions.type = 1) FROM Opinions WHERE Opinions.post = Posts.id) AS likes, (SELECT SUM(Opinions.type = 0) FROM Opinions WHERE Opinions.post = Posts.id) AS dislikes, Posts.id, Posts.user, Posts.content, Posts.post, Posts.date, Members.nick, Members.verified FROM Posts JOIN Members ON Posts.user = Members.id WHERE Posts.user = '$id' AND Posts.post = 0 ORDER BY Posts.id DESC LIMIT 30");
     }
 }

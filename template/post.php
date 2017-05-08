@@ -21,6 +21,13 @@
     <div class="post post-margin-bottom">
         <div class="portlet<?= isLoggedIn() ? "" : " full-margin-bottom" ?>">
             <div class="portlet-title">
+            <?php
+            if ($info["post"] != 0) {
+                ?>
+                <div><a href="/post/<?= $info['post_nick']."/".$info['post'] ?>/">See the main post</a></div>
+                <?php
+            }
+            ?>
                 <div class="caption">
                     <a href="/user/<?php echo $info['nick'] ?>/"><span class="caption-subject"><?php echo $info['nick'] ?><?php if ($info['verified'] == 1) { ?><a> <i class="fa fa-check-circle" style="color: #42A5F5;"></i></a><?php } else if ($info['verified'] == 2) { ?><a> <i class="fa fa-check-circle" style="color: #4CAF50;"></i></a><?php } ?></span></a>
                     <a href="/post/<?php echo $info['nick']."/".$info['id'] ?>/"><span class="caption-helper"><small> <?php echo date("H:i d/m/Y", strtotime($info['date'])) ?></small></span></a>
