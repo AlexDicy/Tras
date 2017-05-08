@@ -51,7 +51,7 @@ function recover() {
         type: "POST",
         dataType: "json",
 <?php if ($i) { ?>
-        data: {code: <?= $_GET['code'] ?>type: "recover", password: $("#resetInput").val()},
+        data: {code: <?= $_GET['code'] ?>, type: "recover", password: $("#resetInput").val()},
 <?php } else { ?>
         data: {type: "recover", username: $("#resetInput").val()},
 <?php } ?>
