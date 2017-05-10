@@ -2,7 +2,7 @@
     <nav class="navbar topnavbar">
         <div class="navbar-header">
             <a class="navbar-brand" href="/">
-                <img src="/images/logo.png" alt="Tras Logo" class="brand-logo">
+                <img src="/images/logo-header.png" alt="Tras Logo" class="brand-logo">
                 <img src="/images/logo-min.png" alt="Tras min Logo" class="brand-logo-collapsed">
             </a>
             <div class="mobile-toggles">
