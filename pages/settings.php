@@ -91,11 +91,11 @@ switch (Shared::get("path")[1]) {
                     success: function(data) {
                         $("#image-uploading").fadeOut();
                         if (data.status == 200) {          
-                            $("#uploaded").fadeIn("fast", function() {$("#uploaded").show()});
+                            $("#uploaded").fadeIn("fast", function() { $("#uploaded").show() });
                         } else {
                             var ue = $("#uploaderror");
                             $("#p-u-e").text(data.error);
-                            ue.fadeIn('slow', function(){setTimeout(function(){ue.fadeOut()},2000)})
+                            ue.fadeIn('slow', function() {setTimeout(function() { bue.fadeOut() }, 2000) })
                         }
                     },
                     error: function() { l("error") }
