@@ -79,14 +79,14 @@ switch (Shared::get("path")[1]) {
                     data: {image: dataUrl},
                     dataType: "json",
                     xhr: function () {
-                        var xhr = new window.XMLHttpRequest();
-                        xhr.upload.addEventListener("progress", function (event) {
+                        var nxhr = new window.XMLHttpRequest();
+                        nxhr.upload.addEventListener("progress", function (event) {
                             if (event.lengthComputable) {
                                 var pc = event.loaded / event.total;
                                 $("#upload-progress-bar").css("width", Math.round(pc * 100) + "%");
                             }
                         }, false);
-                        return xhr;
+                        return nxhr;
                     },
                     success: function(data) {
                         $("#image-uploading").fadeOut();
