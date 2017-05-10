@@ -62,8 +62,8 @@ switch ($type) {
 function loadUserData() {
     global $sessionId, $userId;
     if (isLoggedIn()) {
-        query("INSERT INTO Sessions SET id = '" . $sessionId . "', user = '$userId' ON DUPLICATE KEY UPDATE last_access = NOW()");
         Shared::$USERDATA["info"] = mysqli_fetch_assoc(query("SELECT * FROM Members WHERE Members.id = (SELECT user FROM Sessions WHERE Sessions.user = '$userId' AND Sessions.id = '$sessionId')"));
+        query("UPDATE Sessions SET last_access = NOW() WHERE id = '" . $sessionId . "' AND user = '$userId'");
     }
 }
 
@@ -81,12 +81,17 @@ function login($reg) {
     $username = escape($username);
     if (verifyPassword($username, $password)) {
         $id = mysqli_fetch_assoc(query("SELECT id FROM Members WHERE (nick = '$username' OR email = '$username')"))["id"];
-        setcookie("Redirect", "Delete me", time()-60*60*24*30, "/");
         $userId = $id;
         $sessionId = randomText();
+        query("INSERT INTO Sessions SET id = '" . $sessionId . "', user = '$id'");
+        setcookie("Redirect", "Delete me", time()-60*60*24*30, "/");
         loadUserData();
-        setcookie("TrasID", $sessionId, time()+86400*30, "/");
-        setcookie("userID", $userId, time()+86400*30, "/");
+        if ($_SERVER['HTTP_HOST'] == "localhost") {
+            setcookie("TrasID", $sessionId, time()+86400*30, "/");
+            setcookie("userID", $userId, time()+86400*30, "/");
+        }
+        setcookie("TrasID", $sessionId, time()+86400*30, "/", ".tras.pw");
+        setcookie("userID", $userId, time()+86400*30, "/", ".tras.pw");
         if ($reg) {
             if (sendConfirmEmail(Shared::$USERDATA)) echo "{\"CODE\": 700}";
             else if (sendConfirmEmail(Shared::$USERDATA)) echo "{\"CODE\": 700}"; // Odd, quick retry
