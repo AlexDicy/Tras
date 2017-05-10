@@ -10217,6 +10217,12 @@ Licensed under MIT
     float: left;
 }
 
+.reply-avatar-sub {
+    margin-right: 5px;
+    margin-left: 20px;
+    float: left;
+}
+
 .content {
 	padding: 30px;
 	background: #f1f3fa;

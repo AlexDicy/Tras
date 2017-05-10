@@ -49,8 +49,8 @@ switch (Shared::get("link")) {
     case "new":
         getPage(null, 2, true, "pages/new.php");
         break;
-    case "delete":
-        getPage(null, 2, true, "pages/delete.php");
+    case "deletepost":
+        getPage(null, 2, true, "pages/deletepost.php");
         break;
     case "edit":
         getPage(null, null, true, "Edit post", "edit");
@@ -61,9 +61,6 @@ switch (Shared::get("link")) {
     //Replies
     case "sendreply":
         getPage(null, 2, true, "pages/sendreply.php");
-        break;
-    case "deletereply":
-        getPage(null, 2, true, "pages/deletereply.php");
         break;
     //Users
     case "user":

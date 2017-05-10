@@ -24,8 +24,10 @@ if (isset($reply['lrnumreplies'])) {
             <?php } if (isLoggedIn()) { ?><a href="javascript:replyToReply(<?= $reply['id'].", ".$reply['user'] ?>);"> Reply</a><?php } ?>
         </p>
 	</div>
-    <?php if (isset($reply['lrid'])) { ?>
-    <div class="reply-avatar">
+</li>
+<?php if (isset($reply['lrid'])) { ?>
+<li class="reply" id="reply-id-<?= $reply['lrid'] ?>">
+    <div class="reply-avatar-sub">
         <img class="mb center-block img-circle img-responsive thumb32" src="<?php echo $reply['lrmavatar'] ?>" />
     </div>
     <div>
@@ -38,5 +40,5 @@ if (isset($reply['lrnumreplies'])) {
             <a href="javascript:deleteReply(<?= $reply['lrid'] ?>);">Delete</a>
             <?php } if (isLoggedIn()) { ?><a href="javascript:replyToReply(<?= $reply['lrid'].", ".$reply['lruser'] ?>);"> Reply</a><?php } ?></p>
 	</div>
-    <?php } ?>
 </li>
+<?php } ?>

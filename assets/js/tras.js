@@ -114,7 +114,7 @@ window.deletePost = function(postId, element) {
     $("#delete-post-modal").modal("show");
     $("#delete-post-button").on("click", function () {
         $.ajax({
-            url: "/delete",
+            url: "/deletepost",
             type: "POST",
             dataType: "json",
             data: {id: postId},
@@ -140,7 +140,7 @@ window.deleteReply = function(replyId) {
     $("#delete-reply-modal").modal("show");
     $("#delete-reply-button").on("click", function () {
         $.ajax({
-            url: "/deletereply",
+            url: "/deletepost",
             type: "POST",
             dataType: "json",
             data: {id: replyId},
