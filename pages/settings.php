@@ -64,7 +64,9 @@ switch (Shared::get("path")[1]) {
             $("#image-input").fileinput('destroy');
             build();
         });
-        function l(t) {console.log(t)}
+
+        function l(t) { console.log(t) }
+
         $("#image-upload-button").on('click', function() {
             $("#image-resize").croppie('result', 'rawcanvas').then(function(canvas) {
                 var dataUrl = canvas.toDataURL();
@@ -72,7 +74,7 @@ switch (Shared::get("path")[1]) {
                 $("#image-resize-container").hide();
                 $("#image-uploading").fadeIn();
                 $.ajax({
-                    url: "https://tras.pw/uploadavatar.php",
+                    url: "https://images.tras.pw/upload/avatar/upload.php",
                     type: "POST",
                     data: {image: dataUrl},
                     dataType: "json",
@@ -96,7 +98,7 @@ switch (Shared::get("path")[1]) {
                             ue.fadeIn('slow', function(){setTimeout(function(){ue.fadeOut()},2000)})
                         }
                     },
-                    error: function(){l("error")}
+                    error: function() { l("error") }
                 });
             });
         });
