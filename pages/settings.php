@@ -95,7 +95,7 @@ switch (Shared::get("path")[1]) {
                         } else {
                             var ue = $("#uploaderror");
                             $("#p-u-e").text(data.error);
-                            ue.fadeIn('slow', function() {setTimeout(function() { bue.fadeOut() }, 2000) })
+                            ue.fadeIn('slow', function() {setTimeout(function() { ue.fadeOut() }, 2000) })
                         }
                     },
                     error: function() { l("error") }
