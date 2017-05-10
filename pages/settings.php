@@ -70,13 +70,15 @@ switch (Shared::get("path")[1]) {
         $("#image-upload-button").on('click', function() {
             $("#image-resize").croppie('result', 'rawcanvas').then(function(canvas) {
                 var dataUrl = canvas.toDataURL();
+                var sId = getCookie("TrasID");
+                var uId = getCookie("userID");
                 $("#image-resize").croppie('destroy');
                 $("#image-resize-container").hide();
                 $("#image-uploading").fadeIn();
                 $.ajax({
                     url: "https://images.tras.pw/upload/avatar/upload.php",
                     type: "POST",
-                    data: {image: dataUrl},
+                    data: {image: dataUrl, sessionId: sId, userId: uId},
                     dataType: "json",
                     xhr: function () {
                         var nxhr = new window.XMLHttpRequest();
@@ -102,6 +104,22 @@ switch (Shared::get("path")[1]) {
                 });
             });
         });
+
+        function getCookie(cname) {
+            var name = cname + "=";
+            var decodedCookie = decodeURIComponent(document.cookie);
+            var ca = decodedCookie.split(';');
+            for(var i = 0; i <ca.length; i++) {
+                var c = ca[i];
+                while (c.charAt(0) == ' ') {
+                    c = c.substring(1);
+                }
+                if (c.indexOf(name) == 0) {
+                    return c.substring(name.length, c.length);
+                }
+            }
+            return "";
+        }
         </script>
     </div>
 <?php
