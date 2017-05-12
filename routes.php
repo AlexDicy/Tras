@@ -34,8 +34,8 @@ switch (Shared::get("link")) {
 
     //Posts
     case "post":
-        if (isset(Shared::get("path")[1]) && isset(Shared::get("path")[2])) {
-            getPage(null, null, null, "Post", "post");
+        if (isset(Shared::get("path")[2])) {
+            getPage(Shared::get("get")['posts']->getPost(escape(Shared::get("path")[2])), null, null, "Post", "post");
         } else {
             getPage("404");
         }
@@ -127,6 +127,7 @@ switch (Shared::get("link")) {
         getPage("404");
 }
 
+//       getPage([mysqli_result/"404"], [int], [boolean], [string], [string]);
 function getPage($content="", $type=0, $userpage=false, $name="", $pagename="") {
 
     if (!empty($content)) Shared::set("content", $content);
@@ -141,10 +142,10 @@ function getPage($content="", $type=0, $userpage=false, $name="", $pagename="") 
         exit();
     }
 
-    if ($content == "404") {
+    if (!is_null($content) && ($content == "404" || !$content || mysqli_num_rows($content) == 0)) {
         header("HTTP/1.0 404 Not Found");
-        include "pagefiles/404.php";
-        exit();
+        $type = 0;
+        Shared::set("pagename", "404");
     }
 
     switch ($type) {
