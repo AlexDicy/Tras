@@ -35,10 +35,15 @@ switch (Shared::get("link")) {
     //Posts
     case "post":
         if (isset(Shared::get("path")[2])) {
-            getPage(Shared::get("get")['posts']->getPost(escape(Shared::get("path")[2])), null, null, "Post", "post");
-        } else {
-            getPage("404");
+            $query = Shared::get("get")['posts']->getPost(escape(Shared::get("path")[2]));
+            if (mysqli_num_rows($query) > 0) {
+                $post = mysqli_fetch_array($query);
+                Shared::set("description", substr(Shared::removeFormatting($post['content']), 0, 120) . "... Post by ".Shared::get("path")[1]." on Tras, Login or register and meet your friends, share your thoughts or read funny posts");
+                getPage($post, null, null, "Post", "post");
+                break;
+            }
         }
+        getPage("404");
         break;
     case "getposts":
         getPage(null, 2, true, "pages/getposts.php");
@@ -127,7 +132,7 @@ switch (Shared::get("link")) {
         getPage("404");
 }
 
-//       getPage([mysqli_result/"404"], [int], [boolean], [string], [string]);
+//       getPage([object/"404"], [int], [boolean], [string], [string]);
 function getPage($content="", $type=0, $userpage=false, $name="", $pagename="") {
 
     if (!empty($content)) Shared::set("content", $content);
@@ -142,7 +147,7 @@ function getPage($content="", $type=0, $userpage=false, $name="", $pagename="") 
         exit();
     }
 
-    if (!is_null($content) && ($content == "404" || !$content || mysqli_num_rows($content) == 0)) {
+    if (!is_null($content) && $content == "404") {
         header("HTTP/1.0 404 Not Found");
         $type = 0;
         Shared::set("pagename", "404");
@@ -174,19 +179,4 @@ function getTitle($name, $link, $path, $infoNick){
     }
     return $infoNick." on Tras";
 }
-
-function getDescription($name, $link, $path, $infoNick, $description){
-    if (empty($description) && empty($infoNick)) {
-        switch ($link) {
-            case "user":
-                return "Meet, See friends or Read posts by ".$path[1]." on Tras";
-            case "post":
-                return "Post by ".$path[1]." on Tras, Login or register and meet your friends, share your thoughts or read funny posts";
-        }
-        if (empty($name)) return "Login or register to Tras and meet your friends, share your thoughts or read funny posts";
-        return $name . " Page on Tras, Login or register to Tras and meet your friends, share your thoughts or read funny posts";
-    }
-    return "Meet, See friends or Read posts by $infoNick on Tras";
-}
-
 ?>

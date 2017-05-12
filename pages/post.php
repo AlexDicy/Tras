@@ -1,5 +1,5 @@
 <?php
-$info = mysqli_fetch_array(Shared::get("content"));
+$info = Shared::get("content");
 if ($info) {
     if ($info["nick"] != Shared::get("path")[1]) echo "<script> window.location.replace(\"https://tras.pw/post/".$info["nick"]."/".Shared::get("path")[2]."\"); </script>";
 ?>

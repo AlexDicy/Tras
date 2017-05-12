@@ -1,16 +1,19 @@
+<?php
+if (!Shared::has("description")) Shared::set("description", Shared::getDescription(Shared::get("name"), Shared::get("link"), Shared::get("path"), Shared::get("infoNick"), Shared::get("description")));
+?>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <meta name="robots" content="index, follow">
-    <meta name="description" content="<?php echo getDescription(Shared::get("name"), Shared::get("link"), Shared::get("path"), Shared::get("infoNick"), Shared::get("description")) ?>">
+    <meta name="description" content="<?php echo Shared::get("description") ?>">
     <meta name="viewport" content="minimal-ui, width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="twitter:card" content="summary">
     <meta name="twitter:site" content="@TrasGames">
     <meta name="twitter:title" content="<?php echo getTitle(Shared::get("name"), Shared::get("link"), Shared::get("path"), Shared::get("infoNick")) ?>">
-    <meta name="twitter:description" content="<?php echo getDescription(Shared::get("name"), Shared::get("link"), Shared::get("path"), Shared::get("infoNick"), Shared::get("description")) ?>">
+    <meta name="twitter:description" content="<?php echo Shared::get("description") ?>">
     <meta name="twitter:creator" content="@TrasGames">
     <meta property="og:title" content="<?php echo getTitle(Shared::get("name"), Shared::get("link"), Shared::get("path"), Shared::get("infoNick")) ?>">
-    <meta property="og:description" content="<?php echo getDescription(Shared::get("name"), Shared::get("link"), Shared::get("path"), Shared::get("infoNick"), Shared::get("description")) ?>">
+    <meta property="og:description" content="<?php echo Shared::get("description") ?>">
     <meta property="og:url" content="<?php echo "https://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']; ?>">
     <meta property="og:image" content="https://<?php echo Shared::get("host") ?>/images/logo-blue-background.png">
     <meta property="og:image:width" content="1440">

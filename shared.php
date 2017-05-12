@@ -42,6 +42,20 @@ class Shared {
         return $infoNick." on Tras";
     }
 
+    public static function getDescription($name, $link, $path, $infoNick, $description){
+        if (empty($description) && empty($infoNick)) {
+            switch ($link) {
+                case "user":
+                    return "Meet, See friends or Read posts by ".$path[1]." on Tras";
+                case "post":
+                    return "Post by ".$path[1]." on Tras, Login or register and meet your friends, share your thoughts or read funny posts";
+            }
+            if (empty($name)) return "Login or register to Tras and meet your friends, share your thoughts or read funny posts";
+            return $name . " Page on Tras, Login or register to Tras and meet your friends, share your thoughts or read funny posts";
+        }
+        return "Meet, See friends or Read posts by $infoNick on Tras";
+    }
+
     public static function has($key) {
         return array_key_exists($key, self::$array);
     }
