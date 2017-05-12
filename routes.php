@@ -69,11 +69,15 @@ switch (Shared::get("link")) {
         break;
     //Users
     case "user":
-        if(isset(Shared::get("path")[1])) {
-            getPage(null, null, null, "User", "user");
-        } else {
-            getPage("404");
+        if (isset(Shared::get("path")[1])) {
+            $nick = escape(Shared::get("path")[1]);
+            $query = query("SELECT id, avatar, verified FROM Members WHERE nick = '$nick'");
+            if (mysqli_num_rows($query) > 0) {
+                getPage(mysqli_fetch_array($query), null, null, "User", "user");
+                break;
+            }
         }
+        getPage("404");
         break;
 
     //User Pages
