@@ -71,7 +71,7 @@ switch (Shared::get("link")) {
     case "user":
         if (isset(Shared::get("path")[1])) {
             $nick = escape(Shared::get("path")[1]);
-            $query = query("SELECT id, avatar, verified FROM Members WHERE nick = '$nick'");
+            $query = query("SELECT nick, id, avatar, verified FROM Members WHERE nick = '$nick'");
             if (mysqli_num_rows($query) > 0) {
                 getPage(mysqli_fetch_array($query), null, null, "User", "user");
                 break;

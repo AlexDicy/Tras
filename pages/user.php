@@ -1,7 +1,7 @@
 <?php
-$nick = escape(Shared::get("path")[1]);
 $userid = empty( Shared::$USERDATA['info']['id']) ? 0 :  Shared::$USERDATA['info']['id'];
 $queryid = Shared::get("content");
+$nick = $queryid['nick'];
 ?>
 <div class="clearfix">
     <h3 class="pull-left" style="margin: -16px 0 8px 0;"><a href="/user/<?php echo $nick ?>"><?php echo $nick ?><?php if ($queryid['verified'] == 1) { ?><a> <i class="fa fa-check-circle" style="color: #42A5F5;"></i></a><?php } else if ($queryid['verified'] == 2) { ?><a> <i class="fa fa-check-circle" style="color: #4CAF50;"></i></a><?php } ?></a></h3>
