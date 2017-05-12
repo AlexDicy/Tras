@@ -1,6 +1,6 @@
 <?php
-if(isset($_POST['search'])){
-    $name = escape($_POST['search']);
+if (isset($_GET['query'])){
+    $name = escape($_GET['query']);
     $sql = query("SELECT id, nick FROM Members WHERE nick LIKE '%" . $name .  "%' LIMIT 30");
     while($info = mysqli_fetch_array($sql)){
 ?>
@@ -32,8 +32,8 @@ $sql = query("SELECT Posts.id, Members.nick, Posts.content FROM Posts JOIN Membe
                     </div>
                     <div class="col-xs-8">
                         <div class="panel-body text-center">
-                            <h4 class="mt0"><?php echo $info['nick'] ?></h4>
-                            <p class="mb0 text-muted"><?php echo $info['content'] ?></p>
+                            <h4 class="mt0"><?= $info['nick'] ?></h4>
+                            <p class="mb0 text-muted"><?= Shared::removeFormatting($info['content']) ?></p>
                         </div>
                     </div>
                 </div>

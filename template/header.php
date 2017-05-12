@@ -22,13 +22,13 @@
                     </a>
                 </li>
             </ul>
-            <form role="search" method="post" action="/search" id="searchform" autocomplete="off" class="search-form navbar-form navbar-left ng-pristine ng-valid">
+            <form role="search" method="get" action="/search" id="searchform" autocomplete="off" class="search-form navbar-form navbar-left ng-pristine ng-valid">
                 <div class="form-group">
                     <div  class="input-group">
                         <span class="input-group-addon">
                             <em class="icon-search"></em>
                         </span>
-                        <input type="text" name="search" <?php if (isset($_POST['search'])) { echo 'value="'.htmlentities($_POST['search']).'"'; } ?> placeholder="Search ..." class="form-control" style="margin-left: 8px;" aria-autocomplete="list" aria-expanded="false" aria-owns="typeahead-46-5595">
+                        <input type="text" name="query" <?php if (isset($_GET['query'])) { echo 'value="'.htmlentities($_GET['query']).'"'; } ?> placeholder="Search ..." class="form-control" style="margin-left: 8px;" aria-autocomplete="list" aria-expanded="false" aria-owns="typeahead-46-5595">
                         <?php /*<ul class="dropdown-menu ng-isolate-scope ng-hide" style="display: block;" role="listbox" aria-hidden="true" typeahead-popup="" id="typeahead-46-5595" matches="matches" active="activeIdx" select="select(activeIdx)" move-in-progress="moveInProgress" query="query" position="position">
                         </ul>*/ ?>
                     </div>
