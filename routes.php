@@ -35,7 +35,7 @@ switch (Shared::get("link")) {
     //Posts
     case "post":
         if (isset(Shared::get("path")[1]) && isset(Shared::get("path")[2])) {
-            getPage(mysqli_fetch_array(Shared::get("get")['posts']->getPost($id)), null, null, "Post", "post");
+            getPage(Shared::get("get")['posts']->getPost($id), null, null, "Post", "post");
         } else {
             getPage("404");
         }

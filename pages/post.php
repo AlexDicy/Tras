@@ -1,6 +1,6 @@
 <?php
 $id = escape(Shared::get("path")[2]);
-$info = Shared::get("content");
+$info = mysqli_fetch_array(Shared::get("content"));
 if ($info) {
 ?>
 <div class="posts-col col-md-6">
