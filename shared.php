@@ -15,6 +15,7 @@ class Shared {
             self::$array["link"] = self::$array["link"][0];
             self::$array["host"] = $_SERVER['HTTP_HOST'];
             self::$array["isPage"] = false;
+            self::$array["darkmode"] = false;
         }
     }
 

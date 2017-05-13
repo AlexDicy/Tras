@@ -1,4 +1,4 @@
-<header id="navbar" class="bg-primary">
+<header id="navbar" class="<?= Shared::get("darkmode") ? "bg-inverse bg-dark" : "bg-primary" ?>">
     <nav class="navbar topnavbar">
         <div class="navbar-header">
             <a class="navbar-brand" href="/">
@@ -52,7 +52,7 @@
                     <?php
                     foreach ($notifications as $n) {
                     ?>
-                        <li class="bt<?php echo $n['viewed'] == 1 ? " bg-gray-lighter viewed":""; ?>">
+                        <li class="bt<?php echo $n['viewed'] == 1 ? (Shared::get("darkmode") ? " bg-inverse bg-dark" : " bg-gray-lighter") . "  viewed" : ""; ?>">
                             <a href="<?php echo $n['link'] ?>" data-notification-id="<?php echo $n['id'] ?>" class="p notification-link">
                                 <div class="media">
                                     <div class="pull-left">

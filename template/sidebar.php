@@ -1,4 +1,4 @@
-<aside id="sidebar" class="bg-primary br collapsed">
+<aside id="sidebar" class="<?= Shared::get("darkmode") ? "bg-inverse bg-dark" : "bg-primary" ?> br collapsed">
     <div class="sidebar-wrapper">
         <nav class="sidebar">
             <div class="sidebar-nav">
