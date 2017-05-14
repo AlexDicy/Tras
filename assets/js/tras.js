@@ -5,7 +5,7 @@ console.log("%cWarning: %s", css, 'Don\'t use this!!');
 $(function() {
 
 $(".autosize").autosize({append: "\n"});
-$("#new-post-button").on("click", function(){
+$("#new-post-button").on("click", function() {
     sAlert("#new-post-error", false);
     var text = $("#new-post");
     var postVal = text.val();
@@ -38,7 +38,7 @@ $("#new-post-button").on("click", function(){
     return false;
 });
 
-$(".btn-add-friend").on("click", function(){
+$(".btn-add-friend").on("click", function() {
     var that = $(this);
     var userId = that.data("user-id");
     var toggle = !that.hasClass("isfriend");
@@ -65,7 +65,7 @@ $(".btn-add-friend").on("click", function(){
     return false;
 });
 
-$("#edit-post-button").on("click", function(){
+$("#edit-post-button").on("click", function() {
     sAlert("#edit-post-error", false);
     var text = $("#edit-post");
     var postVal = text.val();
@@ -97,6 +97,46 @@ $("#edit-post-button").on("click", function(){
         });
     }
     return false;
+});
+
+$("#darkmodeCheckbox").prop("disabled", false);
+$("#darkmodeLink").on("click", function() {
+    var dc = $("#darkmodeCheckbox");
+    dc.prop("checked", !dc.prop("checked"));
+    dc.trigger("change");
+});
+$("#darkmodeCheckbox").on("change", function() {
+    var jsonData = {name: "st_darkmode", value: this.checked};
+    var that = this;
+    $.ajax({
+        url: "/setsettings",
+        type: "POST",
+        dataType: "json",
+        data: jsonData,
+        success: function(data) {
+            if (data.CODE != 100) {
+                that.val(!that.checked);
+            } else {
+                if (that.checked) {
+                    $(".layout-fixed").addClass("bg-inverse bg-light");
+                    $("#navbar").addClass("bg-inverse bg-dark");
+                    $("#navbar").removeClass("bg-primary");
+                    $(".bt").addClass("bg-inverse bg-dark");
+                    $(".bt").removeClass("bg-gray-lighter");
+                    $("#sidebar").addClass("bg-inverse bg-dark");
+                    $("#sidebar").removeClass("bg-primary");
+                } else {
+                    $(".layout-fixed").removeClass("bg-inverse bg-light");
+                    $("#navbar").removeClass("bg-inverse bg-dark");
+                    $("#navbar").addClass("bg-primary");
+                    $(".bt").removeClass("bg-inverse bg-dark");
+                    $(".bt").addClass("bg-gray-lighter");
+                    $("#sidebar").removeClass("bg-inverse bg-dark");
+                    $("#sidebar").addClass("bg-primary");
+                }
+            }
+        },
+    });
 });
 
 window.sAlert = function(name, val) {

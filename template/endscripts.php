@@ -1,5 +1,5 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<script src="//<?php echo Shared::get("host") ?>/assets/js/tras.js?v136"></script>
+<script src="//<?php echo Shared::get("host") ?>/assets/js/tras.js?v140"></script>
 <script src="//<?php echo Shared::get("host") ?>/assets/js/cookiechoices.js"></script>
 <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 <script src="https://www.gstatic.com/firebasejs/3.6.8/firebase.js"></script>

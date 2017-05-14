@@ -111,6 +111,19 @@
                         <hr>
                     </li>
                     <li>
+                        <a id="darkmodeLink">
+                            <div class="clearfix">
+                                <p class="pull-left">Dark mode</p>
+                                <div class="pull-right">
+                                    <label class="switch switch-inverse">
+                                        <input disabled id="darkmodeCheckbox" <?= Shared::$USERDATA["info"]["st_darkmode"] ? "checked " : "" ?>type="checkbox">
+                                        <span></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
                         <a title="Report a bug" href="//github.com/Tras/TrasReport/issues/new"><em class="sidebar-item-icon icon-bug"></em><span>Report a Bug</span></a>
                     </li>
                 </ul>
