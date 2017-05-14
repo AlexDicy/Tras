@@ -105,9 +105,6 @@ switch (Shared::get("link")) {
     case "notifications":
         getPage(null, null, true, "Notifications", "notifications");
         break;
-    case "setsettings":
-        getPage(null, 2, true, "pages/setsettings.php");
-        break;
     
     //Others
     case "sitemap":
@@ -127,6 +124,9 @@ switch (Shared::get("link")) {
         break;
     case "changelog":
         echo file_get_contents("pagefiles/changelog.html");
+        break;
+    case "setsettings":
+        getPage(null, 2, false, "pages/setsettings.php");
         break;
 
     //Admin
