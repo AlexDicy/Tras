@@ -1,5 +1,6 @@
 <?php
 // For now force BOOLEAN values
+if (!isLoggedIn()) exit("{\"CODE\": 100}");
 if (isset($_POST['name']) && isset($_POST['value'])) {
     $name = escape($_POST['name']);
     $value = escape($_POST['value']);
