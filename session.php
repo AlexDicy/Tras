@@ -62,7 +62,10 @@ switch ($type) {
 function loadUserData() {
     global $sessionId, $userId;
     if (isLoggedIn()) {
-        Shared::$USERDATA["info"] = mysqli_fetch_assoc(query("SELECT * FROM Members WHERE Members.id = (SELECT user FROM Sessions WHERE Sessions.user = '$userId' AND Sessions.id = '$sessionId')"));
+        Shared::$USERDATA["info"] = mysqli_fetch_assoc(query("SELECT *
+                            FROM Members
+                            LEFT JOIN UserSettings ON Members.id = UserSettings.user_id
+                            WHERE Members.id = (SELECT user FROM Sessions WHERE Sessions.user = '$userId' AND Sessions.id = '$sessionId')"));
         query("UPDATE Sessions SET last_access = NOW() WHERE id = '" . $sessionId . "' AND user = '$userId'");
     }
 }
@@ -171,9 +174,10 @@ function register() {
         if (3 < strlen($username) && 3 < strlen($password) && 4 < strlen($email) && (20 > strlen($username) && 200 > strlen($password) && 100 > strlen($email))) {
             $username = escape($username);
             $email = escape($email);
-            $check = query("SELECT * FROM Members WHERE (nick = '$username') OR (email = '$email')");
+            $check = query("SELECT * FROM Members WHERE nick = '$username' OR email = '$email'");
             if (mysqli_num_rows($check) == 0) {
-                $rs = query("INSERT INTO Members (nick, password, email) VALUES ('$username', '" . password_hash($password, PASSWORD_DEFAULT) . "', '$email')");
+                query("INSERT INTO Members (nick, password, email) VALUES ('$username', '" . password_hash($password, PASSWORD_DEFAULT) . "', '$email')");
+                query("INSERT INTO UserSettings (user_id) VALUES ((SELECT id FROM Members WHERE email = '$email'))");
                 reloadInfo();
                 login(true);
             } else echo "{\"CODE\":  603}";
@@ -308,6 +312,7 @@ function isLoggedIn() {
     if ($sessionId != "notLoggedIn" && $userId != 0) {
         return true;
     }
+    Shared::$USERDATA["info"]["st_darkmode"] = false;
     return false;
 }
 

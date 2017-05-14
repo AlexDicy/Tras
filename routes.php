@@ -105,6 +105,9 @@ switch (Shared::get("link")) {
     case "notifications":
         getPage(null, null, true, "Notifications", "notifications");
         break;
+    case "setsettings":
+        getPage(null, 2, true, "pages/setsettings.php");
+        break;
     
     //Others
     case "sitemap":
