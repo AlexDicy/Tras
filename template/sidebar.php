@@ -5,14 +5,14 @@
                 <div class="sidebar-buttons">
                 <?php if (isLoggedIn()) { ?>
                     <a href="/user/<?php echo Shared::get("nickname") ?>/">
-                        <img class="mb center-block img-circle img-responsive thumb64" src="<?php echo Shared::get("avatar") ?>">
+                        <img class="mb center-block sidebar-avatar img-responsive thumb64" src="<?php echo Shared::get("avatar") ?>">
                         <div class="text-center">
                             <h4 class="text-bold m0"><?php echo Shared::get("nickname") ?></h4>
                             <small><?php echo Shared::get("friends") ?></small>
                         </div>
                     </a>
                 <?php } else { ?>
-                        <img class="mb center-block img-circle img-responsive thumb64" src="<?php echo Shared::get("avatar") ?>">
+                        <img class="mb center-block sidebar-avatar img-responsive thumb64" src="<?php echo Shared::get("avatar") ?>">
                         <div class="text-center">
                             <h4 class="text-bold m0"><?php echo Shared::get("nickname") ?></h4>
                         </div>
