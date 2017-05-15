@@ -79,7 +79,7 @@ class Shared {
         $ago = new DateTime($datetime);
         $diff = $now->diff($ago);
 
-        if ($diff->days > 100) return date("d M H:i Y", strtotime($datetime));
+        if ($diff->days > 100) return date("d M Y H:i", strtotime($datetime));
         if ($diff->days > 6) return date("d M H:i", strtotime($datetime));
 
         $diff->w = floor($diff->d / 7);
@@ -159,6 +159,19 @@ class Shared {
             $text = str_replace("!~", "", $text);
         }
         return $text;
+    }
+
+    public static function getVerifiedBadge($level, $useLink = true) {
+        if ($level == 1) {
+            $start = $useLink ? "<a class=\"verified-link\" data-v-level=\"1\"> " : "<span>";
+            $end = $useLink ? "</a>" : " </span>";
+            return $start."<i class=\"fa fa-check-circle\" style=\"color: #42A5F5;\"></i>".$end;
+        } else if ($level == 2) {
+            $start = $useLink ? "<a class=\"verified-link\" data-v-level=\"2\"> " : "<span>";
+            $end = $useLink ? "</a>" : " </span>";
+            return $start."<i class=\"fa fa-check-circle\" style=\"color: #4CAF50;\"></i>".$end;
+        }
+        return "";
     }
 }
 ?>
