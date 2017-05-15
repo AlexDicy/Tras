@@ -2,6 +2,7 @@
 
 class Shared {
     private static $array = array();
+    private static $friendsCountCache = array();
     public static $USERDATA = array();
 
     public static function initialize() {
@@ -172,6 +173,19 @@ class Shared {
             return $start."<i class=\"fa fa-check-circle\" style=\"color: #4CAF50;\"></i>".$end;
         }
         return "";
+    }
+
+    public static function getFriendsCount($nick) {
+        if (!isset($nick)) {
+            $nick = Shared::$USERDATA['info']['id'];
+        }
+        if (isset(self::$friendsCountCache[$nick])) return self::$friendsCountCache[$nick];
+
+        $sql = query("SELECT COUNT(Friends.To) FROM Friends WHERE Friends.To = (SELECT id FROM Members WHERE nick = '$nick')");
+        $count = mysqli_fetch_array($sql)[0];
+        self::$friendsCountCache[$nick] = $count;
+
+        return $count;
     }
 }
 ?>

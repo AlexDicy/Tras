@@ -290,12 +290,19 @@ function getFriendsList() {
     return array_column($array, 'To');
 }
 
+$friendsCountCache = array();
+
 function getFriendsCount($id) {
     if (!isset($id)) {
         $id = Shared::$USERDATA['info']['id'];
     }
+    if (isset($friendsCountCache[$id])) return $friendsCountCache[$id];
+
     $sql = query("SELECT COUNT(Friends.To) FROM Friends WHERE Friends.To = $id");
-    return mysqli_fetch_array($sql)[0];
+    $count = mysqli_fetch_array($sql)[0];
+    $friendsCountCache[$id] = $count;
+
+    return $count;
 }
 
 function logout() {

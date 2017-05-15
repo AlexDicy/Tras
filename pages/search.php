@@ -17,7 +17,7 @@ if (isset($_GET["query"])){
                     <div class="col-xs-10">
                         <div class="panel-body">
                             <span class="caption-subject"><?= $info["nick"]." ".Shared::getVerifiedBadge($info["verified"], false) ?></span><?php if ($post) echo "<span class=\"caption-helper\"><small>" . Shared::elapsedTime($info["date"]) . "</small></span>" ?>
-                            <p class="mb0 text-muted"><?php if ($post) echo Shared::removeFormatting($info["content"]) ?></p>
+                            <p class="mb0 text-muted"><?= $post ? Shared::removeFormatting($info["content"]) : Shared::getFriendsCount($info["nick"]) . " friends" ?></p>
                         </div>
                     </div>
                 </div>
