@@ -164,6 +164,14 @@
   }
 }
 </script>
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Organization",
+  "url": "https://tras.pw",
+  "logo": "https://tras.pw/images/logo-min-hires.png"
+}
+</script>
 <?php
     }
 }
