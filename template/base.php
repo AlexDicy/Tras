@@ -14,7 +14,6 @@ Shared::unsetValue("notifications", "count");
 <?php include 'template/head.php' ?>
 </head>
 <body class="layout-fixed <?php if (Shared::$USERDATA["info"]["st_darkmode"]) echo "bg-inverse bg-light" ?>">
-    <?php include 'noscript.php' ?>
     <div class="app-container">
         <?php include "template/header.php"; ?>
         <?php include "template/sidebar.php"; ?>
