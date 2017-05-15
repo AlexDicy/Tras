@@ -149,4 +149,22 @@
         </div>
     </div>
 </div>
-<?php } ?>
+<?php
+    if ($_SERVER["HTTP_HOST"].$_SERVER["REQUEST_URI"] == "tras.pw/") {
+?>
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "WebSite",
+  "url": "https://tras.pw/",
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": "https://tras.pw/search?query={search_term_string}",
+    "query-input": "required name=search_term_string"
+  }
+}
+</script>
+<?php
+    }
+}
+?>
