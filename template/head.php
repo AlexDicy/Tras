@@ -28,7 +28,7 @@ if (!Shared::has("description")) Shared::set("description", Shared::getDescripti
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/icon?family=Material+Icons">
     <link type="text/css" rel="stylesheet" href="//<?= Shared::get("host") ?>/assets/styles/base.css?v2">
     <link type="text/css" rel="stylesheet" href="//<?= Shared::get("host") ?>/assets/styles/md.css?v52">
-    <link type="text/css" rel="stylesheet" href="//<?= Shared::get("host") ?>/assets/styles/tras.css?v2">
+    <link type="text/css" rel="stylesheet" href="//<?= Shared::get("host") ?>/assets/styles/tras.css?v4">
     <link type="text/css" rel="stylesheet" href="//<?= Shared::get("host") ?>/assets/styles/font-awesome.css">
     <link type="text/css" rel="stylesheet" href="//<?= Shared::get("host") ?>/assets/styles/feather.css">
     <link rel="manifest" href="/manifest.json">

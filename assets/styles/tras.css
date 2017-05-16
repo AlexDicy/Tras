@@ -129,6 +129,10 @@
     border-color: rgba(0,0,0,.1);
 }
 
+.bg-inverse .form-control {
+    color: #a1a9b7;
+}
+
 @-webkit-keyframes autofill {
     to {
         background: transparent;
