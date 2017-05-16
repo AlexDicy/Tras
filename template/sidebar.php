@@ -111,16 +111,9 @@
                         <hr>
                     </li>
                     <li>
-                        <a id="darkmodeLink">
-                            <div class="clearfix">
-                                <p class="pull-left">Dark mode</p>
-                                <div class="pull-right">
-                                    <label class="switch switch-inverse">
-                                        <input disabled id="darkmodeCheckbox" <?= Shared::$USERDATA["info"]["st_darkmode"] ? "checked " : "" ?>type="checkbox">
-                                        <span></span>
-                                    </label>
-                                </div>
-                            </div>
+                        <a id="darkmodeLink" data-active="<?= Shared::$USERDATA["info"]["st_darkmode"] ? "true" : "false" ?>">
+                            <em class="sidebar-item-icon icon-moon"></em>
+                            <span>Dark mode</span>
                         </a>
                     </li>
                     <li>

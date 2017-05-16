@@ -99,14 +99,10 @@ $("#edit-post-button").on("click", function() {
     return false;
 });
 
-$("#darkmodeCheckbox").prop("disabled", false);
 $("#darkmodeLink").on("click", function() {
-    var dc = $("#darkmodeCheckbox");
-    dc.prop("checked", !dc.prop("checked"));
-    dc.trigger("change");
-});
-$("#darkmodeCheckbox").on("change", function() {
-    var jsonData = {name: "st_darkmode", value: this.checked};
+    var active = $(this).data("active");
+    var jsonData = {name: "st_darkmode", value: active};
+    $(this).data("active", active == "true" ? "true" : "false");
     var that = this;
     $.ajax({
         url: "/setsettings",
@@ -115,9 +111,9 @@ $("#darkmodeCheckbox").on("change", function() {
         data: jsonData,
         success: function(data) {
             if (data.CODE != 100) {
-                that.val(!that.checked);
+                $(this).data("active", !active);
             } else {
-                if (that.checked) {
+                if (active) {
                     $(".layout-fixed").addClass("bg-inverse bg-light");
                     $("#navbar").addClass("bg-inverse bg-dark");
                     $("#navbar").removeClass("bg-primary");
@@ -137,6 +133,9 @@ $("#darkmodeCheckbox").on("change", function() {
             }
         },
     });
+});
+$("#darkmodeCheckbox").on("change", function() {
+    
 });
 
 window.sAlert = function(name, val) {

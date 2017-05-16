@@ -6821,7 +6821,7 @@ body {
     width: 64px;
   }
   .aside-collapsed .sidebar > .sidebar-nav > .nav > li > a {
-    padding: 20px 0;
+    /* padding: 20px 0; */
     text-align: center;
   }
   .aside-collapsed .sidebar > .sidebar-nav > .nav > li > a > .sidebar-item-icon {

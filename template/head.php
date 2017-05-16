@@ -26,7 +26,7 @@ if (!Shared::has("description")) Shared::set("description", Shared::getDescripti
     <link id="favicon" rel="icon" type="image/png" href="/images/logo-min-512.png" sizes="512x512">
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Roboto:300,400,500,700">
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/icon?family=Material+Icons">
-    <link type="text/css" rel="stylesheet" href="//<?= Shared::get("host") ?>/assets/styles/base.css?v2">
+    <link type="text/css" rel="stylesheet" href="//<?= Shared::get("host") ?>/assets/styles/base.css?v4">
     <link type="text/css" rel="stylesheet" href="//<?= Shared::get("host") ?>/assets/styles/md.css?v52">
     <link type="text/css" rel="stylesheet" href="//<?= Shared::get("host") ?>/assets/styles/tras.css?v4">
     <link type="text/css" rel="stylesheet" href="//<?= Shared::get("host") ?>/assets/styles/font-awesome.css">
