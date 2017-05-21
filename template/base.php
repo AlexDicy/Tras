@@ -19,7 +19,7 @@ Shared::unsetValue("notifications", "count");
         <?php include "template/sidebar.php"; ?>
         <section>
             <div class="app">
-                <h3><?php echo Shared::get("name") ?></h3>
+                <?php if (!Shared::get("hideName")) { ?><h3><?= Shared::get("name") ?></h3><?php } ?>
                 <div class="container-fluid">
                     <?php include "pages/".Shared::get("pagename").".php"; ?>
                 </div>

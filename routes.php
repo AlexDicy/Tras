@@ -4,7 +4,7 @@ switch (Shared::get("link")) {
     //Home
     case "":
     case "home":
-        getPage(null, null, true, "Home", "index");
+        getPage(null, null, true, "Home", "index", true);
         break;
 
     //Private Messages
@@ -38,7 +38,7 @@ switch (Shared::get("link")) {
             $query = Shared::get("get")['posts']->getPost(escape(Shared::get("path")[2]));
             if (mysqli_num_rows($query) > 0) {
                 $post = mysqli_fetch_array($query);
-                Shared::set("description", substr(Shared::removeFormatting($post['content']), 0, 120) . "... Post by ".Shared::get("path")[1]." on Tras, Login or register and meet your friends, share your thoughts or read funny posts");
+                Shared::set("description", preg_replace('/\s+/', ' ', substr(Shared::removeFormatting($post['content']) . "... Post by ".Shared::get("path")[1]." on Tras, Login or register and meet your friends, share your thoughts or read funny posts", 0, 160)));
                 getPage($post, null, null, "Post", "post");
                 break;
             }
@@ -139,12 +139,13 @@ switch (Shared::get("link")) {
         getPage("404");
 }
 
-//       getPage([object/"404"], [int], [boolean], [string], [string]);
-function getPage($content="", $type=0, $userpage=false, $name="", $pagename="") {
+//       getPage([object/"404"], [int], [boolean], [string], [string], [string]);
+function getPage($content="", $type=0, $userpage=false, $name="", $pagename="", $hideName=false) {
 
     if (!empty($content)) Shared::set("content", $content);
     if (!empty($name)) Shared::set("name", $name);
     if (!empty($pagename)) Shared::set("pagename", $pagename);
+    if ($hideName) Shared::set("hideName", true);
 
     if ($userpage && !Shared::get("i")) {
         Shared::set("isPage", true);

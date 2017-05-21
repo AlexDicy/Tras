@@ -16,6 +16,7 @@ class Shared {
             self::$array["link"] = self::$array["link"][0];
             self::$array["host"] = $_SERVER['HTTP_HOST'];
             self::$array["isPage"] = false;
+            self::$array["hideName"] = false;
         }
     }
 
@@ -23,7 +24,7 @@ class Shared {
         return self::$array[$key];
     }
 
-    public static function getTitle($name, $link, $path, $infoNick) {
+    public static function getTitle($name, $link, $path, $infoNick, $isTabTitle=true) {
         if (empty($infoNick)) {
             switch ($link) {
                 case "user":
@@ -31,9 +32,9 @@ class Shared {
                 case "post":
                     return $path[1]." post on Tras";
             }
-            if (empty($name)) return "Tras";
+            if (empty($name) || Shared::get("hideName")) return "Tras";
 
-            if ($name == "Messages") {
+            if ($isTabTitle && $name == "Messages") {
                 $count = Shared::get("notificationsCount");
                 $prefix = empty($count) ? "": "(".$count.") ";
                 return $prefix . $name . " - Tras";
@@ -43,8 +44,8 @@ class Shared {
         return $infoNick." on Tras";
     }
 
-    public static function getDescription($name, $link, $path, $infoNick, $description){
-        if (empty($description) && empty($infoNick)) {
+    public static function getDescription($name, $link, $path, $infoNick){
+        if (empty($infoNick)) {
             switch ($link) {
                 case "user":
                     return "Meet, See friends or Read posts by ".$path[1]." on Tras";

@@ -7,7 +7,6 @@ Shared::initialize();
 
 Shared::set("title", "Tras");
 
-Shared::set("description", "");
 $i = Shared::set("i", isLoggedIn());
 
 Shared::set("pagename", "index");

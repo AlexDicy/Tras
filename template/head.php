@@ -1,5 +1,7 @@
 <?php
-if (!Shared::has("description")) Shared::set("description", Shared::getDescription(Shared::get("name"), Shared::get("link"), Shared::get("path"), Shared::get("infoNick"), Shared::get("description")));
+if (!Shared::has("description")) Shared::set("description", Shared::getDescription(Shared::get("name"), Shared::get("link"), Shared::get("path"), Shared::get("infoNick")));
+if (!Shared::has("tabTitle")) Shared::set("tabTitle", Shared::getTitle(Shared::get("name"), Shared::get("link"), Shared::get("path"), Shared::get("infoNick")));
+if (!Shared::has("shareTitle")) Shared::set("shareTitle", Shared::getTitle(Shared::get("name"), Shared::get("link"), Shared::get("path"), Shared::get("infoNick"), false));
 ?>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -9,10 +11,10 @@ if (!Shared::has("description")) Shared::set("description", Shared::getDescripti
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="twitter:card" content="summary">
     <meta name="twitter:site" content="@TrasGames">
-    <meta name="twitter:title" content="<?= getTitle(Shared::get("name"), Shared::get("link"), Shared::get("path"), Shared::get("infoNick")) ?>">
+    <meta name="twitter:title" content="<?= Shared::get("shareTitle") ?>">
     <meta name="twitter:description" content="<?= Shared::get("description") ?>">
     <meta name="twitter:creator" content="@TrasGames">
-    <meta property="og:title" content="<?= getTitle(Shared::get("name"), Shared::get("link"), Shared::get("path"), Shared::get("infoNick")) ?>">
+    <meta property="og:title" content="<?= Shared::get("shareTitle") ?>">
     <meta property="og:description" content="<?= Shared::get("description") ?>">
     <meta property="og:url" content="<?= "https://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']; ?>">
     <meta property="og:image" content="https://<?= Shared::get("host") ?>/images/logo-blue-background.png">
@@ -21,7 +23,7 @@ if (!Shared::has("description")) Shared::set("description", Shared::getDescripti
     <meta property="og:type" content="website">
     <meta property="fb:app_id" content="198347767255916">
     <meta name="theme-color" content="#43a8eb">
-    <title><?= Shared::getTitle(Shared::get("name"), Shared::get("link"), Shared::get("path"), Shared::get("infoNick")) ?></title>
+    <title><?= Shared::get("tabTitle") ?></title>
     <link id="favicon" rel="icon" type="image/png" href="/images/logo-128.png" sizes="128x128">
     <link id="favicon" rel="icon" type="image/png" href="/images/logo-min-512.png" sizes="512x512">
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Roboto:300,400,500,700">
