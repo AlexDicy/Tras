@@ -111,7 +111,7 @@
                         <hr>
                     </li>
                     <li>
-                        <a id="darkmodeLink" data-active="<?= Shared::$USERDATA["info"]["st_darkmode"] ? "true" : "false" ?>">
+                        <a id="darkmodeLink" is-active="<?= Shared::$USERDATA["info"]["st_darkmode"] ? "true" : "false" ?>">
                             <em class="sidebar-item-icon icon-moon"></em>
                             <span>Dark mode</span>
                         </a>

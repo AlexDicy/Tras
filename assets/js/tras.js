@@ -100,9 +100,10 @@ $("#edit-post-button").on("click", function() {
 });
 
 $("#darkmodeLink").on("click", function() {
-    var active = $(this).data("active");
-    var jsonData = {name: "st_darkmode", value: active};
-    $(this).data("active", active == "true" ? "true" : "false");
+    var isActive = $(this).attr("is-active") == "true" ? true : false;
+    var mode = !isActive;
+    var jsonData = {name: "st_darkmode", value: mode};
+    $(this).attr("is-active", mode);
     var that = this;
     $.ajax({
         url: "/setsettings",
@@ -111,9 +112,9 @@ $("#darkmodeLink").on("click", function() {
         data: jsonData,
         success: function(data) {
             if (data.CODE != 100) {
-                $(this).data("active", !active);
+                $(this).attr("is-active", isActive);
             } else {
-                if (active) {
+                if (mode) {
                     $(".layout-fixed").addClass("bg-inverse bg-light");
                     $("#navbar").addClass("bg-inverse bg-dark");
                     $("#navbar").removeClass("bg-primary");
