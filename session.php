@@ -307,8 +307,8 @@ function getFriendsCount($id) {
 
 function logout() {
     global $sessionId, $userId;
-    setcookie("TrasID", "Delete me", time()-3600);
-    setcookie("userID", "Delete me", time()-3600);
+    setcookie("TrasID", "Delete me", time()-3600, "/", ".tras.pw");
+    setcookie("userID", "Delete me", time()-3600, "/", ".tras.pw");
     echo "{\"CODE\": 500}";
     Shared::$USERDATA = array();
     query("DELETE FROM Sessions WHERE id = '" . $sessionId . "' AND user = '$userId'");
