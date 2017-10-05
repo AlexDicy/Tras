@@ -178,7 +178,7 @@ function register() {
             if (mysqli_num_rows($check) == 0) {
                 query("INSERT INTO Members (nick, password, email) VALUES ('$username', '" . password_hash($password, PASSWORD_DEFAULT) . "', '$email')");
                 query("INSERT INTO UserSettings (user_id) VALUES ((SELECT id FROM Members WHERE email = '$email'))");
-                reloadInfo();
+                loadUserData();
                 login(true);
             } else echo "{\"CODE\":  603}";
         }
