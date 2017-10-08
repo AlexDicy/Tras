@@ -194,7 +194,7 @@ switch (Shared::get("path")[1]) {
         break;
     case "notifications":
 ?>
-    <h4>Notifications settigns</h4>
+    <h4>Notifications Settings</h4>
 <?php
         break;
 }
