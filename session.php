@@ -1,11 +1,11 @@
 <?php
 require_once "shared.php";
 $username = $password = $email = $type = $newpassword = "";
-$salt = "***REMOVED***";
-$username = "***REMOVED***";
-$password = "***REMOVED***";
-$database = "***REMOVED***";
-$host = "***REMOVED***";
+$salt = "** SALT - replace me **";
+$username = "** replace me **";
+$password = "** replace me **";
+$database = "** replace me **";
+$host = "** replace me **";
 $conn = mysqli_connect($host, $username, $password, $database);
 $sessionId = isset($_COOKIE['TrasID']) ? escape($_COOKIE['TrasID']) : "notLoggedIn";
 $userId = isset($_COOKIE['userID']) ? escape($_COOKIE['userID']) : 0;
