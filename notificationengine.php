@@ -104,14 +104,14 @@ function newNotification($user, $from, $where, $type, $content) {
             curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
             curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-            curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json', 'Authorization: key=AAAAtrUBppc:APA91bHnFzZnnlXRn0n2BuM05UWH5pGaOk-Ef1BLfgSRbIk6pYCuNZvUtXaJBGdf7D4PFDZwkpPKUIgzLjo5LaYW8Evjw_j-oEtYqE4W-BU-X3yIQ3Ub4skZdkOW7fCugSNn6uEzeoyi'));
+            curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json', 'Authorization: key=** key **'));
             curl_setopt($ch, CURLOPT_POSTFIELDS, $settings);
             curl_exec($ch);
             curl_close($ch);
         }
     }
     /*
-        curl -X POST --header "Authorization: key=AAAAtrUBppc:APA91bHnFzZnnlXRn0n2BuM05UWH5pGaOk-Ef1BLfgSRbIk6pYCuNZvUtXaJBGdf7D4PFDZwkpPKUIgzLjo5LaYW8Evjw_j-oEtYqE4W-BU-X3yIQ3Ub4skZdkOW7fCugSNn6uEzeoyi" --header "Content-Type: application/json" https://fcm.googleapis.com/fcm/send -d "{ \"notification\": {\"title\": \"Tras\", \"body\": \"it works :)\",\"click_action\" : \"https://tras.pw\", \"icon\": \"https://tras.pw/images/logo-128.png\"},\"to\" : \"dgWrb-VyP9M:APA91bEmJTpbc3EFDRE-TtxNE3k5Z4KzCp_RJP6Kcw9Ui3_OSsPXlwtD9ANT1nyExRDR5_jMoq_H8BrPndYeql2wrjRdAtlkWj9wKT6CWOyKGpPk3G80EzsWAY1AW31IMiI7Uv0MbVKw\"}"
+        curl -X POST --header "Authorization: key=** key **" --header "Content-Type: application/json" https://fcm.googleapis.com/fcm/send -d "{ \"notification\": {\"title\": \"Tras\", \"body\": \"it works :)\",\"click_action\" : \"https://tras.pw\", \"icon\": \"https://tras.pw/images/logo-128.png\"},\"to\" : \"dgWrb-VyP9M:APA91bEmJTpbc3EFDRE-TtxNE3k5Z4KzCp_RJP6Kcw9Ui3_OSsPXlwtD9ANT1nyExRDR5_jMoq_H8BrPndYeql2wrjRdAtlkWj9wKT6CWOyKGpPk3G80EzsWAY1AW31IMiI7Uv0MbVKw\"}"
     */
     if (query($sql)) return true;
     query($sql);
